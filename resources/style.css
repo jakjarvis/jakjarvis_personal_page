@@ -1,0 +1,824 @@
+/*** Global Parameters ***/
+body {
+  background-color: black;
+}
+
+p {
+  margin: 0px;
+  padding: 0px;
+}
+
+/*** Reusable parts ***/
+
+.bonus_additional {
+  width: 20px;
+  height: 20px;
+}
+
+.bonus_return {
+  width: 20px;
+  height: 20px;
+}
+
+.bonus_reroll {
+  width: 20px;
+  height: 20px;
+}
+
+.bonus_fuchs {
+  width: 20px;
+  height: 20px;
+}
+
+.bonus_yellow {
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid white;
+  border-radius: 2px;
+  background-color: rgb(255, 187, 0);
+  color: white;
+}
+
+.bonus_blue {
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid white;
+  border-radius: 2px;
+  background-color: blue;
+  color: white;
+}
+
+.bonus_green {
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid white;
+  border-radius: 2px;
+  background-color: rgb(13, 161, 13);
+  color: white;
+}
+
+.bonus_pink {
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid white;
+  border-radius: 2px;
+  background-color: rgb(255, 128, 149);
+  color: white;
+}
+
+.bonus_grey {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid white;
+  border-radius: 2px;
+  background-color: lightgrey;
+  color: white;
+}
+
+/*** Tabletop ***/
+
+.tabletop {
+  display: flex;
+  flex-direction: row;
+}
+
+/*** Gameboard sections ***/
+
+.gameboard_top {
+  display: flex;
+  flex-direction: row;
+}
+
+.gameboard_middle {
+  display: flex;
+  flex-direction: row;
+}
+
+/*** Selected Dice ***/
+
+.selected_dice_slot {
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+  margin: 8px;
+  background-color: white;
+}
+
+/*** Turn Bonus Board ***/
+
+.turn_counter {
+  display: flex;
+  flex-direction: row;
+}
+
+.turn_box {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 2px 12px;
+  background-color: grey;
+}
+
+#one.turn_box {
+  margin-left: 4px;
+}
+
+#six.turn_box {
+  margin-right: 0px;
+}
+
+.turn_title {
+  width: 30px;
+  font-size: 150%;
+  border-radius: 5px;
+  background-color: aqua;
+}
+
+.turn_bonus {
+  height: 25px;
+}
+
+.turn_bonus p {
+  margin-top: 5px;
+}
+
+.turn_image {
+  width: 20px;
+  margin: 5px;
+}
+
+/*** Bonus Tracks ***/
+
+.bonus_track {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 2px;
+  background-color: grey;
+}
+
+.track_image {
+  width: 30px;
+  margin: 2px;
+}
+
+.track_bubble {
+  width: 25px;
+  height: 25px;
+  border-radius: 12px;
+  border: 1px solid black;
+  margin: 1px 15px;
+}
+
+.track_bubble .bonus_fuchs {
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
+.track_bubble .bonus_pink {
+  margin-left: 15px;
+  margin-top: 10px;
+  width: 15px;
+  height: 15px;
+  font-size: 80%;
+}
+
+.track_bubble .bonus_grey {
+  margin-left: 15px;
+  margin-top: 10px;
+  width: 15px;
+  height: 15px;
+  font-size: 80%;
+}
+
+/*** Grey board ***/
+
+.grey_board {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: grey;
+}
+
+.grey_column {
+  display: flex;
+  flex-direction: column;
+}
+
+.grey_column .bonus_additional {
+  margin: 6px 8px;
+}
+
+.grey_column .bonus_yellow {
+  margin: 6px 8px;
+}
+
+.grey_column .bonus_blue {
+  margin: 6px 8px;
+}
+
+.grey_column .bonus_green {
+  margin: 6px 8px;
+}
+
+.grey_column .bonus_pink {
+  margin: 6px 8px;
+}
+
+.grey_column .bonus_fuchs {
+  margin: 6px 8px;
+}
+
+.grey_box {
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 5px;
+  margin: 2px;
+  font-size: 150%;
+  text-align: center;
+  justify-content: center;
+}
+
+.grey_yellow {
+  border: 1px solid rgb(255, 187, 0);
+  color: rgb(255, 187, 0);
+}
+
+.grey_blue {
+  border: 1px solid blue;
+  color: blue;
+}
+
+.grey_green {
+  border: 1px solid rgb(13, 161, 13);
+  color: rgb(13, 161, 13);
+}
+
+.grey_pink {
+  border: 1px solid rgb(255, 128, 149);
+  color: rgb(255, 128, 149);
+}
+
+.grey_score {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.grey_score_dice {
+  font-size: 80%;
+  padding-top: 5px;
+}
+
+.grey_score_score {
+  height: 20px;
+  width: 20px;
+  margin-top: 2px;
+  font-size: 80%;
+  font-style: italic;
+  border: 1px solid black;
+  border-radius: 10px;
+  text-align: center;
+  background-color: lightgray;
+}
+
+.grey_score_score p {
+  margin-top: 2px;
+}
+
+/*** Yellow Board ***/
+
+.yellow_board {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: grey;
+  margin-left: 10px;
+}
+
+/* Yellow scores */
+
+.yellow_score {
+  display: flex;
+  flex-direction: row;
+}
+
+.yellow_top_row {
+  display: flex;
+  flex-direction: row;
+}
+
+.yellow_bottom_row {
+  display: flex;
+  flex-direction: row;
+}
+
+.yellow_score_dice {
+  font-size: 80%;
+  padding-top: 5px;
+}
+
+.yellow_score_score {
+  height: 20px;
+  width: 20px;
+  margin-top: 2px;
+  font-size: 80%;
+  font-style: italic;
+  border: 1px solid black;
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgb(255, 187, 0);
+}
+
+.yellow_score {
+  width: 40px;
+}
+
+.yellow_score p {
+  margin-top: 2px;
+}
+
+#one.yellow_score {
+  margin-left: 20px;
+}
+
+#six.yellow_score {
+  margin-left: 5px;
+}
+
+/* Yellow Boxes */
+
+.yellow_boxes {
+  position: relative;
+}
+
+.yellow_box {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 5px;
+  margin: 2px;
+  font-size: 150%;
+  text-align: center;
+  justify-content: center;
+  border: 1px solid rgb(255, 187, 0);
+  color: rgb(255, 187, 0);
+}
+
+#one.yellow_box {
+  top: 5px;
+  left: 50px;
+}
+#two.yellow_box {
+  top: 5px;
+  left: 130px;
+}
+#three.yellow_box {
+  top: 27px;
+  left: 10px;
+}
+#four.yellow_box {
+  top: 27px;
+  left: 90px;
+}
+#five.yellow_box {
+  top: 49px;
+  left: 50px;
+}
+#six.yellow_box {
+  top: 49px;
+  left: 130px;
+}
+#seven.yellow_box {
+  top: 71px;
+  left: 10px;
+}
+#eight.yellow_box {
+  top: 71px;
+  left: 90px;
+}
+#nine.yellow_box {
+  top: 93px;
+  left: 50px;
+}
+#ten.yellow_box {
+  top: 93px;
+  left: 130px;
+}
+
+.yellow_bonus {
+  position: absolute;
+}
+
+.yellow_bonus.bonus_blue {
+  top: 11px;
+  left: 180px;
+}
+.yellow_bonus.bonus_return {
+  top: 33px;
+  left: 180px;
+}
+.yellow_bonus.bonus_yellow {
+  top: 55px;
+  left: 180px;
+}
+.yellow_bonus.bonus_green {
+  top: 77px;
+  left: 180px;
+}
+.yellow_bonus.bonus_pink {
+  top: 99px;
+  left: 180px;
+}
+.yellow_bonus.bonus_reroll {
+  top: 130px;
+  left: 18px;
+}
+.yellow_bonus.bonus_additional {
+  top: 130px;
+  left: 58px;
+}
+.yellow_bonus.bonus_grey {
+  top: 130px;
+  left: 98px;
+}
+.yellow_bonus.bonus_fuchs {
+  top: 130px;
+  left: 138px;
+}
+
+/*** Blue Board ***/
+
+.blue_board {
+  position: relative;
+}
+
+.blue_scores {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+}
+
+.blue_score {
+  height: 20px;
+  width: 20px;
+  margin: 2px 0 0 14px;
+  font-size: 80%;
+  font-style: italic;
+  border: 1px solid black;
+  border-radius: 10px;
+  text-align: center;
+  background-color: blue;
+}
+
+.blue_score p {
+  margin-top: 2px;
+}
+
+#one.blue_score {
+  margin-left: 24px;
+}
+
+.blue_boxes {
+  position: relative;
+  z-index: -1;
+  width: 450px;
+  top: 10px;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: grey;
+}
+
+.blue_arrow {
+  margin-top: 22px;
+  color: blue;
+  font-weight: 1200;
+}
+
+.blue_box {
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 5px;
+  margin: 15px 2px;
+  font-size: 150%;
+  text-align: center;
+  justify-content: center;
+  border: 1px solid blue;
+  color: blue;
+}
+
+.blue_signs {
+  position: absolute;
+  display: flex;
+  top: 33px;
+  color: blue;
+  font-weight: 800;
+}
+
+#one.ge_sign {
+  margin-left: 48px;
+}
+#four.ge_sign {
+  margin-left: 28px;
+}
+#seven.ge_sign {
+  margin-left: 28px;
+}
+
+.ge_sign {
+  margin-left: 27px;
+}
+
+.blue_bonuses {
+  position: absolute;
+  display: flex;
+  top: 52px;
+}
+
+#one.blue_bonus.bonus_return {
+  margin-left: 62px;
+}
+.blue_bonus.bonus_yellow {
+  margin-left: 15px;
+}
+.blue_bonus.bonus_additional {
+  margin-left: 53px;
+}
+.blue_bonus.bonus_reroll {
+  margin-left: 15px;
+}
+.blue_bonus.bonus_pink {
+  margin-left: 16px;
+}
+.blue_bonus.bonus_fuchs {
+  margin-left: 53px;
+}
+#two.blue_bonus.bonus_return {
+  margin-left: 15px;
+}
+.blue_bonus.bonus_green {
+  margin-left: 52px;
+}
+
+/*** Green Board ***/
+
+.green_board {
+  position: relative;
+  margin-top: 5px;
+}
+
+.green_scores {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+}
+
+.green_score {
+  height: 20px;
+  width: 20px;
+  margin: 7px 0 0 50px;
+  font-size: 80%;
+  font-style: italic;
+  border: 1px solid black;
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgb(13, 161, 13);
+}
+
+.green_score p {
+  margin-top: 2px;
+}
+
+#one.green_score {
+  margin-left: 42px;
+}
+
+.green_boxes {
+  position: relative;
+  z-index: -1;
+  width: 450px;
+  top: 10px;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: grey;
+}
+
+.green_arrow {
+  margin-top: 22px;
+  color: rgb(13, 161, 13);
+  font-weight: 1200;
+}
+
+.green_box {
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 5px;
+  margin: 15px 2px;
+  font-size: 150%;
+  text-align: center;
+  justify-content: center;
+  border: 1px solid rgb(13, 161, 13);
+  color: rgb(13, 161, 13);
+}
+
+.green_signs {
+  position: absolute;
+  display: flex;
+  top: 17px;
+  color: rgb(13, 161, 13);
+  font-weight: 800;
+  font-size: 200%;
+}
+
+#one.minus_sign {
+  margin-left: 48px;
+}
+#three.minus_sign {
+  margin-left: 62px;
+}
+#five.minus_sign {
+  margin-left: 61px;
+}
+
+.minus_sign {
+  margin-left: 61px;
+}
+
+.green_bonuses {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 52px;
+}
+
+.green_bonus.bonus_reroll {
+  margin-left: 62px;
+}
+.green_bonus.bonus_blue {
+  margin-left: 52px;
+}
+.green_bonus.bonus_return {
+  margin-left: 16px;
+}
+.green_bonus.bonus_fuchs {
+  margin-left: 52px;
+}
+.green_bonus.bonus_grey {
+  margin-left: 16px;
+}
+.green_bonus.bonus_additional {
+  margin-left: 16px;
+}
+.green_bonus.bonus_pink {
+  margin-left: 52px;
+}
+.green_bonus.bonus_yellow {
+  margin-left: 16px;
+}
+
+/*** Pink Board ***/
+
+.pink_board {
+  position: relative;
+  margin-top: 5px;
+}
+
+.pink_boxes {
+  position: relative;
+  z-index: -1;
+  width: 450px;
+  top: 10px;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: grey;
+}
+
+.pink_arrow {
+  margin-top: 13px;
+  color: rgb(255, 128, 149);
+  font-weight: 1200;
+}
+
+.pink_box {
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 5px;
+  margin: 5px 2px 15px 2px;
+  font-size: 150%;
+  text-align: center;
+  justify-content: center;
+  border: 1px solid rgb(255, 128, 149);
+  color: rgb(255, 128, 149);
+}
+
+.pink_bonuses {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 42px;
+}
+
+#one.pink_bonus.bonus_reroll {
+  margin-left: 98px;
+}
+
+.pink_bonus {
+  margin-left: 16px;
+}
+
+/*** TABLETOP ***/
+
+.diceboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.dice_mat {
+  width: 300px;
+  height: 300px;
+  margin-left: 20px;
+  background-color: lightgoldenrodyellow;
+  border-radius: 20px;
+}
+
+.dice_mat_top {
+  display: flex;
+  flex-direction: row;
+}
+
+.dice_mat_bottom {
+  display: flex;
+  flex-direction: row;
+}
+
+.dice_zone {
+  width: 98px;
+  height: 148px;
+}
+
+.dice_zone0 {
+  border: 1px solid black;
+}
+.dice_zone1 {
+  border: 1px solid black;
+}
+.dice_zone2 {
+  border: 1px solid black;
+}
+.dice_zone3 {
+  border: 1px solid black;
+}
+.dice_zone4 {
+  border: 1px solid black;
+}
+.dice_zone5 {
+  border: 1px solid black;
+}
+
+.dice_plate {
+  width: 300px;
+  height: 250px;
+  border-radius: 150px;
+  background-color: lightgray;
+  margin: 20px;
+}
+
+.test_die {
+  position: relative;
+  top: 40px;
+  left: 20px;
+  height: 50px;
+  width: 50px;
+  background-color: rgb(13, 161, 13);
+  transform: rotate(20deg);
+}
