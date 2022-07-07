@@ -9,8 +9,8 @@ let diceColor = ["white", "grey", "yellow", "blue", "green", "pink"];
 let lock = true;
 
 /* ---- ELEMENTS ---- */
-const rollBtn = document.querySelector(".roll_btn");
-const dicePosition = [
+const rollBtnEl = document.querySelector(".roll_btn");
+const dicePositionEl = [
   document.querySelector(".die_0"),
   document.querySelector(".die_1"),
   document.querySelector(".die_2"),
@@ -18,7 +18,7 @@ const dicePosition = [
   document.querySelector(".die_4"),
   document.querySelector(".die_5"),
 ];
-const selectedDie = [
+const selectedDieEl = [
   document.querySelector(".s_die1"),
   document.querySelector(".s_die2"),
   document.querySelector(".s_die3"),
@@ -26,23 +26,18 @@ const selectedDie = [
 
 /* ---- OBJECTS ---- */
 let selectedDice = {
-  die1: null,
-  die2: null,
-  die3: null,
+  diceColors: [null, null, null],
+  diceValue: [null, null, null],
 };
 
 let dicePlate = {
-  die1: null,
-  die2: null,
-  die3: null,
-  die4: null,
-  die5: null,
-  die6: null,
+  diceColors: [],
+  diceValues: [],
 };
 
 /* ---- GAME FUNCTIONS ---- */
 // ROLL DICE
-rollBtn.addEventListener("click", function () {
+rollBtnEl.addEventListener("click", function () {
   let diceOrder = orderDice();
   displayDice(diceOrder);
   console.log(`Dice values are ${diceValues}, dice order is ${diceOrder}`);
@@ -61,93 +56,102 @@ function orderDice() {
 
 function removeColor(diceColor, i) {
   for (let j = 0; j < 6; j++) {
-    dicePosition[i].classList.remove(diceColor[j]);
+    dicePositionEl[i].classList.remove(diceColor[j]);
   }
 }
 
-function renderVisible() {
+function renderVisible(diceColor) {
   for (let i = 0; i < 6; i++) {
-    dicePosition[i].classList.remove("hidden");
+    if (selectedDice.diceColors.includes(diceColor[i])) {
+      dicePositionEl[i].classList.add("hidden");
+    } else {
+      dicePositionEl[i].classList.remove("hidden");
+    }
   }
 }
 
 function displayDice(diceColor) {
   for (let i = 0; i < 6; i++) {
     removeColor(diceColor, i);
-    dicePosition[i].classList.add(diceColor[i]);
+    dicePositionEl[i].classList.add(diceColor[i]);
     let diceNumber = Math.trunc(Math.random() * 6) + 1;
     diceValues[i] = diceNumber;
-    dicePosition[i].src = `resources/images/dice-${diceValues[i]}.png`;
+    dicePositionEl[i].src = `resources/images/dice-${diceValues[i]}.png`;
     let diceHeight = Math.trunc(Math.random() * 95);
-    dicePosition[i].style.top = `${diceHeight}px`;
+    dicePositionEl[i].style.top = `${diceHeight}px`;
     let diceWidth = Math.trunc(Math.random() * 45);
-    dicePosition[i].style.left = `${diceWidth}px`;
+    dicePositionEl[i].style.left = `${diceWidth}px`;
     let diceAngle = Math.trunc(Math.random() * 90);
-    dicePosition[i].style.transform = `rotate(${diceAngle}deg)`;
-    renderVisible();
+    dicePositionEl[i].style.transform = `rotate(${diceAngle}deg)`;
+    renderVisible(diceColor);
   }
 }
 
 // SELECT DICE
-dicePosition[0].addEventListener("click", function () {
+dicePositionEl[0].addEventListener("click", function () {
   selectDice(0);
   lock = true;
 });
-dicePosition[1].addEventListener("click", function () {
+dicePositionEl[1].addEventListener("click", function () {
   selectDice(1);
   lock = true;
 });
-dicePosition[2].addEventListener("click", function () {
+dicePositionEl[2].addEventListener("click", function () {
   selectDice(2);
   lock = true;
 });
-dicePosition[3].addEventListener("click", function () {
+dicePositionEl[3].addEventListener("click", function () {
   selectDice(3);
   lock = true;
 });
-dicePosition[4].addEventListener("click", function () {
+dicePositionEl[4].addEventListener("click", function () {
   selectDice(4);
   lock = true;
 });
-dicePosition[5].addEventListener("click", function () {
+dicePositionEl[5].addEventListener("click", function () {
   selectDice(5);
   lock = true;
 });
 
 function selectDice(position) {
   if (lock == false) {
-    if (selectedDice.die1 == null) {
-      selectedDice.die1 = [diceValues[position], diceColor[position]];
+    if (selectedDice.diceValue[0] == null) {
       console.log(
         `First selected die is ${diceValues[position]} ${diceColor[position]}`
       );
-      selectedDie[0].classList.add(diceColor[position]);
-      selectedDie[0].classList.remove("hidden");
-      selectedDie[0].src = `resources/images/dice-${diceValues[position]}.png`;
-    } else if (selectedDice.die2 == null) {
-      selectedDice.die2 = [diceValues[position], diceColor[position]];
+      selectedDieEl[0].classList.add(diceColor[position]);
+      selectedDieEl[0].classList.remove("hidden");
+      selectedDieEl[0].src = `resources/images/dice-${diceValues[position]}.png`;
+      selectedDice.diceColors[0] = diceColor[position];
+      selectedDice.diceValue[0] = diceValues[position];
+    } else if (selectedDice.diceValue[1] == null) {
       console.log(
         `Second selected die is ${diceValues[position]} ${diceColor[position]}`
       );
-      selectedDie[1].classList.add(diceColor[position]);
-      selectedDie[1].classList.remove("hidden");
-      selectedDie[1].src = `resources/images/dice-${diceValues[position]}.png`;
-    } else if (selectedDice.die3 == null) {
-      selectedDice.die3 = [diceValues[position], diceColor[position]];
+      selectedDieEl[1].classList.add(diceColor[position]);
+      selectedDieEl[1].classList.remove("hidden");
+      selectedDieEl[1].src = `resources/images/dice-${diceValues[position]}.png`;
+      selectedDice.diceColors[1] = diceColor[position];
+      selectedDice.diceValue[1] = diceValues[position];
+    } else if (selectedDice.diceValue[2] == null) {
       console.log(
         `Third selected die is ${diceValues[position]} ${diceColor[position]}`
       );
-      selectedDie[2].classList.add(diceColor[position]);
-      selectedDie[2].classList.remove("hidden");
-      selectedDie[2].src = `resources/images/dice-${diceValues[position]}.png`;
+      selectedDieEl[2].classList.add(diceColor[position]);
+      selectedDieEl[2].classList.remove("hidden");
+      selectedDieEl[2].src = `resources/images/dice-${diceValues[position]}.png`;
+      selectedDice.diceColors[2] = diceColor[position];
+      selectedDice.diceValue[2] = diceValues[position];
     } else {
       console.log(`All dice selected`);
     }
+    console.log(selectedDice.diceColors);
+    dicePositionEl[position].classList.add("hidden");
   }
 }
 
 function removeDice(selectedColor, selectedValue) {
-  //function to remove selected die from the pool and send lower dice to plate
+  // remove lower dice to the plate
 }
 // USE REROLL
 // USE RETURN
