@@ -113,7 +113,7 @@ p {
   width: 50px;
   height: 50px;
   margin: 8px;
-  background-color: white;
+  background-color: lightgoldenrodyellow;
 }
 
 /*** Turn Bonus Board ***/
@@ -786,25 +786,6 @@ p {
   height: 148px;
 }
 
-.dice_zone0 {
-  border: 1px solid black;
-}
-.dice_zone1 {
-  border: 1px solid black;
-}
-.dice_zone2 {
-  border: 1px solid black;
-}
-.dice_zone3 {
-  border: 1px solid black;
-}
-.dice_zone4 {
-  border: 1px solid black;
-}
-.dice_zone5 {
-  border: 1px solid black;
-}
-
 .roll_btn {
   width: 200px;
   margin-top: 10px;
@@ -826,6 +807,15 @@ p {
   left: 20px;
   height: 50px;
   width: 50px;
+  transform: rotate(0deg);
+}
+
+.selected_die {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  height: 30px;
+  width: 30px;
   transform: rotate(0deg);
 }
 
