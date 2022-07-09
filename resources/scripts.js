@@ -140,7 +140,7 @@ function selectDice(position) {
     for (let i = 0; i < 3; i++) {
       if (selectedDice.values[i] == null) {
         console.log(
-          `Selected die ${position} is a ${diceMat.colors[position]} ${diceMat.values[position]} `
+          `Selected die ${position} is a ${diceMat.colors[position]} -*/${diceMat.values[position]} `
         );
         selectedDice.elements[i].classList.add(diceMat.colors[position]);
         selectedDice.elements[i].classList.remove("hidden");
