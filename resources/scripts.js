@@ -4,7 +4,8 @@
 // Only one player
 
 /* ---- VARIABLES ---- */
-let lock = true;
+let diceLock = true;
+let rollLock = false;
 
 /* ---- ELEMENTS ---- */
 const testBtnEl = document.querySelector(".test_btn"); // DELETE IN PROD
@@ -75,14 +76,15 @@ testBtnEl.addEventListener("click", function () {
 
 // ROLL DICE
 rollBtnEl.addEventListener("click", function () {
-  if (!selectedDice.values[2] && lock) {
+  if (!selectedDice.values[2] && !rollLock && diceMat.empty.includes(false)) {
     orderDice();
     displayDice();
     console.log(
       `Dice values are ${diceMat.values}, dice colors are ${diceMat.colors}`
     );
-    lock = false;
-  } else if (!lock) {
+    rollLock = true;
+    diceLock = false;
+  } else if (rollLock) {
     console.log(`Pick a dice before you reroll`);
   } else {
     console.log("All dice selected");
@@ -139,31 +141,37 @@ function displayDice() {
 // SELECT DICE
 diceMat.elements[0].addEventListener("click", function () {
   selectDice(0);
-  lock = true;
+  diceLock = true;
+  rollLock = false;
 });
 diceMat.elements[1].addEventListener("click", function () {
   selectDice(1);
-  lock = true;
+  diceLock = true;
+  rollLock = false;
 });
 diceMat.elements[2].addEventListener("click", function () {
   selectDice(2);
-  lock = true;
+  diceLock = true;
+  rollLock = false;
 });
 diceMat.elements[3].addEventListener("click", function () {
   selectDice(3);
-  lock = true;
+  diceLock = true;
+  rollLock = false;
 });
 diceMat.elements[4].addEventListener("click", function () {
   selectDice(4);
-  lock = true;
+  diceLock = true;
+  rollLock = false;
 });
 diceMat.elements[5].addEventListener("click", function () {
   selectDice(5);
-  lock = true;
+  diceLock = true;
+  rollLock = false;
 });
 
 function selectDice(position) {
-  if (lock == false) {
+  if (diceLock == false) {
     for (let i = 0; i < 3; i++) {
       if (selectedDice.values[i] == null) {
         console.log(
@@ -235,7 +243,8 @@ rerollTrack.elements[5].addEventListener("click", function () {
 
 function takeReroll(position) {
   if (rerollTrack.achieved[position]) {
-    lock = true;
+    rollLock = false;
+    diceLock = true;
     rerollTrack.elements[position].insertAdjacentText("beforeend", "X");
     rerollTrack.taken[position] = true;
   }
