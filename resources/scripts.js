@@ -7,7 +7,7 @@
 let lock = true;
 
 /* ---- ELEMENTS ---- */
-const testBtnEl = document.querySelector(".test_btn");
+const testBtnEl = document.querySelector(".test_btn"); // DELETE IN PROD
 const rollBtnEl = document.querySelector(".roll_btn");
 
 /* ---- OBJECTS ---- */
@@ -67,6 +67,12 @@ let rerollTrack = {
 };
 
 /* ---- GAME FUNCTIONS ---- */
+
+// TEST FUNCTION --- DELETE IN PROD
+testBtnEl.addEventListener("click", function () {
+  achieveReroll();
+});
+
 // ROLL DICE
 rollBtnEl.addEventListener("click", function () {
   if (!selectedDice.values[2] && lock) {
@@ -176,6 +182,8 @@ function selectDice(position) {
     diceMat.empty[position] = true;
     diceMat.elements[position].classList.add("hidden");
     removeDice(diceMat.values[position]);
+  } else {
+    console.log(`Roll the dice first!`);
   }
 }
 
@@ -209,11 +217,27 @@ function addToPlate(value, color) {
 rerollTrack.elements[0].addEventListener("click", function () {
   takeReroll(0);
 });
+rerollTrack.elements[1].addEventListener("click", function () {
+  takeReroll(1);
+});
+rerollTrack.elements[2].addEventListener("click", function () {
+  takeReroll(2);
+});
+rerollTrack.elements[3].addEventListener("click", function () {
+  takeReroll(3);
+});
+rerollTrack.elements[4].addEventListener("click", function () {
+  takeReroll(4);
+});
+rerollTrack.elements[5].addEventListener("click", function () {
+  takeReroll(5);
+});
 
 function takeReroll(position) {
   if (rerollTrack.achieved[position]) {
     lock = true;
     rerollTrack.elements[position].insertAdjacentText("beforeend", "X");
+    rerollTrack.taken[position] = true;
   }
 }
 
