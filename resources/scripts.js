@@ -6,6 +6,7 @@
 /* ---- VARIABLES ---- */
 let diceLock = true;
 let rollLock = false;
+let returnLock = true;
 
 /* ---- ELEMENTS ---- */
 const testBtnEl = document.querySelector(".test_btn"); // DELETE IN PROD
@@ -67,11 +68,24 @@ let rerollTrack = {
   ],
 };
 
+let returnTrack = {
+  achieved: [false, false, false, false, false, false],
+  taken: [false, false, false, false, false, false],
+  elements: [
+    document.querySelector(".return_bubble0"),
+    document.querySelector(".return_bubble1"),
+    document.querySelector(".return_bubble2"),
+    document.querySelector(".return_bubble3"),
+    document.querySelector(".return_bubble4"),
+    document.querySelector(".return_bubble5"),
+  ],
+};
+
 /* ---- GAME FUNCTIONS ---- */
 
 // TEST FUNCTION --- DELETE IN PROD
 testBtnEl.addEventListener("click", function () {
-  achieveReroll();
+  achieveReturn();
 });
 
 // ROLL DICE
@@ -261,6 +275,84 @@ function achieveReroll() {
 }
 
 // USE RETURN
+returnTrack.elements[0].addEventListener("click", function () {
+  takeReturn(0);
+});
+returnTrack.elements[1].addEventListener("click", function () {
+  takeReturn(1);
+});
+returnTrack.elements[2].addEventListener("click", function () {
+  takeReturn(2);
+});
+returnTrack.elements[3].addEventListener("click", function () {
+  takeReturn(3);
+});
+returnTrack.elements[4].addEventListener("click", function () {
+  takeReturn(4);
+});
+returnTrack.elements[5].addEventListener("click", function () {
+  takeReturn(5);
+});
+
+function takeReturn(position) {
+  if (returnTrack.achieved[position]) {
+    returnLock = false;
+    diceLock = true;
+    rollLock = true;
+    returnTrack.elements[position].insertAdjacentText("beforeend", "X");
+    returnTrack.taken[position] = true;
+    console.log(`Select a die to return`);
+  }
+}
+
+function achieveReturn() {
+  for (let i = 0; i < 6; i++) {
+    if (!returnTrack.achieved[i]) {
+      returnTrack.achieved[i] = true;
+      returnTrack.elements[i].classList.add("achieved");
+      break;
+    }
+  }
+}
+
+dicePlate.elements[0].addEventListener("click", function () {
+  if (!returnLock) {
+    returnDice(0, dicePlate.values[0], dicePlate.colors[0]);
+  }
+});
+dicePlate.elements[1].addEventListener("click", function () {
+  if (!returnLock) {
+    returnDice(1, dicePlate.values[1], dicePlate.colors[1]);
+  }
+});
+dicePlate.elements[2].addEventListener("click", function () {
+  if (!returnLock) {
+    returnDice(2, dicePlate.values[2], dicePlate.colors[2]);
+  }
+});
+dicePlate.elements[3].addEventListener("click", function () {
+  if (!returnLock) {
+    returnDice(3, dicePlate.values[3], dicePlate.colors[3]);
+  }
+});
+dicePlate.elements[4].addEventListener("click", function () {
+  if (!returnLock) {
+    returnDice(4, dicePlate.values[4], dicePlate.colors[4]);
+  }
+});
+
+function returnDice(position, value, color) {
+  dicePlate.empty[position] = true;
+  dicePlate.values[position] = null;
+  dicePlate.colors[position] = null;
+  dicePlate.elements[position].classList.add("hidden");
+  let index = diceMat.colors.indexOf(color);
+  diceMat.empty[index] = false;
+  diceMat.elements[index].classList.remove("hidden");
+  returnLock = true;
+  rollLock = false;
+}
+
 // USE ADDITIONAL
 // USE CHOICE
 // USE BONUS COLOR
