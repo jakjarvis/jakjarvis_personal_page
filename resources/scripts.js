@@ -7,6 +7,7 @@
 let diceLock = true;
 let rollLock = false;
 let returnLock = true;
+let additionalLock = true;
 
 /* ---- ELEMENTS ---- */
 const testBtnEl = document.querySelector(".test_btn"); // DELETE IN PROD
@@ -81,23 +82,38 @@ let returnTrack = {
   ],
 };
 
-/* ---- GAME FUNCTIONS ---- */
+let additionalTrack = {
+  achieved: [false, false, false, false, false, false],
+  taken: [false, false, false, false, false, false],
+  elements: [
+    document.querySelector(".additional_bubble0"),
+    document.querySelector(".additional_bubble1"),
+    document.querySelector(".additional_bubble2"),
+    document.querySelector(".additional_bubble3"),
+    document.querySelector(".additional_bubble4"),
+    document.querySelector(".additional_bubble5"),
+  ],
+};
 
+/* ---- EVENT LISTENERS ---- */
+
+// Buttons
 // TEST FUNCTION --- DELETE IN PROD
 testBtnEl.addEventListener("click", function () {
+  achieveReroll();
   achieveReturn();
+  achieveAdditional();
 });
 
-// ROLL DICE
 rollBtnEl.addEventListener("click", function () {
   if (!selectedDice.values[2] && !rollLock && diceMat.empty.includes(false)) {
     orderDice();
     displayDice();
+    rollLock = true;
+    diceLock = false;
     console.log(
       `Dice values are ${diceMat.values}, dice colors are ${diceMat.colors}`
     );
-    rollLock = true;
-    diceLock = false;
   } else if (rollLock) {
     console.log(`Pick a dice before you reroll`);
   } else {
@@ -105,54 +121,7 @@ rollBtnEl.addEventListener("click", function () {
   }
 });
 
-function orderDice() {
-  for (let i = 0; i < 6; i++) {
-    let position = Math.trunc(Math.random() * 6);
-    let tempColor = diceMat.colors[position];
-    let tempState = diceMat.empty[position];
-    diceMat.colors[position] = diceMat.colors[i];
-    diceMat.empty[position] = diceMat.empty[i];
-    diceMat.colors[i] = tempColor;
-    diceMat.empty[i] = tempState;
-  }
-}
-
-function removeColor(i) {
-  for (let j = 0; j < 6; j++) {
-    diceMat.elements[i].classList.remove(diceMat.colors[j]);
-  }
-}
-
-function renderVisible() {
-  for (let i = 0; i < 6; i++) {
-    if (
-      selectedDice.colors.includes(diceMat.colors[i]) ||
-      dicePlate.colors.includes(diceMat.colors[i])
-    ) {
-      diceMat.elements[i].classList.add("hidden");
-    } else {
-      diceMat.elements[i].classList.remove("hidden");
-    }
-  }
-}
-
-function displayDice() {
-  for (let i = 0; i < 6; i++) {
-    removeColor(i);
-    diceMat.elements[i].classList.add(diceMat.colors[i]);
-    diceMat.values[i] = Math.trunc(Math.random() * 6) + 1;
-    diceMat.elements[i].src = `resources/images/dice-${diceMat.values[i]}.png`;
-    diceMat.tops[i] = Math.trunc(Math.random() * 95);
-    diceMat.elements[i].style.top = `${diceMat.tops[i]}px`;
-    diceMat.lefts[i] = Math.trunc(Math.random() * 45);
-    diceMat.elements[i].style.left = `${diceMat.lefts[i]}px`;
-    diceMat.angles[i] = Math.trunc(Math.random() * 90);
-    diceMat.elements[i].style.transform = `rotate(${diceMat.angles[i]}deg)`;
-    renderVisible();
-  }
-}
-
-// SELECT DICE
+// Dice Mat
 diceMat.elements[0].addEventListener("click", function () {
   selectDice(0);
   diceLock = true;
@@ -184,6 +153,152 @@ diceMat.elements[5].addEventListener("click", function () {
   rollLock = false;
 });
 
+// Dice Plate
+dicePlate.elements[0].addEventListener("click", function () {
+  if (!returnLock) {
+    returnDice(0, dicePlate.values[0], dicePlate.colors[0]);
+  } else if (!additionalLock) {
+    useAdditional(0, dicePlate.values[0], dicePlate.colors[0]);
+  }
+});
+dicePlate.elements[1].addEventListener("click", function () {
+  if (!returnLock) {
+    returnDice(1, dicePlate.values[1], dicePlate.colors[1]);
+  } else if (!additionalLock) {
+    useAdditional(1, dicePlate.values[1], dicePlate.colors[1]);
+  }
+});
+dicePlate.elements[2].addEventListener("click", function () {
+  if (!returnLock) {
+    returnDice(2, dicePlate.values[2], dicePlate.colors[2]);
+  } else if (!additionalLock) {
+    useAdditional(2, dicePlate.values[2], dicePlate.colors[2]);
+  }
+});
+dicePlate.elements[3].addEventListener("click", function () {
+  if (!returnLock) {
+    returnDice(3, dicePlate.values[3], dicePlate.colors[3]);
+  } else if (!additionalLock) {
+    useAdditional(3, dicePlate.values[3], dicePlate.colors[3]);
+  }
+});
+dicePlate.elements[4].addEventListener("click", function () {
+  if (!returnLock) {
+    returnDice(4, dicePlate.values[4], dicePlate.colors[4]);
+  } else if (!additionalLock) {
+    useAdditional(4, dicePlate.values[4], dicePlate.colors[4]);
+  }
+});
+
+// Tracks
+rerollTrack.elements[0].addEventListener("click", function () {
+  takeReroll(0);
+});
+rerollTrack.elements[1].addEventListener("click", function () {
+  takeReroll(1);
+});
+rerollTrack.elements[2].addEventListener("click", function () {
+  takeReroll(2);
+});
+rerollTrack.elements[3].addEventListener("click", function () {
+  takeReroll(3);
+});
+rerollTrack.elements[4].addEventListener("click", function () {
+  takeReroll(4);
+});
+rerollTrack.elements[5].addEventListener("click", function () {
+  takeReroll(5);
+});
+
+returnTrack.elements[0].addEventListener("click", function () {
+  takeReturn(0);
+});
+returnTrack.elements[1].addEventListener("click", function () {
+  takeReturn(1);
+});
+returnTrack.elements[2].addEventListener("click", function () {
+  takeReturn(2);
+});
+returnTrack.elements[3].addEventListener("click", function () {
+  takeReturn(3);
+});
+returnTrack.elements[4].addEventListener("click", function () {
+  takeReturn(4);
+});
+returnTrack.elements[5].addEventListener("click", function () {
+  takeReturn(5);
+});
+
+additionalTrack.elements[0].addEventListener("click", function () {
+  takeAdditional(0);
+});
+additionalTrack.elements[1].addEventListener("click", function () {
+  takeAdditional(1);
+});
+additionalTrack.elements[2].addEventListener("click", function () {
+  takeAdditional(2);
+});
+additionalTrack.elements[3].addEventListener("click", function () {
+  takeAdditional(3);
+});
+additionalTrack.elements[4].addEventListener("click", function () {
+  takeAdditional(4);
+});
+additionalTrack.elements[5].addEventListener("click", function () {
+  takeAdditional(5);
+});
+
+/* ---- GAME FUNCTIONS ---- */
+
+// ROLL DICE
+function orderDice() {
+  for (let i = 0; i < 6; i++) {
+    let position = Math.trunc(Math.random() * 6);
+    let tempColor = diceMat.colors[position];
+    let tempState = diceMat.empty[position];
+    diceMat.colors[position] = diceMat.colors[i];
+    diceMat.empty[position] = diceMat.empty[i];
+    diceMat.colors[i] = tempColor;
+    diceMat.empty[i] = tempState;
+  }
+}
+
+function displayDice() {
+  for (let i = 0; i < 6; i++) {
+    removeColor(i);
+    diceMat.elements[i].classList.add(diceMat.colors[i]);
+    diceMat.values[i] = Math.trunc(Math.random() * 6) + 1;
+    diceMat.elements[i].src = `resources/images/dice-${diceMat.values[i]}.png`;
+    diceMat.tops[i] = Math.trunc(Math.random() * 95);
+    diceMat.elements[i].style.top = `${diceMat.tops[i]}px`;
+    diceMat.lefts[i] = Math.trunc(Math.random() * 45);
+    diceMat.elements[i].style.left = `${diceMat.lefts[i]}px`;
+    diceMat.angles[i] = Math.trunc(Math.random() * 90);
+    diceMat.elements[i].style.transform = `rotate(${diceMat.angles[i]}deg)`;
+    renderVisible();
+  }
+}
+
+function removeColor(i) {
+  for (let j = 0; j < 6; j++) {
+    diceMat.elements[i].classList.remove(diceMat.colors[j]);
+  }
+}
+
+function renderVisible() {
+  for (let i = 0; i < 6; i++) {
+    if (
+      selectedDice.colors.includes(diceMat.colors[i]) ||
+      dicePlate.colors.includes(diceMat.colors[i])
+    ) {
+      diceMat.elements[i].classList.add("hidden");
+    } else {
+      diceMat.elements[i].classList.remove("hidden");
+    }
+  }
+}
+
+// SELECT DICE
 function selectDice(position) {
   if (diceLock == false) {
     for (let i = 0; i < 3; i++) {
@@ -236,25 +351,6 @@ function addToPlate(value, color) {
   }
 }
 // USE REROLL
-rerollTrack.elements[0].addEventListener("click", function () {
-  takeReroll(0);
-});
-rerollTrack.elements[1].addEventListener("click", function () {
-  takeReroll(1);
-});
-rerollTrack.elements[2].addEventListener("click", function () {
-  takeReroll(2);
-});
-rerollTrack.elements[3].addEventListener("click", function () {
-  takeReroll(3);
-});
-rerollTrack.elements[4].addEventListener("click", function () {
-  takeReroll(4);
-});
-rerollTrack.elements[5].addEventListener("click", function () {
-  takeReroll(5);
-});
-
 function takeReroll(position) {
   if (rerollTrack.achieved[position]) {
     rollLock = false;
@@ -275,25 +371,6 @@ function achieveReroll() {
 }
 
 // USE RETURN
-returnTrack.elements[0].addEventListener("click", function () {
-  takeReturn(0);
-});
-returnTrack.elements[1].addEventListener("click", function () {
-  takeReturn(1);
-});
-returnTrack.elements[2].addEventListener("click", function () {
-  takeReturn(2);
-});
-returnTrack.elements[3].addEventListener("click", function () {
-  takeReturn(3);
-});
-returnTrack.elements[4].addEventListener("click", function () {
-  takeReturn(4);
-});
-returnTrack.elements[5].addEventListener("click", function () {
-  takeReturn(5);
-});
-
 function takeReturn(position) {
   if (returnTrack.achieved[position]) {
     returnLock = false;
@@ -315,32 +392,6 @@ function achieveReturn() {
   }
 }
 
-dicePlate.elements[0].addEventListener("click", function () {
-  if (!returnLock) {
-    returnDice(0, dicePlate.values[0], dicePlate.colors[0]);
-  }
-});
-dicePlate.elements[1].addEventListener("click", function () {
-  if (!returnLock) {
-    returnDice(1, dicePlate.values[1], dicePlate.colors[1]);
-  }
-});
-dicePlate.elements[2].addEventListener("click", function () {
-  if (!returnLock) {
-    returnDice(2, dicePlate.values[2], dicePlate.colors[2]);
-  }
-});
-dicePlate.elements[3].addEventListener("click", function () {
-  if (!returnLock) {
-    returnDice(3, dicePlate.values[3], dicePlate.colors[3]);
-  }
-});
-dicePlate.elements[4].addEventListener("click", function () {
-  if (!returnLock) {
-    returnDice(4, dicePlate.values[4], dicePlate.colors[4]);
-  }
-});
-
 function returnDice(position, value, color) {
   dicePlate.empty[position] = true;
   dicePlate.values[position] = null;
@@ -354,6 +405,35 @@ function returnDice(position, value, color) {
 }
 
 // USE ADDITIONAL
+function takeAdditional(position) {
+  if (additionalTrack.achieved[position] && !diceMat.empty.includes(false)) {
+    console.log(`Valid additional dice`);
+    additionalLock = false;
+    diceLock = true;
+    rollLock = true;
+    additionalTrack.elements[position].insertAdjacentText("beforeend", "X");
+    additionalTrack.taken[position] = true;
+  } else if (selectedDice.empty[2]) {
+    console.log(`Additional dice can only be used once the turn is over.`);
+  }
+}
+
+function achieveAdditional() {
+  for (let i = 0; i < 6; i++) {
+    if (!additionalTrack.achieved[i]) {
+      additionalTrack.achieved[i] = true;
+      additionalTrack.elements[i].classList.add("achieved");
+      break;
+    }
+  }
+}
+
+function useAdditional(position, value, color) {
+  console.log(
+    `Need to add the function to use die from plate position ${position} (${color} ${value}) once the gameboard functionality is completed.`
+  );
+}
+
 // USE CHOICE
 // USE BONUS COLOR
 // ADVANCE TURN
