@@ -23,8 +23,8 @@ let selectedDice = {
 };
 
 let diceMat = {
-  empty: [true, true, true, true, true, true],
-  colors: [null, null, null, null, null, null],
+  empty: [false, false, false, false, false, false],
+  colors: ["white", "grey", "yellow", "blue", "green", "pink"],
   values: [null, null, null, null, null, null],
   tops: [null, null, null, null, null, null],
   lefts: [null, null, null, null, null, null],
@@ -55,13 +55,15 @@ let dicePlate = {
 /* ---- GAME FUNCTIONS ---- */
 // ROLL DICE
 rollBtnEl.addEventListener("click", function () {
-  if (!selectedDice.values[2]) {
+  if (!selectedDice.values[2] && lock) {
     orderDice();
     displayDice();
     console.log(
       `Dice values are ${diceMat.values}, dice colors are ${diceMat.colors}`
     );
     lock = false;
+  } else if (!lock) {
+    console.log(`Pick a dice before you reroll`);
   } else {
     console.log("All dice selected");
   }
@@ -69,11 +71,13 @@ rollBtnEl.addEventListener("click", function () {
 
 function orderDice() {
   for (let i = 0; i < 6; i++) {
-    diceMat.colors = ["white", "grey", "yellow", "blue", "green", "pink"];
     let position = Math.trunc(Math.random() * 6);
-    let temp = diceMat.colors[position];
+    let tempColor = diceMat.colors[position];
+    let tempState = diceMat.empty[position];
     diceMat.colors[position] = diceMat.colors[i];
-    diceMat.colors[i] = temp;
+    diceMat.empty[position] = diceMat.empty[i];
+    diceMat.colors[i] = tempColor;
+    diceMat.empty[i] = tempState;
   }
 }
 
@@ -85,7 +89,10 @@ function removeColor(i) {
 
 function renderVisible() {
   for (let i = 0; i < 6; i++) {
-    if (selectedDice.colors.includes(diceMat.colors[i])) {
+    if (
+      selectedDice.colors.includes(diceMat.colors[i]) ||
+      dicePlate.colors.includes(diceMat.colors[i])
+    ) {
       diceMat.elements[i].classList.add("hidden");
     } else {
       diceMat.elements[i].classList.remove("hidden");
@@ -140,7 +147,7 @@ function selectDice(position) {
     for (let i = 0; i < 3; i++) {
       if (selectedDice.values[i] == null) {
         console.log(
-          `Selected die ${position} is a ${diceMat.colors[position]} -*/${diceMat.values[position]} `
+          `Selected die ${position} is a ${diceMat.colors[position]} ${diceMat.values[position]} `
         );
         selectedDice.elements[i].classList.add(diceMat.colors[position]);
         selectedDice.elements[i].classList.remove("hidden");
@@ -152,12 +159,37 @@ function selectDice(position) {
         break;
       }
     }
+    diceMat.empty[position] = true;
     diceMat.elements[position].classList.add("hidden");
+    removeDice(diceMat.values[position]);
   }
 }
 
-function removeDice(selectedColor, selectedValue) {
-  // remove lower dice to the plate
+function removeDice(value) {
+  for (let i = 0; i < 6; i++) {
+    if (!diceMat.empty[i]) {
+      if (diceMat.values[i] < value || selectedDice.values[2]) {
+        diceMat.empty[i] = true;
+        diceMat.elements[i].classList.add("hidden");
+        addToPlate(diceMat.values[i], diceMat.colors[i]);
+      }
+    }
+  }
+}
+
+function addToPlate(value, color) {
+  console.log(`Adding ${color} ${value} to plate`);
+  for (let j = 0; j < 5; j++) {
+    if (dicePlate.empty[j]) {
+      dicePlate.empty[j] = false;
+      dicePlate.values[j] = value;
+      dicePlate.colors[j] = color;
+      dicePlate.elements[j].src = `resources/images/dice-${value}.png`;
+      dicePlate.elements[j].classList.add(color);
+      dicePlate.elements[j].classList.remove("hidden");
+      break;
+    }
+  }
 }
 // USE REROLL
 // USE RETURN

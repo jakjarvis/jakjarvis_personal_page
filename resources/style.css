@@ -116,6 +116,15 @@ p {
   background-color: lightgoldenrodyellow;
 }
 
+.selected_die {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  height: 30px;
+  width: 30px;
+  transform: rotate(0deg);
+}
+
 /*** Turn Bonus Board ***/
 
 .turn_counter {
@@ -786,21 +795,6 @@ p {
   height: 148px;
 }
 
-.roll_btn {
-  width: 200px;
-  margin-top: 10px;
-  margin-left: 70px;
-  background-color: #ffffff;
-}
-
-.dice_plate {
-  width: 300px;
-  height: 250px;
-  border-radius: 150px;
-  background-color: lightgray;
-  margin: 10px 10px 10px 20px;
-}
-
 .die {
   position: relative;
   top: 40px;
@@ -810,13 +804,30 @@ p {
   transform: rotate(0deg);
 }
 
-.selected_die {
+.roll_btn {
+  width: 200px;
+  margin-top: 10px;
+  margin-left: 70px;
+  background-color: #ffffff;
+}
+
+.dice_plate {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 250px;
+  border-radius: 150px;
+  background-color: grey;
+  margin: 10px 10px 10px 20px;
+}
+
+.plate_die {
   position: relative;
-  top: 10px;
-  left: 10px;
-  height: 30px;
-  width: 30px;
-  transform: rotate(0deg);
+  height: 50px;
+  width: 50px;
+  margin: 5px;
 }
 
 .hidden {
