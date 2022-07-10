@@ -7,6 +7,7 @@
 let lock = true;
 
 /* ---- ELEMENTS ---- */
+const testBtnEl = document.querySelector(".test_btn");
 const rollBtnEl = document.querySelector(".roll_btn");
 
 /* ---- OBJECTS ---- */
@@ -49,6 +50,19 @@ let dicePlate = {
     document.querySelector(".plate_2"),
     document.querySelector(".plate_3"),
     document.querySelector(".plate_4"),
+  ],
+};
+
+let rerollTrack = {
+  achieved: [false, false, false, false, false, false],
+  taken: [false, false, false, false, false, false],
+  elements: [
+    document.querySelector(".reroll_bubble0"),
+    document.querySelector(".reroll_bubble1"),
+    document.querySelector(".reroll_bubble2"),
+    document.querySelector(".reroll_bubble3"),
+    document.querySelector(".reroll_bubble4"),
+    document.querySelector(".reroll_bubble5"),
   ],
 };
 
@@ -192,6 +206,27 @@ function addToPlate(value, color) {
   }
 }
 // USE REROLL
+rerollTrack.elements[0].addEventListener("click", function () {
+  takeReroll(0);
+});
+
+function takeReroll(position) {
+  if (rerollTrack.achieved[position]) {
+    lock = true;
+    rerollTrack.elements[position].insertAdjacentText("beforeend", "X");
+  }
+}
+
+function achieveReroll() {
+  for (let i = 0; i < 6; i++) {
+    if (!rerollTrack.achieved[i]) {
+      rerollTrack.achieved[i] = true;
+      rerollTrack.elements[i].classList.add("achieved");
+      break;
+    }
+  }
+}
+
 // USE RETURN
 // USE ADDITIONAL
 // USE CHOICE

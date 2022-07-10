@@ -194,6 +194,14 @@ p {
   border-radius: 12px;
   border: 1px solid black;
   margin: 1px 15px;
+  font-size: 22px;
+  text-align: center;
+  justify-content: center;
+}
+
+.achieved {
+  border: 3px solid black;
+  margin: 1px 13px;
 }
 
 .track_bubble .bonus_fuchs {
@@ -802,6 +810,13 @@ p {
   height: 50px;
   width: 50px;
   transform: rotate(0deg);
+}
+
+.test_btn {
+  width: 100px;
+  margin-top: 10px;
+  margin-left: 120px;
+  background-color: red;
 }
 
 .roll_btn {
