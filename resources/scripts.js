@@ -303,9 +303,6 @@ function selectDice(position) {
   if (diceLock == false) {
     for (let i = 0; i < 3; i++) {
       if (selectedDice.values[i] == null) {
-        console.log(
-          `Selected die ${position} is a ${diceMat.colors[position]} ${diceMat.values[position]} `
-        );
         selectedDice.elements[i].classList.add(diceMat.colors[position]);
         selectedDice.elements[i].classList.remove("hidden");
         selectedDice.elements[
@@ -313,6 +310,7 @@ function selectDice(position) {
         ].src = `resources/images/dice-${diceMat.values[position]}.png`;
         selectedDice.colors[i] = diceMat.colors[position];
         selectedDice.values[i] = diceMat.values[position];
+        resolveDice(selectedDice.values[i], selectedDice.colors[i]);
         break;
       }
     }
@@ -350,6 +348,23 @@ function addToPlate(value, color) {
     }
   }
 }
+
+function resolveDice(value, color) {
+  if (color == "grey") {
+    resolveGrey(value);
+  } else if (color == "yellow") {
+    resolveYellow(value);
+  } else if (color == "blue") {
+    resolveBlue(value);
+  } else if (color == "green") {
+    resolveGreen(value);
+  } else if (color == "pink") {
+    resolvePink(value);
+  } else if (color == "white") {
+    resolveWhite(value);
+  }
+}
+
 // USE REROLL
 function takeReroll(position) {
   if (rerollTrack.achieved[position]) {
@@ -440,11 +455,26 @@ function useAdditional(position, value, color) {
 // CALCULATE SCORE
 
 /* ---- GREY FUNCTIONS ---- */
-
+function resolveGrey(value) {
+  console.log(`Resolve grey dice with a value of ${value}`);
+}
 /* ---- YELLOW FUNCTIONS ---- */
-
+function resolveYellow(value) {
+  console.log(`Resolve yellow dice with a value of ${value}`);
+}
 /* ---- BLUE FUNCTIONS ---- */
-
+function resolveBlue(value) {
+  console.log(`Resolve blue dice with a value of ${value}`);
+}
 /* ---- GREEN FUNCTIONS ---- */
-
+function resolveGreen(value) {
+  console.log(`Resolve green dice with a value of ${value}`);
+}
 /* ---- PINK FUNCTIONS ---- */
+function resolvePink(value) {
+  console.log(`Resolve pink dice with a value of ${value}`);
+}
+/* ---- WHITE FUNCTIONS ---- */
+function resolveWhite(value) {
+  console.log(`Resolve white dice with a value of ${value}`);
+}
