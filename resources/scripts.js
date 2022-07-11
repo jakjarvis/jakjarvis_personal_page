@@ -310,28 +310,35 @@ function selectDice(position) {
         ].src = `resources/images/dice-${diceMat.values[position]}.png`;
         selectedDice.colors[i] = diceMat.colors[position];
         selectedDice.values[i] = diceMat.values[position];
-        resolveDice(selectedDice.values[i], selectedDice.colors[i]);
+        let removedDice = removeDice(diceMat.values[position]);
+        resolveDice(
+          selectedDice.values[i],
+          selectedDice.colors[i],
+          removedDice
+        );
+        diceMat.empty[position] = true;
+        diceMat.elements[position].classList.add("hidden");
         break;
       }
     }
-    diceMat.empty[position] = true;
-    diceMat.elements[position].classList.add("hidden");
-    removeDice(diceMat.values[position]);
   } else {
     console.log(`Roll the dice first!`);
   }
 }
 
 function removeDice(value) {
+  let removedDice = [];
   for (let i = 0; i < 6; i++) {
     if (!diceMat.empty[i]) {
       if (diceMat.values[i] < value || selectedDice.values[2]) {
         diceMat.empty[i] = true;
         diceMat.elements[i].classList.add("hidden");
         addToPlate(diceMat.values[i], diceMat.colors[i]);
+        removedDice.push([diceMat.colors[i], diceMat.values[i]]);
       }
     }
   }
+  return removedDice;
 }
 
 function addToPlate(value, color) {
@@ -349,9 +356,9 @@ function addToPlate(value, color) {
   }
 }
 
-function resolveDice(value, color) {
+function resolveDice(value, color, removedDice) {
   if (color == "grey") {
-    resolveGrey(value);
+    resolveGrey(value, removedDice);
   } else if (color == "yellow") {
     resolveYellow(value);
   } else if (color == "blue") {
@@ -455,8 +462,9 @@ function useAdditional(position, value, color) {
 // CALCULATE SCORE
 
 /* ---- GREY FUNCTIONS ---- */
-function resolveGrey(value) {
+function resolveGrey(value, removedDice) {
   console.log(`Resolve grey dice with a value of ${value}`);
+  console.log(removedDice);
 }
 /* ---- YELLOW FUNCTIONS ---- */
 function resolveYellow(value) {
