@@ -6,6 +6,7 @@
 /* ---- VARIABLES ---- */
 let diceLock = true;
 let rollLock = false;
+let scoringLock = false;
 let returnLock = true;
 let additionalLock = true;
 
@@ -95,6 +96,54 @@ let additionalTrack = {
   ],
 };
 
+let greyBoard = {
+  scores: [
+    ["yellow", false, false, false, false, false, false],
+    ["blue", false, false, false, false, false, false],
+    ["green", false, false, false, false, false, false],
+    ["pink", false, false, false, false, false, false],
+  ],
+  elements: [
+    [
+      "yellow",
+      document.querySelector(".grey_yellow_1"),
+      document.querySelector(".grey_yellow_2"),
+      document.querySelector(".grey_yellow_3"),
+      document.querySelector(".grey_yellow_4"),
+      document.querySelector(".grey_yellow_5"),
+      document.querySelector(".grey_yellow_6"),
+    ],
+    [
+      "blue",
+      document.querySelector(".grey_blue_1"),
+      document.querySelector(".grey_blue_2"),
+      document.querySelector(".grey_blue_3"),
+      document.querySelector(".grey_blue_4"),
+      document.querySelector(".grey_blue_5"),
+      document.querySelector(".grey_blue_6"),
+    ],
+    [
+      "green",
+      document.querySelector(".grey_green_1"),
+      document.querySelector(".grey_green_2"),
+      document.querySelector(".grey_green_3"),
+      document.querySelector(".grey_green_4"),
+      document.querySelector(".grey_green_5"),
+      document.querySelector(".grey_green_6"),
+    ],
+    [
+      "pink",
+      document.querySelector(".grey_pink_1"),
+      document.querySelector(".grey_pink_2"),
+      document.querySelector(".grey_pink_3"),
+      document.querySelector(".grey_pink_4"),
+      document.querySelector(".grey_pink_5"),
+      document.querySelector(".grey_pink_6"),
+    ],
+  ],
+  greyAndWhite: 0,
+};
+
 /* ---- EVENT LISTENERS ---- */
 
 // Buttons
@@ -106,7 +155,12 @@ testBtnEl.addEventListener("click", function () {
 });
 
 rollBtnEl.addEventListener("click", function () {
-  if (!selectedDice.values[2] && !rollLock && diceMat.empty.includes(false)) {
+  if (
+    !selectedDice.values[2] &&
+    !rollLock &&
+    !scoringLock &&
+    diceMat.empty.includes(false)
+  ) {
     orderDice();
     displayDice();
     rollLock = true;
@@ -116,6 +170,8 @@ rollBtnEl.addEventListener("click", function () {
     );
   } else if (rollLock) {
     console.log(`Pick a dice before you reroll`);
+  } else if (scoringLock) {
+    console.log(`Pick your scores`);
   } else {
     console.log("All dice selected");
   }
@@ -246,6 +302,79 @@ additionalTrack.elements[4].addEventListener("click", function () {
 });
 additionalTrack.elements[5].addEventListener("click", function () {
   takeAdditional(5);
+});
+
+greyBoard.elements[0][1].addEventListener("click", function () {
+  selectGrey(0, 1);
+});
+greyBoard.elements[0][2].addEventListener("click", function () {
+  selectGrey(0, 2);
+});
+greyBoard.elements[0][3].addEventListener("click", function () {
+  selectGrey(0, 3);
+});
+greyBoard.elements[0][4].addEventListener("click", function () {
+  selectGrey(0, 4);
+});
+greyBoard.elements[0][5].addEventListener("click", function () {
+  selectGrey(0, 5);
+});
+greyBoard.elements[0][6].addEventListener("click", function () {
+  selectGrey(0, 6);
+});
+greyBoard.elements[1][1].addEventListener("click", function () {
+  selectGrey(1, 1);
+});
+greyBoard.elements[1][2].addEventListener("click", function () {
+  selectGrey(1, 2);
+});
+greyBoard.elements[1][3].addEventListener("click", function () {
+  selectGrey(1, 3);
+});
+greyBoard.elements[1][4].addEventListener("click", function () {
+  selectGrey(1, 4);
+});
+greyBoard.elements[1][5].addEventListener("click", function () {
+  selectGrey(1, 5);
+});
+greyBoard.elements[1][6].addEventListener("click", function () {
+  selectGrey(1, 6);
+});
+greyBoard.elements[2][1].addEventListener("click", function () {
+  selectGrey(2, 1);
+});
+greyBoard.elements[2][2].addEventListener("click", function () {
+  selectGrey(2, 2);
+});
+greyBoard.elements[2][3].addEventListener("click", function () {
+  selectGrey(2, 3);
+});
+greyBoard.elements[2][4].addEventListener("click", function () {
+  selectGrey(2, 4);
+});
+greyBoard.elements[2][5].addEventListener("click", function () {
+  selectGrey(2, 5);
+});
+greyBoard.elements[2][6].addEventListener("click", function () {
+  selectGrey(2, 6);
+});
+greyBoard.elements[3][1].addEventListener("click", function () {
+  selectGrey(3, 1);
+});
+greyBoard.elements[3][2].addEventListener("click", function () {
+  selectGrey(3, 2);
+});
+greyBoard.elements[3][3].addEventListener("click", function () {
+  selectGrey(3, 3);
+});
+greyBoard.elements[3][4].addEventListener("click", function () {
+  selectGrey(3, 4);
+});
+greyBoard.elements[3][5].addEventListener("click", function () {
+  selectGrey(3, 5);
+});
+greyBoard.elements[3][6].addEventListener("click", function () {
+  selectGrey(3, 6);
 });
 
 /* ---- GAME FUNCTIONS ---- */
@@ -463,9 +592,53 @@ function useAdditional(position, value, color) {
 
 /* ---- GREY FUNCTIONS ---- */
 function resolveGrey(value, removedDice) {
-  console.log(`Resolve grey dice with a value of ${value}`);
+  removedDice.push(["grey", value]);
   console.log(removedDice);
+  for (let i = 0; i < removedDice.length; i++) {
+    if (removedDice[i][0] == "yellow") {
+      greyBoard.elements[0][removedDice[i][1]].textContent = "X";
+      greyBoard.scores[0][removedDice[i][1]] = true;
+    } else if (removedDice[i][0] == "blue") {
+      greyBoard.elements[1][removedDice[i][1]].textContent = "X";
+      greyBoard.scores[1][removedDice[i][1]] = true;
+    } else if (removedDice[i][0] == "green") {
+      greyBoard.elements[2][removedDice[i][1]].textContent = "X";
+      greyBoard.scores[2][removedDice[i][1]] = true;
+    } else if (removedDice[i][0] == "pink") {
+      greyBoard.elements[3][removedDice[i][1]].textContent = "X";
+      greyBoard.scores[3][removedDice[i][1]] = true;
+    }
+  }
+  for (let i = 0; i < removedDice.length; i++) {
+    if (removedDice[i][0] == "grey" || removedDice[i][0] == "white") {
+      greyBoard.greyAndWhite += 1;
+      console.log(`Grey or white dice`);
+      for (let j = 0; j < 4; j++) {
+        if (!greyBoard.scores[j][removedDice[i][1]]) {
+          greyBoard.elements[j][removedDice[i][1]].classList.add("selectable");
+        }
+      }
+      scoringLock = true;
+      console.log(`Dice locked`);
+    }
+  }
 }
+
+function selectGrey(colorIndex, numberIndex) {
+  greyBoard.scores[colorIndex][numberIndex] = true;
+  greyBoard.elements[colorIndex][numberIndex].classList.remove("selectable");
+  greyBoard.elements[colorIndex][numberIndex].textContent = "X";
+  for (let i = 0; i < 4; i++) {
+    greyBoard.elements[i][numberIndex].classList.remove("selectable");
+  }
+  if (greyBoard.greyAndWhite == 2) {
+    greyBoard.greyAndWhite -= 1;
+  } else {
+    greyBoard.greyAndWhite -= 1;
+    scoringLock = false;
+  }
+}
+
 /* ---- YELLOW FUNCTIONS ---- */
 function resolveYellow(value) {
   console.log(`Resolve yellow dice with a value of ${value}`);

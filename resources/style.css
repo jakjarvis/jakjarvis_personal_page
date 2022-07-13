@@ -872,3 +872,7 @@ p {
 .pink {
   background-color: #ff8095;
 }
+
+.selectable {
+  background-color: palegreen;
+}
