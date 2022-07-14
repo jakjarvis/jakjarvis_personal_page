@@ -161,6 +161,37 @@ let yellowBoard = {
   ],
 };
 
+let blueBoard = {
+  scores: [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+  ],
+  elements: [
+    document.querySelector("#one.blue_box"),
+    document.querySelector("#two.blue_box"),
+    document.querySelector("#three.blue_box"),
+    document.querySelector("#four.blue_box"),
+    document.querySelector("#five.blue_box"),
+    document.querySelector("#six.blue_box"),
+    document.querySelector("#seven.blue_box"),
+    document.querySelector("#eight.blue_box"),
+    document.querySelector("#nine.blue_box"),
+    document.querySelector("#ten.blue_box"),
+    document.querySelector("#eleven.blue_box"),
+    document.querySelector("#twelve.blue_box"),
+  ],
+};
+
 /* ---- EVENT LISTENERS ---- */
 
 // Buttons
@@ -718,9 +749,30 @@ function selectYellow(position) {
 }
 
 /* ---- BLUE FUNCTIONS ---- */
-function resolveBlue(value) {
-  console.log(`Resolve blue dice with a value of ${value}`);
+function resolveBlue(blueValue) {
+  let whiteValue = findWhite();
+  let nextBox = blueBoard.scores.indexOf(null);
+  console.log(nextBox);
+  if (nextBox == 0 || blueBoard.scores[nextBox - 1] >= blueValue + whiteValue) {
+    blueBoard.scores[nextBox] = blueValue + whiteValue;
+    blueBoard.elements[nextBox].textContent = blueValue + whiteValue;
+  }
 }
+
+function findWhite() {
+  let whiteValue = 0;
+  if (!diceMat.empty[diceMat.colors.indexOf("white")]) {
+    whiteValue = diceMat.values[diceMat.colors.indexOf("white")];
+  } else if (selectedDice.colors.includes("white")) {
+    whiteValue = selectedDice.values[selectedDice.colors.indexOf("white")];
+  } else if (dicePlate.colors.includes("white")) {
+    whiteValue = dicePlate.values[dicePlate.colors.indexOf("white")];
+  } else {
+    console.log(`Couldn't find a white dice`);
+  }
+  return whiteValue;
+}
+
 /* ---- GREEN FUNCTIONS ---- */
 function resolveGreen(value) {
   console.log(`Resolve green dice with a value of ${value}`);
