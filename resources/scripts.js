@@ -192,6 +192,70 @@ let blueBoard = {
   ],
 };
 
+let greenBoard = {
+  scores: [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+  ],
+  multipliers: [2, 2, 2, 1, 3, 3, 3, 2, 3, 1, 4, 1],
+  elements: [
+    document.querySelector("#one.green_box"),
+    document.querySelector("#two.green_box"),
+    document.querySelector("#three.green_box"),
+    document.querySelector("#four.green_box"),
+    document.querySelector("#five.green_box"),
+    document.querySelector("#six.green_box"),
+    document.querySelector("#seven.green_box"),
+    document.querySelector("#eight.green_box"),
+    document.querySelector("#nine.green_box"),
+    document.querySelector("#ten.green_box"),
+    document.querySelector("#eleven.green_box"),
+    document.querySelector("#twelve.green_box"),
+  ],
+};
+
+let pinkBoard = {
+  scores: [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+  ],
+  minimums: [1, 1, 2, 3, 4, 5, 6, 2, 3, 4, 5, 6],
+  elements: [
+    document.querySelector("#one.pink_box"),
+    document.querySelector("#two.pink_box"),
+    document.querySelector("#three.pink_box"),
+    document.querySelector("#four.pink_box"),
+    document.querySelector("#five.pink_box"),
+    document.querySelector("#six.pink_box"),
+    document.querySelector("#seven.pink_box"),
+    document.querySelector("#eight.pink_box"),
+    document.querySelector("#nine.pink_box"),
+    document.querySelector("#ten.pink_box"),
+    document.querySelector("#eleven.pink_box"),
+    document.querySelector("#twelve.pink_box"),
+  ],
+};
+
 /* ---- EVENT LISTENERS ---- */
 
 // Buttons
@@ -509,6 +573,16 @@ function renderVisible() {
 // SELECT DICE
 function selectDice(position) {
   if (diceLock == false) {
+    if (diceMat.colors[position] == "blue") {
+      if (checkBlue(diceMat.values[position]) == false) {
+        return false;
+      }
+    }
+    if (diceMat.colors[position] == "pink") {
+      if (checkPink(diceMat.values[position]) == false) {
+        return false;
+      }
+    }
     for (let i = 0; i < 3; i++) {
       if (selectedDice.values[i] == null) {
         selectedDice.elements[i].classList.add(diceMat.colors[position]);
@@ -529,8 +603,10 @@ function selectDice(position) {
         break;
       }
     }
+    return true;
   } else {
     console.log(`Roll the dice first!`);
+    return false;
   }
 }
 
@@ -752,10 +828,17 @@ function selectYellow(position) {
 function resolveBlue(blueValue) {
   let whiteValue = findWhite();
   let nextBox = blueBoard.scores.indexOf(null);
-  console.log(nextBox);
+  blueBoard.scores[nextBox] = blueValue + whiteValue;
+  blueBoard.elements[nextBox].textContent = blueValue + whiteValue;
+}
+
+function checkBlue(blueValue) {
+  let whiteValue = findWhite();
+  let nextBox = blueBoard.scores.indexOf(null);
   if (nextBox == 0 || blueBoard.scores[nextBox - 1] >= blueValue + whiteValue) {
-    blueBoard.scores[nextBox] = blueValue + whiteValue;
-    blueBoard.elements[nextBox].textContent = blueValue + whiteValue;
+    return true;
+  } else {
+    return false;
   }
 }
 
@@ -775,12 +858,27 @@ function findWhite() {
 
 /* ---- GREEN FUNCTIONS ---- */
 function resolveGreen(value) {
-  console.log(`Resolve green dice with a value of ${value}`);
+  let nextBox = greenBoard.scores.indexOf(null);
+  greenBoard.scores[nextBox] = value * greenBoard.multipliers[nextBox];
+  greenBoard.elements[nextBox].textContent = greenBoard.scores[nextBox];
+  greenBoard.elements[nextBox].classList.add("checked");
 }
 /* ---- PINK FUNCTIONS ---- */
 function resolvePink(value) {
-  console.log(`Resolve pink dice with a value of ${value}`);
+  let nextBox = pinkBoard.scores.indexOf(null);
+  pinkBoard.elements[nextBox].textContent = value;
+  pinkBoard.elements[nextBox].classList.add("checked");
 }
+
+function checkPink(value) {
+  let nextBox = pinkBoard.scores.indexOf(null);
+  if (value >= pinkBoard.minimums[nextBox]) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 /* ---- WHITE FUNCTIONS ---- */
 function resolveWhite(value) {
   console.log(`Resolve white dice with a value of ${value}`);
