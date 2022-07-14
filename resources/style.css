@@ -876,3 +876,12 @@ p {
 .selectable {
   background-color: palegreen;
 }
+
+.checked {
+  color: black;
+}
+
+.double_checked {
+  border: 3px solid black;
+  margin: 0;
+}

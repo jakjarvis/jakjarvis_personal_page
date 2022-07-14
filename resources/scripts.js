@@ -144,6 +144,23 @@ let greyBoard = {
   greyAndWhite: 0,
 };
 
+let yellowBoard = {
+  scores: [null, null, null, null, null, null, null, null, null, null],
+  numbers: [3, 6, 1, 2, 4, 3, 2, 5, 5, 4],
+  elements: [
+    document.querySelector("#one.yellow_box"),
+    document.querySelector("#two.yellow_box"),
+    document.querySelector("#three.yellow_box"),
+    document.querySelector("#four.yellow_box"),
+    document.querySelector("#five.yellow_box"),
+    document.querySelector("#six.yellow_box"),
+    document.querySelector("#seven.yellow_box"),
+    document.querySelector("#eight.yellow_box"),
+    document.querySelector("#nine.yellow_box"),
+    document.querySelector("#ten.yellow_box"),
+  ],
+};
+
 /* ---- EVENT LISTENERS ---- */
 
 // Buttons
@@ -377,6 +394,37 @@ greyBoard.elements[3][6].addEventListener("click", function () {
   selectGrey(3, 6);
 });
 
+yellowBoard.elements[0].addEventListener("click", function () {
+  selectYellow(0);
+});
+yellowBoard.elements[1].addEventListener("click", function () {
+  selectYellow(1);
+});
+yellowBoard.elements[2].addEventListener("click", function () {
+  selectYellow(2);
+});
+yellowBoard.elements[3].addEventListener("click", function () {
+  selectYellow(3);
+});
+yellowBoard.elements[4].addEventListener("click", function () {
+  selectYellow(4);
+});
+yellowBoard.elements[5].addEventListener("click", function () {
+  selectYellow(5);
+});
+yellowBoard.elements[6].addEventListener("click", function () {
+  selectYellow(6);
+});
+yellowBoard.elements[7].addEventListener("click", function () {
+  selectYellow(7);
+});
+yellowBoard.elements[8].addEventListener("click", function () {
+  selectYellow(8);
+});
+yellowBoard.elements[9].addEventListener("click", function () {
+  selectYellow(9);
+});
+
 /* ---- GAME FUNCTIONS ---- */
 
 // ROLL DICE
@@ -597,15 +645,19 @@ function resolveGrey(value, removedDice) {
   for (let i = 0; i < removedDice.length; i++) {
     if (removedDice[i][0] == "yellow") {
       greyBoard.elements[0][removedDice[i][1]].textContent = "X";
+      greyBoard.elements[0][removedDice[i][1]].classList.add("checked");
       greyBoard.scores[0][removedDice[i][1]] = true;
     } else if (removedDice[i][0] == "blue") {
       greyBoard.elements[1][removedDice[i][1]].textContent = "X";
+      greyBoard.elements[1][removedDice[i][1]].classList.add("checked");
       greyBoard.scores[1][removedDice[i][1]] = true;
     } else if (removedDice[i][0] == "green") {
       greyBoard.elements[2][removedDice[i][1]].textContent = "X";
+      greyBoard.elements[2][removedDice[i][1]].classList.add("checked");
       greyBoard.scores[2][removedDice[i][1]] = true;
     } else if (removedDice[i][0] == "pink") {
       greyBoard.elements[3][removedDice[i][1]].textContent = "X";
+      greyBoard.elements[3][removedDice[i][1]].classList.add("checked");
       greyBoard.scores[3][removedDice[i][1]] = true;
     }
   }
@@ -628,6 +680,7 @@ function selectGrey(colorIndex, numberIndex) {
   greyBoard.scores[colorIndex][numberIndex] = true;
   greyBoard.elements[colorIndex][numberIndex].classList.remove("selectable");
   greyBoard.elements[colorIndex][numberIndex].textContent = "X";
+  greyBoard.elements[colorIndex][numberIndex].classList.add("checked");
   for (let i = 0; i < 4; i++) {
     greyBoard.elements[i][numberIndex].classList.remove("selectable");
   }
@@ -641,8 +694,29 @@ function selectGrey(colorIndex, numberIndex) {
 
 /* ---- YELLOW FUNCTIONS ---- */
 function resolveYellow(value) {
-  console.log(`Resolve yellow dice with a value of ${value}`);
+  for (let i = 0; i < 10; i++) {
+    if (yellowBoard.numbers[i] == value && yellowBoard.scores[i] !== true) {
+      yellowBoard.elements[i].classList.add("selectable");
+    }
+  }
 }
+
+function selectYellow(position) {
+  if (yellowBoard.scores[position] == true) {
+    console.log(`Already fully marked`);
+  } else if (yellowBoard.scores[position] == false) {
+    yellowBoard.elements[position].classList.add("double_checked");
+    yellowBoard.scores[position] = true;
+  } else {
+    yellowBoard.elements[position].textContent = "X";
+    yellowBoard.scores[position] = false;
+    yellowBoard.elements[position].classList.add("checked");
+  }
+  for (let i = 0; i < 10; i++) {
+    yellowBoard.elements[i].classList.remove("selectable");
+  }
+}
+
 /* ---- BLUE FUNCTIONS ---- */
 function resolveBlue(value) {
   console.log(`Resolve blue dice with a value of ${value}`);
