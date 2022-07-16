@@ -291,34 +291,58 @@ rollBtnEl.addEventListener("click", function () {
 
 // Dice Mat
 diceMat.elements[0].addEventListener("click", function () {
-  selectDice(0);
-  diceLock = true;
-  rollLock = false;
+  if (checkDice(0) == true) {
+    selectDice(0);
+    diceLock = true;
+    rollLock = false;
+  } else {
+    console.log(`Invalid choice`);
+  }
 });
 diceMat.elements[1].addEventListener("click", function () {
-  selectDice(1);
-  diceLock = true;
-  rollLock = false;
+  if (checkDice(1) == true) {
+    selectDice(1);
+    diceLock = true;
+    rollLock = false;
+  } else {
+    console.log(`Invalid choice`);
+  }
 });
 diceMat.elements[2].addEventListener("click", function () {
-  selectDice(2);
-  diceLock = true;
-  rollLock = false;
+  if (checkDice(2) == true) {
+    selectDice(2);
+    diceLock = true;
+    rollLock = false;
+  } else {
+    console.log(`Invalid choice`);
+  }
 });
 diceMat.elements[3].addEventListener("click", function () {
-  selectDice(3);
-  diceLock = true;
-  rollLock = false;
+  if (checkDice(3) == true) {
+    selectDice(3);
+    diceLock = true;
+    rollLock = false;
+  } else {
+    console.log(`Invalid choice`);
+  }
 });
 diceMat.elements[4].addEventListener("click", function () {
-  selectDice(4);
-  diceLock = true;
-  rollLock = false;
+  if (checkDice(4) == true) {
+    selectDice(4);
+    diceLock = true;
+    rollLock = false;
+  } else {
+    console.log(`Invalid choice`);
+  }
 });
 diceMat.elements[5].addEventListener("click", function () {
-  selectDice(5);
-  diceLock = true;
-  rollLock = false;
+  if (checkDice(5) == true) {
+    selectDice(5);
+    diceLock = true;
+    rollLock = false;
+  } else {
+    console.log(`Invalid choice`);
+  }
 });
 
 // Dice Plate
@@ -489,7 +513,12 @@ greyBoard.elements[3][6].addEventListener("click", function () {
   selectGrey(3, 6);
 });
 
+blueBoard.elements[0].addEventListener("click", function () {
+  console.log(`Clicked blue`);
+});
+
 yellowBoard.elements[0].addEventListener("click", function () {
+  console.log(`Yellow clicked`);
   selectYellow(0);
 });
 yellowBoard.elements[1].addEventListener("click", function () {
@@ -518,6 +547,117 @@ yellowBoard.elements[8].addEventListener("click", function () {
 });
 yellowBoard.elements[9].addEventListener("click", function () {
   selectYellow(9);
+});
+
+/*blueBoard.elements[0].addEventListener("click", function () {
+  console.log(`Blue clicked`);
+});*/
+blueBoard.elements[1].addEventListener("click", function () {
+  selectBlue(1);
+});
+blueBoard.elements[2].addEventListener("click", function () {
+  selectBlue(2);
+});
+blueBoard.elements[3].addEventListener("click", function () {
+  selectBlue(3);
+});
+blueBoard.elements[4].addEventListener("click", function () {
+  selectBlue(4);
+});
+blueBoard.elements[5].addEventListener("click", function () {
+  selectBlue(5);
+});
+blueBoard.elements[6].addEventListener("click", function () {
+  selectBlue(6);
+});
+blueBoard.elements[7].addEventListener("click", function () {
+  selectBlue(7);
+});
+blueBoard.elements[8].addEventListener("click", function () {
+  selectBlue(8);
+});
+blueBoard.elements[9].addEventListener("click", function () {
+  selectBlue(9);
+});
+blueBoard.elements[10].addEventListener("click", function () {
+  selectBlue(10);
+});
+blueBoard.elements[11].addEventListener("click", function () {
+  selectBlue(11);
+});
+
+greenBoard.elements[0].addEventListener("click", function () {
+  selectGreen(0);
+});
+greenBoard.elements[1].addEventListener("click", function () {
+  selectGreen(1);
+});
+greenBoard.elements[2].addEventListener("click", function () {
+  selectGreen(2);
+});
+greenBoard.elements[3].addEventListener("click", function () {
+  selectGreen(3);
+});
+greenBoard.elements[4].addEventListener("click", function () {
+  selectGreen(4);
+});
+greenBoard.elements[5].addEventListener("click", function () {
+  selectGreen(5);
+});
+greenBoard.elements[6].addEventListener("click", function () {
+  selectGreen(6);
+});
+greenBoard.elements[7].addEventListener("click", function () {
+  selectGreen(7);
+});
+greenBoard.elements[8].addEventListener("click", function () {
+  selectGreen(8);
+});
+greenBoard.elements[9].addEventListener("click", function () {
+  selectGreen(9);
+});
+greenBoard.elements[10].addEventListener("click", function () {
+  selectGreen(10);
+});
+greenBoard.elements[11].addEventListener("click", function () {
+  selectGreen(11);
+});
+
+pinkBoard.elements[0].addEventListener("click", function () {
+  selectPink(0);
+});
+pinkBoard.elements[1].addEventListener("click", function () {
+  selectPink(1);
+});
+pinkBoard.elements[2].addEventListener("click", function () {
+  selectPink(2);
+});
+pinkBoard.elements[3].addEventListener("click", function () {
+  selectPink(3);
+});
+pinkBoard.elements[4].addEventListener("click", function () {
+  selectPink(4);
+});
+pinkBoard.elements[5].addEventListener("click", function () {
+  selectPink(5);
+});
+pinkBoard.elements[6].addEventListener("click", function () {
+  selectPink(6);
+});
+pinkBoard.elements[7].addEventListener("click", function () {
+  selectPink(7);
+});
+pinkBoard.elements[8].addEventListener("click", function () {
+  selectPink(8);
+});
+pinkBoard.elements[9].addEventListener("click", function () {
+  selectPink(9);
+});
+pinkBoard.elements[10].addEventListener("click", function () {
+  selectPink(10);
+});
+pinkBoard.elements[11].addEventListener("click", function () {
+  selectPink(11);
 });
 
 /* ---- GAME FUNCTIONS ---- */
@@ -571,18 +711,35 @@ function renderVisible() {
 }
 
 // SELECT DICE
+function checkDice(position) {
+  if (diceMat.colors[position] == "grey") {
+    return true;
+  }
+  if (diceMat.colors[position] == "yellow") {
+    if (checkYellow(diceMat.values[position]) == false) {
+      return false;
+    }
+  }
+  if (diceMat.colors[position] == "blue") {
+    if (checkBlue(diceMat.values[position], findWhite()) == false) {
+      return false;
+    }
+  }
+  if (diceMat.colors[position] == "green") {
+    if (checkGreen(diceMat.values[position]) == false) {
+      return false;
+    }
+  }
+  if (diceMat.colors[position] == "pink") {
+    if (checkPink(diceMat.values[position]) == false) {
+      return false;
+    }
+  }
+  return true;
+}
+
 function selectDice(position) {
   if (diceLock == false) {
-    if (diceMat.colors[position] == "blue") {
-      if (checkBlue(diceMat.values[position]) == false) {
-        return false;
-      }
-    }
-    if (diceMat.colors[position] == "pink") {
-      if (checkPink(diceMat.values[position]) == false) {
-        return false;
-      }
-    }
     for (let i = 0; i < 3; i++) {
       if (selectedDice.values[i] == null) {
         selectedDice.elements[i].classList.add(diceMat.colors[position]);
@@ -772,35 +929,57 @@ function resolveGrey(value, removedDice) {
     if (removedDice[i][0] == "grey" || removedDice[i][0] == "white") {
       greyBoard.greyAndWhite += 1;
       console.log(`Grey or white dice`);
-      for (let j = 0; j < 4; j++) {
-        if (!greyBoard.scores[j][removedDice[i][1]]) {
-          greyBoard.elements[j][removedDice[i][1]].classList.add("selectable");
-        }
-      }
+      highlightGrey(removedDice[i][1]);
       scoringLock = true;
       console.log(`Dice locked`);
     }
   }
 }
 
+function highlightGrey(value) {
+  for (let j = 0; j < 4; j++) {
+    if (!greyBoard.scores[j][value]) {
+      greyBoard.elements[j][value].classList.add("selectable");
+    }
+  }
+}
+
 function selectGrey(colorIndex, numberIndex) {
-  greyBoard.scores[colorIndex][numberIndex] = true;
-  greyBoard.elements[colorIndex][numberIndex].classList.remove("selectable");
-  greyBoard.elements[colorIndex][numberIndex].textContent = "X";
-  greyBoard.elements[colorIndex][numberIndex].classList.add("checked");
+  if (
+    greyBoard.elements[colorIndex][numberIndex].classList.contains("selectable")
+  ) {
+    greyBoard.scores[colorIndex][numberIndex] = true;
+    greyBoard.elements[colorIndex][numberIndex].classList.remove("selectable");
+    greyBoard.elements[colorIndex][numberIndex].textContent = "X";
+    greyBoard.elements[colorIndex][numberIndex].classList.add("checked");
+    if (greyBoard.greyAndWhite == 2) {
+      greyBoard.greyAndWhite = 1;
+      for (let i = 0; i < 4; i++) {
+        greyBoard.elements[i][numberIndex].classList.remove("selectable");
+      }
+    } else {
+      greyBoard.greyAndWhite = 0;
+      unselectAll();
+      scoringLock = false;
+    }
+  }
+}
+
+function checkGrey(value) {
   for (let i = 0; i < 4; i++) {
-    greyBoard.elements[i][numberIndex].classList.remove("selectable");
+    if (!greyBoard.scores[i][value]) {
+      return true;
+    }
   }
-  if (greyBoard.greyAndWhite == 2) {
-    greyBoard.greyAndWhite -= 1;
-  } else {
-    greyBoard.greyAndWhite -= 1;
-    scoringLock = false;
-  }
+  return false;
 }
 
 /* ---- YELLOW FUNCTIONS ---- */
 function resolveYellow(value) {
+  highlightYellow(value);
+}
+
+function highlightYellow(value) {
   for (let i = 0; i < 10; i++) {
     if (yellowBoard.numbers[i] == value && yellowBoard.scores[i] !== true) {
       yellowBoard.elements[i].classList.add("selectable");
@@ -809,19 +988,29 @@ function resolveYellow(value) {
 }
 
 function selectYellow(position) {
-  if (yellowBoard.scores[position] == true) {
-    console.log(`Already fully marked`);
-  } else if (yellowBoard.scores[position] == false) {
-    yellowBoard.elements[position].classList.add("double_checked");
-    yellowBoard.scores[position] = true;
-  } else {
-    yellowBoard.elements[position].textContent = "X";
-    yellowBoard.scores[position] = false;
-    yellowBoard.elements[position].classList.add("checked");
+  if (yellowBoard.elements[position].classList.contains("selectable")) {
+    if (yellowBoard.scores[position] == true) {
+      console.log(`Already fully marked`);
+    } else if (yellowBoard.scores[position] == false) {
+      yellowBoard.elements[position].classList.add("double_checked");
+      yellowBoard.scores[position] = true;
+    } else {
+      yellowBoard.elements[position].textContent = "X";
+      yellowBoard.scores[position] = false;
+      yellowBoard.elements[position].classList.add("checked");
+    }
+    unselectAll();
   }
+}
+
+function checkYellow(value) {
+  let validBoxes = false;
   for (let i = 0; i < 10; i++) {
-    yellowBoard.elements[i].classList.remove("selectable");
+    if ((yellowBoard.numbers[i] = value && !yellowBoard.scores[i])) {
+      return true;
+    }
   }
+  return false;
 }
 
 /* ---- BLUE FUNCTIONS ---- */
@@ -832,11 +1021,26 @@ function resolveBlue(blueValue) {
   blueBoard.elements[nextBox].textContent = blueValue + whiteValue;
 }
 
-function checkBlue(blueValue) {
-  let whiteValue = findWhite();
+function highlightBlue() {
+  for (let i = 0; i < 12; i++) {
+    if (blueBoard.scores[i] == null) {
+      blueBoard.elements[i].classList.add("selectable");
+      break;
+    }
+  }
+}
+
+function checkBlue(blueValue, whiteValue) {
   let nextBox = blueBoard.scores.indexOf(null);
-  if (nextBox == 0 || blueBoard.scores[nextBox - 1] >= blueValue + whiteValue) {
-    return true;
+  if (blueBoard.scores.includes(null)) {
+    if (
+      nextBox == 0 ||
+      blueBoard.scores[nextBox - 1] >= blueValue + whiteValue
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   } else {
     return false;
   }
@@ -856,6 +1060,14 @@ function findWhite() {
   return whiteValue;
 }
 
+function selectBlue(position) {
+  if (blueBoard.elements[position].classList.contains("selectable")) {
+    blueBoard.scores[position] = findBlue() + findWhite();
+    blueBoard.elements[position].textContent = blueBoard.scores[position];
+    unselectAll();
+  }
+}
+
 /* ---- GREEN FUNCTIONS ---- */
 function resolveGreen(value) {
   let nextBox = greenBoard.scores.indexOf(null);
@@ -863,6 +1075,33 @@ function resolveGreen(value) {
   greenBoard.elements[nextBox].textContent = greenBoard.scores[nextBox];
   greenBoard.elements[nextBox].classList.add("checked");
 }
+
+function highlightGreen() {
+  for (let i = 0; i < 12; i++) {
+    if (greenBoard.scores[i] == null) {
+      greenBoard.elements[i].classList.add("selectable");
+      break;
+    }
+  }
+}
+
+function checkGreen(value) {
+  if (greenBoard.scores.includes(null)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function selectGreen(position) {
+  if (greenBoard.elements[position].classList.contains("selectable")) {
+    greenBoard.scores[position] =
+      greenBoard.multipliers[position] * findWhite();
+    greenBoard.elements[position].textContent = greenBoard.scores[position];
+    unselectAll();
+  }
+}
+
 /* ---- PINK FUNCTIONS ---- */
 function resolvePink(value) {
   let nextBox = pinkBoard.scores.indexOf(null);
@@ -870,16 +1109,83 @@ function resolvePink(value) {
   pinkBoard.elements[nextBox].classList.add("checked");
 }
 
+function highlightPink() {
+  for (let i = 0; i < 12; i++) {
+    if (pinkBoard.scores[i] == null) {
+      pinkBoard.elements[i].classList.add("selectable");
+      break;
+    }
+  }
+}
+
 function checkPink(value) {
   let nextBox = pinkBoard.scores.indexOf(null);
-  if (value >= pinkBoard.minimums[nextBox]) {
-    return true;
+  if (pinkBoard.scores.includes(null)) {
+    if (value >= pinkBoard.minimums[nextBox]) {
+      return true;
+    } else {
+      return false;
+    }
   } else {
     return false;
   }
 }
 
+function selectPink(position) {
+  if (pinkBoard.elements[position].classList.contains("selectable")) {
+    pinkBoard.scores[position] = findWhite();
+    pinkBoard.elements[position].textContent = pinkBoard.scores[position];
+    unselectAll();
+  }
+}
+
 /* ---- WHITE FUNCTIONS ---- */
 function resolveWhite(value) {
-  console.log(`Resolve white dice with a value of ${value}`);
+  if (checkGrey(value) == true) {
+    highlightGrey(value);
+  }
+  if (checkYellow(value) == true) {
+    highlightYellow(value);
+  }
+  if (checkBlue(value, findBlue()) == true) {
+    highlightBlue();
+  }
+  if (checkGreen(value) == true) {
+    highlightGreen();
+  }
+  if (checkPink(value) == true) {
+    highlightPink();
+  }
+  scoringLock = true;
+}
+
+function unselectAll() {
+  for (let i = 0; i < 4; i++) {
+    for (let j = 1; j < 7; j++) {
+      greyBoard.elements[i][j].classList.remove("selectable");
+    }
+  }
+  for (let i = 0; i < 10; i++) {
+    yellowBoard.elements[i].classList.remove("selectable");
+  }
+  for (let i = 0; i < 12; i++) {
+    blueBoard.elements[i].classList.remove("selectable");
+    greenBoard.elements[i].classList.remove("selectable");
+    pinkBoard.elements[i].classList.remove("selectable");
+  }
+  scoringLock = false;
+}
+
+function findBlue() {
+  let blueValue = 0;
+  if (!diceMat.empty[diceMat.colors.indexOf("blue")]) {
+    blueValue = diceMat.values[diceMat.colors.indexOf("blue")];
+  } else if (selectedDice.colors.includes("blue")) {
+    blueValue = selectedDice.values[selectedDice.colors.indexOf("blue")];
+  } else if (dicePlate.colors.includes("blue")) {
+    blueValue = dicePlate.values[dicePlate.colors.indexOf("blue")];
+  } else {
+    console.log(`Couldn't find a white dice`);
+  }
+  return blueValue;
 }
