@@ -513,10 +513,6 @@ greyBoard.elements[3][6].addEventListener("click", function () {
   selectGrey(3, 6);
 });
 
-blueBoard.elements[0].addEventListener("click", function () {
-  console.log(`Clicked blue`);
-});
-
 yellowBoard.elements[0].addEventListener("click", function () {
   console.log(`Yellow clicked`);
   selectYellow(0);
@@ -549,9 +545,9 @@ yellowBoard.elements[9].addEventListener("click", function () {
   selectYellow(9);
 });
 
-/*blueBoard.elements[0].addEventListener("click", function () {
-  console.log(`Blue clicked`);
-});*/
+blueBoard.elements[0].addEventListener("click", function () {
+  selectBlue(0);
+});
 blueBoard.elements[1].addEventListener("click", function () {
   selectBlue(1);
 });
@@ -1064,6 +1060,7 @@ function selectBlue(position) {
   if (blueBoard.elements[position].classList.contains("selectable")) {
     blueBoard.scores[position] = findBlue() + findWhite();
     blueBoard.elements[position].textContent = blueBoard.scores[position];
+    blueBoard.elements[position].classList.add("checked");
     unselectAll();
   }
 }
@@ -1099,6 +1096,7 @@ function selectGreen(position) {
       greenBoard.multipliers[position] * findWhite();
     greenBoard.elements[position].textContent = greenBoard.scores[position];
     unselectAll();
+    greenBoard.elements[position].classList.add("checked");
   }
 }
 
@@ -1136,6 +1134,7 @@ function selectPink(position) {
     pinkBoard.scores[position] = findWhite();
     pinkBoard.elements[position].textContent = pinkBoard.scores[position];
     unselectAll();
+    pinkBoard.elements[position].classList.add("checked");
   }
 }
 

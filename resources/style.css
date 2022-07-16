@@ -520,7 +520,6 @@ p {
 
 .blue_boxes {
   position: relative;
-
   width: 450px;
   top: 10px;
   display: flex;
@@ -557,18 +556,42 @@ p {
   font-weight: 800;
 }
 
-#one.ge_sign {
-  margin-left: 48px;
-}
-#four.ge_sign {
-  margin-left: 28px;
-}
-#seven.ge_sign {
-  margin-left: 28px;
+.ge_sign {
+  position: absolute;
 }
 
-.ge_sign {
-  margin-left: 27px;
+#one.ge_sign {
+  left: 48px;
+}
+#two.ge_sign {
+  left: 85px;
+}
+#three.ge_sign {
+  left: 121px;
+}
+#four.ge_sign {
+  left: 157px;
+}
+#five.ge_sign {
+  left: 193px;
+}
+#six.ge_sign {
+  left: 229px;
+}
+#seven.ge_sign {
+  left: 265px;
+}
+#eight.ge_sign {
+  left: 301px;
+}
+#nine.ge_sign {
+  left: 337px;
+}
+#ten.ge_sign {
+  left: 373px;
+}
+#eleven.ge_sign {
+  left: 409px;
 }
 
 .blue_bonuses {
@@ -610,6 +633,7 @@ p {
 }
 
 .green_scores {
+  z-index: 1;
   display: flex;
   flex-direction: row;
   position: absolute;
@@ -637,7 +661,6 @@ p {
 
 .green_boxes {
   position: relative;
-  z-index: -1;
   width: 450px;
   top: 10px;
   display: flex;
@@ -675,18 +698,27 @@ p {
   font-size: 200%;
 }
 
-#one.minus_sign {
-  margin-left: 48px;
-}
-#three.minus_sign {
-  margin-left: 62px;
-}
-#five.minus_sign {
-  margin-left: 61px;
+.minus_sign {
+  position: absolute;
 }
 
-.minus_sign {
-  margin-left: 61px;
+#one.minus_sign {
+  left: 48px;
+}
+#two.minus_sign {
+  left: 120px;
+}
+#three.minus_sign {
+  left: 192px;
+}
+#four.minus_sign {
+  left: 264px;
+}
+#five.minus_sign {
+  left: 336px;
+}
+#six.minus_sign {
+  left: 408px;
 }
 
 .green_bonuses {
@@ -730,7 +762,6 @@ p {
 
 .pink_boxes {
   position: relative;
-  z-index: -1;
   width: 450px;
   top: 10px;
   display: flex;
