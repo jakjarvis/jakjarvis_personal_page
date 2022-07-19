@@ -815,7 +815,7 @@ p {
 .dice_mat {
   width: 300px;
   height: 300px;
-  margin-left: 20px;
+  margin-left: 10px;
   background-color: lightgoldenrodyellow;
   border-radius: 20px;
 }
@@ -847,14 +847,14 @@ p {
 .test_btn {
   width: 100px;
   margin-top: 10px;
-  margin-left: 120px;
+  margin-left: 110px;
   background-color: red;
 }
 
 .roll_btn {
   width: 200px;
   margin-top: 10px;
-  margin-left: 70px;
+  margin-left: 60px;
   background-color: #ffffff;
 }
 
@@ -864,10 +864,10 @@ p {
   align-items: center;
   justify-content: center;
   width: 300px;
-  height: 250px;
+  height: 100px;
   border-radius: 150px;
   background-color: grey;
-  margin: 10px 10px 10px 20px;
+  margin: 10px;
 }
 
 .plate_die {
@@ -875,6 +875,23 @@ p {
   height: 50px;
   width: 50px;
   margin: 5px;
+}
+
+.logger {
+  position: relative;
+  width: 300px;
+  height: 100px;
+  color: black;
+  background-color: white;
+  margin: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.messages {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
 }
 
 .hidden {

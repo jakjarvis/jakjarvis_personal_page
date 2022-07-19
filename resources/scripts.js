@@ -9,10 +9,12 @@ let rollLock = false;
 let scoringLock = false;
 let returnLock = true;
 let additionalLock = true;
+let turn = 1;
 
 /* ---- ELEMENTS ---- */
 const testBtnEl = document.querySelector(".test_btn"); // DELETE IN PROD
 const rollBtnEl = document.querySelector(".roll_btn");
+const logger = document.querySelector(".messages");
 
 /* ---- OBJECTS ---- */
 
@@ -281,105 +283,49 @@ rollBtnEl.addEventListener("click", function () {
       `Dice values are ${diceMat.values}, dice colors are ${diceMat.colors}`
     );
   } else if (rollLock) {
-    console.log(`Pick a dice before you reroll`);
+    printLog(`Pick a dice before you reroll`);
   } else if (scoringLock) {
-    console.log(`Pick your scores`);
+    printLog(`Pick your scores`);
   } else {
-    console.log("All dice selected");
+    printLog("All dice selected");
   }
 });
 
 // Dice Mat
 diceMat.elements[0].addEventListener("click", function () {
-  if (checkDice(0) == true) {
-    selectDice(0);
-    diceLock = true;
-    rollLock = false;
-  } else {
-    console.log(`Invalid choice`);
-  }
+  diceMatClick(0);
 });
 diceMat.elements[1].addEventListener("click", function () {
-  if (checkDice(1) == true) {
-    selectDice(1);
-    diceLock = true;
-    rollLock = false;
-  } else {
-    console.log(`Invalid choice`);
-  }
+  diceMatClick(1);
 });
 diceMat.elements[2].addEventListener("click", function () {
-  if (checkDice(2) == true) {
-    selectDice(2);
-    diceLock = true;
-    rollLock = false;
-  } else {
-    console.log(`Invalid choice`);
-  }
+  diceMatClick(2);
 });
 diceMat.elements[3].addEventListener("click", function () {
-  if (checkDice(3) == true) {
-    selectDice(3);
-    diceLock = true;
-    rollLock = false;
-  } else {
-    console.log(`Invalid choice`);
-  }
+  diceMatClick(3);
 });
 diceMat.elements[4].addEventListener("click", function () {
-  if (checkDice(4) == true) {
-    selectDice(4);
-    diceLock = true;
-    rollLock = false;
-  } else {
-    console.log(`Invalid choice`);
-  }
+  diceMatClick(4);
 });
 diceMat.elements[5].addEventListener("click", function () {
-  if (checkDice(5) == true) {
-    selectDice(5);
-    diceLock = true;
-    rollLock = false;
-  } else {
-    console.log(`Invalid choice`);
-  }
+  diceMatClick(5);
 });
 
 // Dice Plate
 dicePlate.elements[0].addEventListener("click", function () {
-  if (!returnLock) {
-    returnDice(0, dicePlate.values[0], dicePlate.colors[0]);
-  } else if (!additionalLock) {
-    useAdditional(0, dicePlate.values[0], dicePlate.colors[0]);
-  }
+  dicePlateClick(0);
 });
 dicePlate.elements[1].addEventListener("click", function () {
-  if (!returnLock) {
-    returnDice(1, dicePlate.values[1], dicePlate.colors[1]);
-  } else if (!additionalLock) {
-    useAdditional(1, dicePlate.values[1], dicePlate.colors[1]);
-  }
+  dicePlateClick(1);
 });
 dicePlate.elements[2].addEventListener("click", function () {
-  if (!returnLock) {
-    returnDice(2, dicePlate.values[2], dicePlate.colors[2]);
-  } else if (!additionalLock) {
-    useAdditional(2, dicePlate.values[2], dicePlate.colors[2]);
-  }
+  dicePlateClick(2);
 });
 dicePlate.elements[3].addEventListener("click", function () {
-  if (!returnLock) {
-    returnDice(3, dicePlate.values[3], dicePlate.colors[3]);
-  } else if (!additionalLock) {
-    useAdditional(3, dicePlate.values[3], dicePlate.colors[3]);
-  }
+  dicePlateClick(3);
 });
 dicePlate.elements[4].addEventListener("click", function () {
-  if (!returnLock) {
-    returnDice(4, dicePlate.values[4], dicePlate.colors[4]);
-  } else if (!additionalLock) {
-    useAdditional(4, dicePlate.values[4], dicePlate.colors[4]);
-  }
+  dicePlateClick(4);
 });
 
 // Tracks
@@ -706,6 +652,16 @@ function renderVisible() {
 }
 
 // SELECT DICE
+function diceMatClick(elementId) {
+  if (checkDice(elementId) == true) {
+    selectDice(elementId);
+    diceLock = true;
+    rollLock = false;
+  } else {
+    printLog(`Invalid choice`);
+  }
+}
+
 function checkDice(position) {
   if (diceMat.colors[position] == "grey") {
     return true;
@@ -789,6 +745,22 @@ function addToPlate(value, color) {
       dicePlate.elements[j].classList.remove("hidden");
       break;
     }
+  }
+}
+
+function dicePlateClick(elementId) {
+  if (!returnLock) {
+    returnDice(
+      elementId,
+      dicePlate.values[elementId],
+      dicePlate.colors[elementId]
+    );
+  } else if (!additionalLock) {
+    useAdditional(
+      elementId,
+      dicePlate.values[elementId],
+      dicePlate.colors[elementId]
+    );
   }
 }
 
@@ -1186,4 +1158,9 @@ function findBlue() {
     console.log(`Couldn't find a white dice`);
   }
   return blueValue;
+}
+
+function printLog(text) {
+  console.log(text);
+  logger.innerHTML += text + "<br />";
 }
