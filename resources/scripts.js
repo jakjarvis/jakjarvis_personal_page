@@ -514,7 +514,6 @@ greyBoard.elements[3][6].addEventListener("click", function () {
 });
 
 yellowBoard.elements[0].addEventListener("click", function () {
-  console.log(`Yellow clicked`);
   selectYellow(0);
 });
 yellowBoard.elements[1].addEventListener("click", function () {
@@ -1002,7 +1001,7 @@ function selectYellow(position) {
 function checkYellow(value) {
   let validBoxes = false;
   for (let i = 0; i < 10; i++) {
-    if ((yellowBoard.numbers[i] = value && !yellowBoard.scores[i])) {
+    if (yellowBoard.numbers[i] == value && !yellowBoard.scores[i]) {
       return true;
     }
   }
