@@ -934,3 +934,7 @@ p {
   border: 3px solid black;
   margin: 0;
 }
+
+.active_turn {
+  background-color: red;
+}
