@@ -10,6 +10,7 @@ let scoringLock = false;
 let returnLock = true;
 let additionalLock = true;
 let turn = 1;
+let fuchs = 0;
 
 /* ---- ELEMENTS ---- */
 const testBtnEl = document.querySelector(".test_btn"); // DELETE IN PROD
@@ -74,6 +75,7 @@ let turnTrack = {
 let rerollTrack = {
   achieved: [false, false, false, false, false, false],
   taken: [false, false, false, false, false, false],
+  bonuses: false,
   elements: [
     document.querySelector(".reroll_bubble0"),
     document.querySelector(".reroll_bubble1"),
@@ -87,6 +89,7 @@ let rerollTrack = {
 let returnTrack = {
   achieved: [false, false, false, false, false, false],
   taken: [false, false, false, false, false, false],
+  bonuses: false,
   elements: [
     document.querySelector(".return_bubble0"),
     document.querySelector(".return_bubble1"),
@@ -100,6 +103,7 @@ let returnTrack = {
 let additionalTrack = {
   achieved: [false, false, false, false, false, false],
   taken: [false, false, false, false, false, false],
+  bonuses: false,
   elements: [
     document.querySelector(".additional_bubble0"),
     document.querySelector(".additional_bubble1"),
@@ -117,6 +121,7 @@ let greyBoard = {
     ["green", false, false, false, false, false, false],
     ["pink", false, false, false, false, false, false],
   ],
+  bonuses: [0, false, false, false, false, false, false],
   elements: [
     [
       "yellow",
@@ -161,6 +166,10 @@ let greyBoard = {
 let yellowBoard = {
   scores: [null, null, null, null, null, null, null, null, null, null],
   numbers: [3, 6, 1, 2, 4, 3, 2, 5, 5, 4],
+  bonuses: [
+    [false, false, false, false, false],
+    [false, false, false, false],
+  ],
   elements: [
     document.querySelector("#one.yellow_box"),
     document.querySelector("#two.yellow_box"),
@@ -190,6 +199,7 @@ let blueBoard = {
     null,
     null,
   ],
+  bonuses: [false, false, false, false, false, false, false, false],
   elements: [
     document.querySelector("#one.blue_box"),
     document.querySelector("#two.blue_box"),
@@ -222,6 +232,7 @@ let greenBoard = {
     null,
   ],
   multipliers: [2, 2, 2, 1, 3, 3, 3, 2, 3, 1, 4, 1],
+  bonuses: [false, false, false, false, false, false, false, false],
   elements: [
     document.querySelector("#one.green_box"),
     document.querySelector("#two.green_box"),
@@ -254,6 +265,18 @@ let pinkBoard = {
     null,
   ],
   minimums: [1, 1, 2, 3, 4, 5, 6, 2, 3, 4, 5, 6],
+  bonuses: [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ],
   elements: [
     document.querySelector("#one.pink_box"),
     document.querySelector("#two.pink_box"),
@@ -854,6 +877,9 @@ function achieveReroll() {
     if (!rerollTrack.achieved[i]) {
       rerollTrack.achieved[i] = true;
       rerollTrack.elements[i].classList.add("achieved");
+      if (i == 5) {
+        fuchs += 1;
+      }
       break;
     }
   }
@@ -876,6 +902,9 @@ function achieveReturn() {
     if (!returnTrack.achieved[i]) {
       returnTrack.achieved[i] = true;
       returnTrack.elements[i].classList.add("achieved");
+      if (i == 5) {
+        addBestPink();
+      }
       break;
     }
   }
@@ -912,12 +941,15 @@ function achieveAdditional() {
     if (!additionalTrack.achieved[i]) {
       additionalTrack.achieved[i] = true;
       additionalTrack.elements[i].classList.add("achieved");
+      if (i == 5) {
+        highlightGrey([1, 2, 3, 4, 5, 6]);
+      }
       break;
     }
   }
 }
 
-function useAdditional(position, value, color) {
+function useAdditional(position, color, value) {
   console.log(
     `Need to add the function to use die from plate position ${position} (${color} ${value}) once the gameboard functionality is completed.`
   );
@@ -925,7 +957,6 @@ function useAdditional(position, value, color) {
 
 // USE CHOICE
 // USE BONUS COLOR
-// ADVANCE TURN
 // CALCULATE SCORE
 
 /* ---- GREY FUNCTIONS ---- */
@@ -963,9 +994,14 @@ function resolveGrey(value, removedDice) {
 }
 
 function highlightGrey(value) {
-  for (let j = 0; j < 4; j++) {
-    if (!greyBoard.scores[j][value]) {
-      greyBoard.elements[j][value].classList.add("selectable");
+  if (typeof value == "number") {
+    value = [value];
+  }
+  for (let j of value) {
+    for (let k = 0; k < 4; k++) {
+      if (!greyBoard.scores[k][j]) {
+        greyBoard.elements[k][j].classList.add("selectable");
+      }
     }
   }
 }
@@ -989,6 +1025,7 @@ function selectGrey(colorIndex, numberIndex) {
       scoringLock = false;
       checkNextTurn();
     }
+    checkGreyBonuses();
   }
 }
 
@@ -1001,15 +1038,48 @@ function checkGrey(value) {
   return false;
 }
 
+function checkGreyBonuses() {
+  function checkGreyLine(lineNumber) {
+    if (
+      greyBoard.scores[0][lineNumber] == true &&
+      greyBoard.scores[1][lineNumber] == true &&
+      greyBoard.scores[2][lineNumber] == true &&
+      greyBoard.scores[3][lineNumber] == true &&
+      greyBoard.bonuses[lineNumber] == false
+    ) {
+      if (lineNumber == 1) {
+        achieveAdditional();
+      } else if (lineNumber == 2) {
+        highlightYellow([1, 2, 3, 4, 5, 6]);
+      } else if (lineNumber == 3) {
+        fuchs += 1;
+      } else if (lineNumber == 4) {
+        addBestBlue();
+      } else if (lineNumber == 5) {
+        addBestGreen();
+      }
+      greenBoard.bonuses[lineNumber] = true;
+    }
+  }
+  for (let i = 0; i < 6; i++) {
+    checkGreyLine(i);
+  }
+}
+
 /* ---- YELLOW FUNCTIONS ---- */
 function resolveYellow(value) {
   highlightYellow(value);
 }
 
 function highlightYellow(value) {
-  for (let i = 0; i < 10; i++) {
-    if (yellowBoard.numbers[i] == value && yellowBoard.scores[i] !== true) {
-      yellowBoard.elements[i].classList.add("selectable");
+  if (typeof value == "number") {
+    value = [value];
+  }
+  for (let i of value) {
+    for (let j = 0; j < 10; j++) {
+      if (yellowBoard.numbers[j] == i && yellowBoard.scores[j] !== true) {
+        yellowBoard.elements[j].classList.add("selectable");
+      }
     }
   }
 }
@@ -1054,6 +1124,17 @@ function highlightBlue() {
   for (let i = 0; i < 12; i++) {
     if (blueBoard.scores[i] == null) {
       blueBoard.elements[i].classList.add("selectable");
+      break;
+    }
+  }
+}
+
+function addBestBlue() {
+  for (let i = 0; i < 12; i++) {
+    if (blueBoard.scores[i] == null) {
+      blueBoard.scores[i] = blueBoard.scores[i - 1];
+      blueBoard.elements[i].textContent = blueBoard.scores[i];
+      blueBoard.elements[i].classList.add("checked");
       break;
     }
   }
@@ -1117,6 +1198,23 @@ function highlightGreen() {
   }
 }
 
+function addBestGreen() {
+  for (let i = 0; i < 12; i++) {
+    if (greenBoard.scores[i] == null) {
+      if (i % 2 == 0) {
+        greenBoard.scores[i] = 6 * greenBoard.multipliers[i];
+        greenBoard.elements[i].textContent = 6 * greenBoard.multipliers[i];
+        greenBoard.elements[i].classList.add("checked");
+      } else {
+        greenBoard.scores[i] = 1 * greenBoard.multipliers[i];
+        greenBoard.elements[i].textContent = 1 * greenBoard.multipliers[i];
+        greenBoard.elements[i].classList.add("checked");
+      }
+      break;
+    }
+  }
+}
+
 function checkGreen(value) {
   if (greenBoard.scores.includes(null)) {
     return true;
@@ -1149,6 +1247,17 @@ function highlightPink() {
   for (let i = 0; i < 12; i++) {
     if (pinkBoard.scores[i] == null) {
       pinkBoard.elements[i].classList.add("selectable");
+      break;
+    }
+  }
+}
+
+function addBestPink() {
+  for (let i = 0; i < 12; i++) {
+    if (pinkBoard.scores[i] == null) {
+      pinkBoard.scores[i] == 6;
+      pinkBoard.elements[i].textContent = "6";
+      pinkBoard.elements[i].classList.add("checked");
       break;
     }
   }
