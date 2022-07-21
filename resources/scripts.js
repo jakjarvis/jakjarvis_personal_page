@@ -166,9 +166,17 @@ let greyBoard = {
 let yellowBoard = {
   scores: [null, null, null, null, null, null, null, null, null, null],
   numbers: [3, 6, 1, 2, 4, 3, 2, 5, 5, 4],
-  bonuses: [
-    [false, false, false, false, false],
-    [false, false, false, false],
+  bonuses: [false, false, false, false, false, false, false, false, false],
+  bonusLines: [
+    [0, 1],
+    [2, 3],
+    [4, 5],
+    [6, 7],
+    [8, 9],
+    [2, 6],
+    [0, 4, 8],
+    [3, 7],
+    [1, 5, 9],
   ],
   elements: [
     document.querySelector("#one.yellow_box"),
@@ -1097,6 +1105,7 @@ function selectYellow(position) {
       yellowBoard.elements[position].classList.add("checked");
     }
     unselectAll();
+    checkYellowBonuses();
     checkNextTurn();
   }
 }
@@ -1109,6 +1118,40 @@ function checkYellow(value) {
     }
   }
   return false;
+}
+
+function checkYellowBonuses() {
+  function checkYellowLine(bonus) {
+    for (let i of yellowBoard.bonusLines[bonus]) {
+      if (yellowBoard.scores[i] == null || yellowBoard.bonuses[bonus]) {
+        return;
+      }
+    }
+    if (bonus == 0) {
+      addBestBlue();
+    } else if (bonus == 1) {
+      achieveReturn();
+    } else if (bonus == 2) {
+      highlightYellow([1, 2, 3, 4, 5, 6]);
+    } else if (bonus == 3) {
+      addBestGreen();
+    } else if (bonus == 4) {
+      addBestPink();
+    } else if (bonus == 5) {
+      achieveReroll();
+    } else if (bonus == 6) {
+      achieveAdditional();
+    } else if (bonus == 7) {
+      highlightGrey([1, 2, 3, 4, 5, 6]);
+    } else if (bonus == 8) {
+      fuchs += 1;
+    }
+    yellowBoard.bonuses[bonus] = true;
+  }
+
+  for (let i = 0; i < 9; i++) {
+    checkYellowLine(i);
+  }
 }
 
 /* ---- BLUE FUNCTIONS ---- */
