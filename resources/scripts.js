@@ -785,14 +785,14 @@ function selectDice(position) {
         ].src = `resources/images/dice-${diceMat.values[position]}.png`;
         selectedDice.colors[i] = diceMat.colors[position];
         selectedDice.values[i] = diceMat.values[position];
-        let removedDice = removeDice(diceMat.values[position]);
+        let removedDice = removeDice(diceMat.values[position], position);
+        diceMat.empty[position] = true;
+        diceMat.elements[position].classList.add("hidden");
         resolveDice(
           selectedDice.values[i],
           selectedDice.colors[i],
           removedDice
         );
-        diceMat.empty[position] = true;
-        diceMat.elements[position].classList.add("hidden");
         break;
       }
     }
@@ -803,15 +803,20 @@ function selectDice(position) {
   }
 }
 
-function removeDice(value) {
+function removeDice(value, position) {
   let removedDice = [];
   for (let i = 0; i < 6; i++) {
     if (!diceMat.empty[i]) {
-      if (diceMat.values[i] < value || selectedDice.values[2]) {
+      if (diceMat.values[i] < value) {
+        removedDice.push([diceMat.colors[i], diceMat.values[i]]);
+      }
+      if (
+        i != position &&
+        (diceMat.values[i] < value || selectedDice.values[2])
+      ) {
         diceMat.empty[i] = true;
         diceMat.elements[i].classList.add("hidden");
         addToPlate(diceMat.values[i], diceMat.colors[i]);
-        removedDice.push([diceMat.colors[i], diceMat.values[i]]);
       }
     }
   }
@@ -1231,7 +1236,7 @@ function checkBlueBonuses() {
     achieveReturn();
     blueBoard.bonuses[1] = true;
   } else if (blueBoard.scores[2] && !blueBoard.bonuses[2]) {
-    highlightYellow();
+    highlightYellow([1, 2, 3, 4, 5, 6]);
     blueBoard.bonuses[2] = true;
   } else if (blueBoard.scores[4] && !blueBoard.bonuses[4]) {
     achieveAdditional();
@@ -1327,7 +1332,7 @@ function checkGreenBonuses() {
     fuchs += 1;
     greenBoard.bonuses[6] = true;
   } else if (greenBoard.scores[7] && !greenBoard.bonuses[7]) {
-    highlightGrey();
+    highlightGrey([1, 2, 3, 4, 5, 6]);
     greenBoard.bonuses[7] = true;
   } else if (greenBoard.scores[8] && !greenBoard.bonuses[8]) {
     achieveAdditional();
@@ -1336,7 +1341,7 @@ function checkGreenBonuses() {
     addBestPink();
     greenBoard.bonuses[10] = true;
   } else if (greenBoard.scores[11] && !greenBoard.bonuses[11]) {
-    highlightYellow();
+    highlightYellow([1, 2, 3, 4, 5, 6]);
     greenBoard.bonuses[11] = true;
   }
 }
@@ -1412,13 +1417,13 @@ function checkPinkBonuses() {
     addBestGreen();
     pinkBoard.bonuses[5] = true;
   } else if (pinkBoard.scores[6] && !pinkBoard.bonuses[6]) {
-    highlightYellow();
+    highlightYellow([1, 2, 3, 4, 5, 6]);
     pinkBoard.bonuses[6] = true;
   } else if (pinkBoard.scores[7] && !pinkBoard.bonuses[7]) {
     fuchs += 1;
     pinkBoard.bonuses[7] = true;
   } else if (pinkBoard.scores[8] && !pinkBoard.bonuses[8]) {
-    highlightGrey();
+    highlightGrey([1, 2, 3, 4, 5, 6]);
     pinkBoard.bonuses[8] = true;
   } else if (pinkBoard.scores[9] && !pinkBoard.bonuses[9]) {
     achieveReroll();

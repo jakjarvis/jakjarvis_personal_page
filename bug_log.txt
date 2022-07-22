@@ -1,4 +1,0 @@
-1. All dice selected warning appears when not all dice are selected, example case - high grey picked n first roll, removes all except one (non-white) dice.
-2. If no dice left on mat after 2nd turn, turn counter doesn't move on.
-3. Conversely to 2, sometimes dice are left and 'all dice selected' comes up on reroll.
-4. Achieving the yellow bonus on the blue track doesn't highlight the yellow track (perhaps sequencing leaves an unselectAll after the highlightYellow).
