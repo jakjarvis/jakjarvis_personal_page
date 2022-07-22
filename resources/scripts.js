@@ -312,12 +312,7 @@ testBtnEl.addEventListener("click", function () {
 });
 
 rollBtnEl.addEventListener("click", function () {
-  if (
-    !selectedDice.values[2] &&
-    !rollLock &&
-    !scoringLock &&
-    diceMat.empty.includes(false)
-  ) {
+  if (!rollLock && !scoringLock && diceMat.empty.includes(false)) {
     orderDice();
     displayDice();
     rollLock = true;
@@ -649,7 +644,7 @@ pinkBoard.elements[11].addEventListener("click", function () {
 // ADVANCE TURN
 
 function checkNextTurn() {
-  if (selectedDice.values[2]) {
+  if (!diceMat.empty.includes(false)) {
     if (turn < 6) {
       turnTrack.elements[turn].classList.remove("active_turn");
       turn += 1;
@@ -995,7 +990,6 @@ function resolveGrey(value, removedDice) {
       greyBoard.greyAndWhite += 1;
       console.log(`Grey or white dice`);
       highlightGrey(removedDice[i][1]);
-      scoringLock = true;
       console.log(`Dice locked`);
     }
   }
@@ -1012,6 +1006,7 @@ function highlightGrey(value) {
       }
     }
   }
+  scoringLock = true;
 }
 
 function selectGrey(colorIndex, numberIndex) {
@@ -1027,14 +1022,15 @@ function selectGrey(colorIndex, numberIndex) {
       for (let i = 0; i < 4; i++) {
         greyBoard.elements[i][numberIndex].classList.remove("selectable");
       }
+      checkGreyBonuses();
     } else {
       greyBoard.greyAndWhite = 0;
       unselectAll();
       scoringLock = false;
       checkNextTurn();
     }
-    checkGreyBonuses();
   }
+  checkGreyBonuses();
 }
 
 function checkGrey(value) {
@@ -1090,6 +1086,7 @@ function highlightYellow(value) {
       }
     }
   }
+  scoringLock = true;
 }
 
 function selectYellow(position) {
@@ -1107,6 +1104,7 @@ function selectYellow(position) {
     unselectAll();
     checkYellowBonuses();
     checkNextTurn();
+    scoringLock = false;
   }
 }
 
@@ -1160,6 +1158,7 @@ function resolveBlue(blueValue) {
   let nextBox = blueBoard.scores.indexOf(null);
   blueBoard.scores[nextBox] = blueValue + whiteValue;
   blueBoard.elements[nextBox].textContent = blueValue + whiteValue;
+  checkBlueBonuses();
   checkNextTurn();
 }
 
@@ -1167,6 +1166,7 @@ function highlightBlue() {
   for (let i = 0; i < 12; i++) {
     if (blueBoard.scores[i] == null) {
       blueBoard.elements[i].classList.add("selectable");
+      scoringLock = true;
       break;
     }
   }
@@ -1178,6 +1178,7 @@ function addBestBlue() {
       blueBoard.scores[i] = blueBoard.scores[i - 1];
       blueBoard.elements[i].textContent = blueBoard.scores[i];
       blueBoard.elements[i].classList.add("checked");
+      checkBlueBonuses();
       break;
     }
   }
@@ -1219,7 +1220,37 @@ function selectBlue(position) {
     blueBoard.elements[position].textContent = blueBoard.scores[position];
     blueBoard.elements[position].classList.add("checked");
     unselectAll();
+    checkBlueBonuses();
+    scoringLock = false;
     checkNextTurn();
+  }
+}
+
+function checkBlueBonuses() {
+  if (blueBoard.scores[1] && !blueBoard.bonuses[1]) {
+    achieveReturn();
+    blueBoard.bonuses[1] = true;
+  } else if (blueBoard.scores[2] && !blueBoard.bonuses[2]) {
+    highlightYellow();
+    blueBoard.bonuses[2] = true;
+  } else if (blueBoard.scores[4] && !blueBoard.bonuses[4]) {
+    achieveAdditional();
+    blueBoard.bonuses[4] = true;
+  } else if (blueBoard.scores[5] && !blueBoard.bonuses[5]) {
+    achieveReroll();
+    blueBoard.bonuses[5] = true;
+  } else if (blueBoard.scores[6] && !blueBoard.bonuses[6]) {
+    addBestPink();
+    blueBoard.bonuses[6] = true;
+  } else if (blueBoard.scores[8] && !blueBoard.bonuses[8]) {
+    fuchs += 1;
+    blueBoard.bonuses[8] = true;
+  } else if (blueBoard.scores[9] && !blueBoard.bonuses[9]) {
+    achieveReroll();
+    blueBoard.bonuses[9] = true;
+  } else if (blueBoard.scores[11] && !blueBoard.bonuses[11]) {
+    addBestGreen();
+    blueBoard.bonuses[11] = true;
   }
 }
 
@@ -1229,6 +1260,7 @@ function resolveGreen(value) {
   greenBoard.scores[nextBox] = value * greenBoard.multipliers[nextBox];
   greenBoard.elements[nextBox].textContent = greenBoard.scores[nextBox];
   greenBoard.elements[nextBox].classList.add("checked");
+  checkGreenBonuses();
   checkNextTurn();
 }
 
@@ -1236,6 +1268,7 @@ function highlightGreen() {
   for (let i = 0; i < 12; i++) {
     if (greenBoard.scores[i] == null) {
       greenBoard.elements[i].classList.add("selectable");
+      scoringLock = true;
       break;
     }
   }
@@ -1253,6 +1286,7 @@ function addBestGreen() {
         greenBoard.elements[i].textContent = 1 * greenBoard.multipliers[i];
         greenBoard.elements[i].classList.add("checked");
       }
+      checkGreenBonuses();
       break;
     }
   }
@@ -1273,7 +1307,37 @@ function selectGreen(position) {
     greenBoard.elements[position].textContent = greenBoard.scores[position];
     unselectAll();
     greenBoard.elements[position].classList.add("checked");
+    checkGreenBonuses();
+    scoringLock = false;
     checkNextTurn();
+  }
+}
+
+function checkGreenBonuses() {
+  if (greenBoard.scores[1] && !greenBoard.bonuses[1]) {
+    achieveReroll();
+    greenBoard.bonuses[1] = true;
+  } else if (greenBoard.scores[3] && !greenBoard.bonuses[3]) {
+    addBestBlue();
+    greenBoard.bonuses[3] = true;
+  } else if (greenBoard.scores[4] && !greenBoard.bonuses[4]) {
+    achieveReturn();
+    greenBoard.bonuses[4] = true;
+  } else if (greenBoard.scores[6] && !greenBoard.bonuses[6]) {
+    fuchs += 1;
+    greenBoard.bonuses[6] = true;
+  } else if (greenBoard.scores[7] && !greenBoard.bonuses[7]) {
+    highlightGrey();
+    greenBoard.bonuses[7] = true;
+  } else if (greenBoard.scores[8] && !greenBoard.bonuses[8]) {
+    achieveAdditional();
+    greenBoard.bonuses[8] = true;
+  } else if (greenBoard.scores[10] && !greenBoard.bonuses[10]) {
+    addBestPink();
+    greenBoard.bonuses[10] = true;
+  } else if (greenBoard.scores[11] && !greenBoard.bonuses[11]) {
+    highlightYellow();
+    greenBoard.bonuses[11] = true;
   }
 }
 
@@ -1283,6 +1347,7 @@ function resolvePink(value) {
   pinkBoard.scores[nextBox] = value;
   pinkBoard.elements[nextBox].textContent = value;
   pinkBoard.elements[nextBox].classList.add("checked");
+  checkPinkBonuses();
   checkNextTurn();
 }
 
@@ -1290,6 +1355,7 @@ function highlightPink() {
   for (let i = 0; i < 12; i++) {
     if (pinkBoard.scores[i] == null) {
       pinkBoard.elements[i].classList.add("selectable");
+      scoringLock = true;
       break;
     }
   }
@@ -1301,6 +1367,7 @@ function addBestPink() {
       pinkBoard.scores[i] == 6;
       pinkBoard.elements[i].textContent = "6";
       pinkBoard.elements[i].classList.add("checked");
+      checkPinkBonuses();
       break;
     }
   }
@@ -1325,7 +1392,43 @@ function selectPink(position) {
     pinkBoard.elements[position].textContent = pinkBoard.scores[position];
     unselectAll();
     pinkBoard.elements[position].classList.add("checked");
+    checkPinkBonuses();
+    scoringLock = false;
     checkNextTurn();
+  }
+}
+
+function checkPinkBonuses() {
+  if (pinkBoard.scores[2] && !pinkBoard.bonuses[2]) {
+    achieveReroll();
+    pinkBoard.bonuses[2] = true;
+  } else if (pinkBoard.scores[3] && !pinkBoard.bonuses[3]) {
+    achieveReturn();
+    pinkBoard.bonuses[3] = true;
+  } else if (pinkBoard.scores[4] && !pinkBoard.bonuses[4]) {
+    achieveAdditional();
+    pinkBoard.bonuses[4] = true;
+  } else if (pinkBoard.scores[5] && !pinkBoard.bonuses[5]) {
+    addBestGreen();
+    pinkBoard.bonuses[5] = true;
+  } else if (pinkBoard.scores[6] && !pinkBoard.bonuses[6]) {
+    highlightYellow();
+    pinkBoard.bonuses[6] = true;
+  } else if (pinkBoard.scores[7] && !pinkBoard.bonuses[7]) {
+    fuchs += 1;
+    pinkBoard.bonuses[7] = true;
+  } else if (pinkBoard.scores[8] && !pinkBoard.bonuses[8]) {
+    highlightGrey();
+    pinkBoard.bonuses[8] = true;
+  } else if (pinkBoard.scores[9] && !pinkBoard.bonuses[9]) {
+    achieveReroll();
+    pinkBoard.bonuses[9] = true;
+  } else if (pinkBoard.scores[10] && !pinkBoard.bonuses[10]) {
+    addBestBlue();
+    pinkBoard.bonuses[10] = true;
+  } else if (pinkBoard.scores[11] && !pinkBoard.bonuses[11]) {
+    highlightYellow();
+    pinkBoard.bonuses[11] = true;
   }
 }
 
