@@ -329,7 +329,7 @@ p {
 .yellow_board {
   border: 1px solid black;
   border-radius: 10px;
-  background-color: grey;
+  background-color: rgba(255, 187, 0, 0.85);
   margin-left: 10px;
 }
 
@@ -364,7 +364,7 @@ p {
   border: 1px solid black;
   border-radius: 10px;
   text-align: center;
-  background-color: rgb(255, 187, 0);
+  background-color: grey;
 }
 
 .yellow_score {
@@ -399,8 +399,8 @@ p {
   font-size: 150%;
   text-align: center;
   justify-content: center;
-  border: 1px solid rgb(255, 187, 0);
-  color: #ffbb00;
+  border: 1px solid grey;
+  color: grey;
 }
 
 #one.yellow_box {
@@ -507,7 +507,7 @@ p {
   border: 1px solid black;
   border-radius: 10px;
   text-align: center;
-  background-color: blue;
+  background-color: grey;
 }
 
 .blue_score p {
@@ -526,12 +526,12 @@ p {
   flex-direction: row;
   border: 1px solid black;
   border-radius: 10px;
-  background-color: grey;
+  background-color: #0000ff;
 }
 
 .blue_arrow {
   margin-top: 22px;
-  color: blue;
+  color: grey;
   font-weight: 1200;
 }
 
@@ -544,7 +544,7 @@ p {
   font-size: 150%;
   text-align: center;
   justify-content: center;
-  border: 1px solid #0000ff;
+  border: 1px solid grey;
   color: black;
 }
 
@@ -552,7 +552,7 @@ p {
   position: absolute;
   display: flex;
   top: 33px;
-  color: blue;
+  color: grey;
   font-weight: 800;
 }
 
@@ -648,7 +648,7 @@ p {
   border: 1px solid black;
   border-radius: 10px;
   text-align: center;
-  background-color: #0da10d;
+  background-color: grey;
 }
 
 .green_score p {
@@ -667,12 +667,12 @@ p {
   flex-direction: row;
   border: 1px solid black;
   border-radius: 10px;
-  background-color: grey;
+  background-color: #0da10d;
 }
 
 .green_arrow {
   margin-top: 22px;
-  color: rgb(13, 161, 13);
+  color: grey;
   font-weight: 1200;
 }
 
@@ -685,15 +685,15 @@ p {
   font-size: 150%;
   text-align: center;
   justify-content: center;
-  border: 1px solid rgb(13, 161, 13);
-  color: rgb(13, 161, 13);
+  border: 1px solid grey;
+  color: grey;
 }
 
 .green_signs {
   position: absolute;
   display: flex;
   top: 17px;
-  color: rgb(13, 161, 13);
+  color: grey;
   font-weight: 800;
   font-size: 200%;
 }
@@ -768,12 +768,12 @@ p {
   flex-direction: row;
   border: 1px solid black;
   border-radius: 10px;
-  background-color: grey;
+  background-color: #ff8095;
 }
 
 .pink_arrow {
   margin-top: 13px;
-  color: #ff8095;
+  color: grey;
   font-weight: 1200;
 }
 
@@ -786,8 +786,8 @@ p {
   font-size: 150%;
   text-align: center;
   justify-content: center;
-  border: 1px solid rgb(255, 128, 149);
-  color: rgb(255, 128, 149);
+  border: 1px solid grey;
+  color: grey;
 }
 
 .pink_bonuses {
@@ -844,10 +844,21 @@ p {
   transform: rotate(0deg);
 }
 
+.turn_test {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.turn_btn {
+  width: 100px;
+  margin-top: 10px;
+}
+
 .test_btn {
   width: 100px;
   margin-top: 10px;
-  margin-left: 110px;
+  margin-left: 10px;
   background-color: red;
 }
 

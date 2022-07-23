@@ -10,11 +10,13 @@ let scoringLock = false;
 let returnLock = true;
 let additionalLock = true;
 let turn = 1;
+let turnEnd = false;
 let fuchs = 0;
 
 /* ---- ELEMENTS ---- */
 const testBtnEl = document.querySelector(".test_btn"); // DELETE IN PROD
 const rollBtnEl = document.querySelector(".roll_btn");
+const turnBtnEl = document.querySelector(".turn_btn");
 const logger = document.querySelector(".messages");
 
 /* ---- OBJECTS ---- */
@@ -241,6 +243,7 @@ let greenBoard = {
   ],
   multipliers: [2, 2, 2, 1, 3, 3, 3, 2, 3, 1, 4, 1],
   bonuses: [false, false, false, false, false, false, false, false],
+  scoreBoxes: [false, false, false, false, false],
   elements: [
     document.querySelector("#one.green_box"),
     document.querySelector("#two.green_box"),
@@ -254,6 +257,14 @@ let greenBoard = {
     document.querySelector("#ten.green_box"),
     document.querySelector("#eleven.green_box"),
     document.querySelector("#twelve.green_box"),
+  ],
+  scoreBoxElements: [
+    document.querySelector("#one.green_score"),
+    document.querySelector("#two.green_score"),
+    document.querySelector("#three.green_score"),
+    document.querySelector("#four.green_score"),
+    document.querySelector("#five.green_score"),
+    document.querySelector("#six.green_score"),
   ],
 };
 
@@ -326,6 +337,15 @@ rollBtnEl.addEventListener("click", function () {
     printLog(`Pick your scores`);
   } else {
     printLog("All dice selected");
+  }
+});
+
+turnBtnEl.addEventListener("click", function () {
+  if (turnEnd) {
+    advanceTurn();
+    turnEnd = false;
+  } else {
+    printLog(`Current turn is not over yet!`);
   }
 });
 
@@ -643,31 +663,36 @@ pinkBoard.elements[11].addEventListener("click", function () {
 
 // ADVANCE TURN
 
-function checkNextTurn() {
-  if (!diceMat.empty.includes(false)) {
-    if (turn < 6) {
-      turnTrack.elements[turn].classList.remove("active_turn");
-      turn += 1;
-      turnTrack.elements[turn].classList.add("active_turn");
-      for (let i = 0; i < 3; i++) {
-        diceMat.empty = [false, false, false, false, false, false];
-        selectedDice.empty[i] = true;
-        selectedDice.colors[i] = null;
-        selectedDice.values[i] = null;
-        selectedDice.elements[i].classList.add("hidden");
-        removeColor(selectedDice.elements[i]);
-      }
-      for (let i = 0; i < 5; i++) {
-        dicePlate.empty[i] = true;
-        dicePlate.colors[i] = null;
-        dicePlate.values[i] = null;
-        dicePlate.elements[i].classList.add("hidden");
-        removeColor(dicePlate.elements[i]);
-      }
-      printLog(`Start of round ${turn}`);
-    } else {
-      calculateScores();
+function advanceTurn() {
+  if (turn < 6) {
+    turnTrack.elements[turn].classList.remove("active_turn");
+    turn += 1;
+    turnTrack.elements[turn].classList.add("active_turn");
+    for (let i = 0; i < 3; i++) {
+      diceMat.empty = [false, false, false, false, false, false];
+      selectedDice.empty[i] = true;
+      selectedDice.colors[i] = null;
+      selectedDice.values[i] = null;
+      selectedDice.elements[i].classList.add("hidden");
+      removeColor(selectedDice.elements[i]);
     }
+    for (let i = 0; i < 5; i++) {
+      dicePlate.empty[i] = true;
+      dicePlate.colors[i] = null;
+      dicePlate.values[i] = null;
+      dicePlate.elements[i].classList.add("hidden");
+      removeColor(dicePlate.elements[i]);
+    }
+    turnEnd = false;
+    printLog(`Start of round ${turn}`);
+  } else {
+    calculateScores();
+  }
+}
+
+function checkTurnEnd() {
+  if (!diceMat.empty.includes(false)) {
+    turnEnd = true;
   }
   return;
 }
@@ -798,7 +823,7 @@ function selectDice(position) {
     }
     return true;
   } else {
-    console.log(`Roll the dice first!`);
+    printLog(`Roll the dice first!`);
     return false;
   }
 }
@@ -1032,7 +1057,7 @@ function selectGrey(colorIndex, numberIndex) {
       greyBoard.greyAndWhite = 0;
       unselectAll();
       scoringLock = false;
-      checkNextTurn();
+      checkTurnEnd();
     }
   }
   checkGreyBonuses();
@@ -1108,7 +1133,7 @@ function selectYellow(position) {
     }
     unselectAll();
     checkYellowBonuses();
-    checkNextTurn();
+    checkTurnEnd();
     scoringLock = false;
   }
 }
@@ -1164,7 +1189,7 @@ function resolveBlue(blueValue) {
   blueBoard.scores[nextBox] = blueValue + whiteValue;
   blueBoard.elements[nextBox].textContent = blueValue + whiteValue;
   checkBlueBonuses();
-  checkNextTurn();
+  checkTurnEnd();
 }
 
 function highlightBlue() {
@@ -1227,7 +1252,7 @@ function selectBlue(position) {
     unselectAll();
     checkBlueBonuses();
     scoringLock = false;
-    checkNextTurn();
+    checkTurnEnd();
   }
 }
 
@@ -1265,8 +1290,9 @@ function resolveGreen(value) {
   greenBoard.scores[nextBox] = value * greenBoard.multipliers[nextBox];
   greenBoard.elements[nextBox].textContent = greenBoard.scores[nextBox];
   greenBoard.elements[nextBox].classList.add("checked");
+  checkGreenPairs();
   checkGreenBonuses();
-  checkNextTurn();
+  checkTurnEnd();
 }
 
 function highlightGreen() {
@@ -1291,6 +1317,7 @@ function addBestGreen() {
         greenBoard.elements[i].textContent = 1 * greenBoard.multipliers[i];
         greenBoard.elements[i].classList.add("checked");
       }
+      checkGreenPairs();
       checkGreenBonuses();
       break;
     }
@@ -1312,9 +1339,10 @@ function selectGreen(position) {
     greenBoard.elements[position].textContent = greenBoard.scores[position];
     unselectAll();
     greenBoard.elements[position].classList.add("checked");
+    checkGreenPairs();
     checkGreenBonuses();
     scoringLock = false;
-    checkNextTurn();
+    checkTurnEnd();
   }
 }
 
@@ -1346,6 +1374,17 @@ function checkGreenBonuses() {
   }
 }
 
+function checkGreenPairs() {
+  for (let i = 1; i < 12; i += 2) {
+    if (greenBoard.scores[i] && !greenBoard.scoreBoxes[Math.floor(i / 2)]) {
+      greenBoard.scoreBoxes[Math.floor(i / 2)] =
+        greenBoard.scores[i - 1] - greenBoard.scores[i];
+      greenBoard.scoreBoxElements[Math.floor(i / 2)].textContent =
+        greenBoard.scoreBoxes[Math.floor(i / 2)];
+    }
+  }
+}
+
 /* ---- PINK FUNCTIONS ---- */
 function resolvePink(value) {
   let nextBox = pinkBoard.scores.indexOf(null);
@@ -1353,7 +1392,7 @@ function resolvePink(value) {
   pinkBoard.elements[nextBox].textContent = value;
   pinkBoard.elements[nextBox].classList.add("checked");
   checkPinkBonuses();
-  checkNextTurn();
+  checkTurnEnd();
 }
 
 function highlightPink() {
@@ -1399,7 +1438,7 @@ function selectPink(position) {
     pinkBoard.elements[position].classList.add("checked");
     checkPinkBonuses();
     scoringLock = false;
-    checkNextTurn();
+    checkTurnEnd();
   }
 }
 
