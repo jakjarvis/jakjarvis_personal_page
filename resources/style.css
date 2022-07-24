@@ -930,7 +930,7 @@ p {
 }
 
 .grey {
-  background-color: var(--grey);
+  background-color: var(--light_grey);
 }
 
 .yellow {

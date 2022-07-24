@@ -5,13 +5,27 @@
 
 /* ---- VARIABLES ---- */
 let diceLock = true;
-let rollLock = false;
+let rollLock = true;
 let scoringLock = false;
 let returnLock = true;
 let additionalLock = true;
-let turn = 1;
-let turnEnd = false;
+let turn = 0;
+let turnEnd = true;
 let fuchs = 0;
+let choice = false;
+let ratings = [
+  "Halb so clever",
+  "Da drücken wir noch mal ein Auge zu",
+  "Auf dem richtigen Weg",
+  "Du darfst zufrieden sein!",
+  "Da har wer trainiert!",
+  "Ganz schön clever!",
+  "Leute, seht euch das an!",
+  "Das kann kein Glück gewesen sein!",
+  "Respekt2",
+  "Punktewert = IQ!",
+  "Doppelt so clever!",
+];
 
 /* ---- ELEMENTS ---- */
 const testBtnEl = document.querySelector(".test_btn"); // DELETE IN PROD
@@ -25,6 +39,7 @@ let selectedDice = {
   empty: [true, true, true],
   colors: [null, null, null],
   values: [null, null, null],
+  additional: [false, false, false],
   elements: [
     document.querySelector(".s_die0"),
     document.querySelector(".s_die1"),
@@ -53,6 +68,7 @@ let dicePlate = {
   empty: [true, true, true, true, true],
   colors: [null, null, null, null, null],
   values: [null, null, null, null, null],
+  additional: [false, false, false, false, false],
   elements: [
     document.querySelector(".plate_0"),
     document.querySelector(".plate_1"),
@@ -117,6 +133,7 @@ let additionalTrack = {
 };
 
 let greyBoard = {
+  scoreArray: [0, 2, 4, 7, 11, 16, 22],
   scores: [
     ["yellow", false, false, false, false, false, false],
     ["blue", false, false, false, false, false, false],
@@ -166,6 +183,7 @@ let greyBoard = {
 };
 
 let yellowBoard = {
+  scoreArray: [0, 3, 10, 21, 36, 55, 75, 96, 118, 141, 165],
   scores: [null, null, null, null, null, null, null, null, null, null],
   numbers: [3, 6, 1, 2, 4, 3, 2, 5, 5, 4],
   bonuses: [false, false, false, false, false, false, false, false, false],
@@ -195,6 +213,7 @@ let yellowBoard = {
 };
 
 let blueBoard = {
+  scoreArray: [0, 1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78],
   scores: [
     null,
     null,
@@ -317,9 +336,7 @@ let pinkBoard = {
 // Buttons
 // TEST FUNCTION --- DELETE IN PROD
 testBtnEl.addEventListener("click", function () {
-  achieveReroll();
-  achieveReturn();
-  achieveAdditional();
+  advanceTurn();
 });
 
 rollBtnEl.addEventListener("click", function () {
@@ -384,6 +401,17 @@ dicePlate.elements[3].addEventListener("click", function () {
 });
 dicePlate.elements[4].addEventListener("click", function () {
   dicePlateClick(4);
+});
+
+// Selected Dice
+selectedDice.elements[0].addEventListener("click", function () {
+  selectedDiceClick(0);
+});
+selectedDice.elements[1].addEventListener("click", function () {
+  selectedDiceClick(1);
+});
+selectedDice.elements[2].addEventListener("click", function () {
+  selectedDiceClick(2);
 });
 
 // Tracks
@@ -664,8 +692,13 @@ pinkBoard.elements[11].addEventListener("click", function () {
 // ADVANCE TURN
 
 function advanceTurn() {
+  if (turn == 0) {
+    turnBtnEl.textContent = "Next Turn";
+  }
   if (turn < 6) {
-    turnTrack.elements[turn].classList.remove("active_turn");
+    if (turn != 0) {
+      turnTrack.elements[turn].classList.remove("active_turn");
+    }
     turn += 1;
     turnTrack.elements[turn].classList.add("active_turn");
     for (let i = 0; i < 3; i++) {
@@ -684,7 +717,17 @@ function advanceTurn() {
       removeColor(dicePlate.elements[i]);
     }
     turnEnd = false;
+    rollLock = false;
     printLog(`Start of round ${turn}`);
+    if (turn == 1) {
+      achieveReroll();
+    } else if (turn == 2) {
+      achieveAdditional();
+    } else if (turn == 3) {
+      achieveReturn();
+    } else if (turn == 4) {
+      activateChoice();
+    }
   } else {
     calculateScores();
   }
@@ -693,12 +736,53 @@ function advanceTurn() {
 function checkTurnEnd() {
   if (!diceMat.empty.includes(false)) {
     turnEnd = true;
+    diceLock = true;
   }
   return;
 }
 
 function calculateScores() {
-  console.log("Still to define function");
+  let scoreArray = [
+    calculateGreyScore(),
+    calculateYellowScore(),
+    calculateBlueScore(),
+    calculateGreenScore(),
+    calculatePinkScore(),
+  ];
+  let totalScore = 0;
+  for (let i = 0; i < 5; i++) {
+    totalScore += scoreArray[i];
+  }
+  let lowestScore = 1000;
+  for (let i = 0; i < 5; i++) {
+    if (scoreArray[i] < lowestScore) {
+      lowestScore = scoreArray[i];
+    }
+  }
+  totalScore += fuchs * lowestScore;
+  if (totalScore < 140) {
+    printLog(`You scored ${totalScore} - ${ratings[0]}`);
+  } else if (totalScore < 160) {
+    printLog(`You scored ${totalScore} - ${ratings[1]}`);
+  } else if (totalScore < 180) {
+    printLog(`You scored ${totalScore} - ${ratings[2]}`);
+  } else if (totalScore < 200) {
+    printLog(`You scored ${totalScore} - ${ratings[3]}`);
+  } else if (totalScore < 220) {
+    printLog(`You scored ${totalScore} - ${ratings[4]}`);
+  } else if (totalScore < 240) {
+    printLog(`You scored ${totalScore} - ${ratings[5]}`);
+  } else if (totalScore < 260) {
+    printLog(`You scored ${totalScore} - ${ratings[6]}`);
+  } else if (totalScore < 280) {
+    printLog(`You scored ${totalScore} - ${ratings[7]}`);
+  } else if (totalScore < 300) {
+    printLog(`You scored ${totalScore} - ${ratings[8]}`);
+  } else if (totalScore < 320) {
+    printLog(`You scored ${totalScore} - ${ratings[9]}`);
+  } else if (totalScore >= 320) {
+    printLog(`You scored ${totalScore} - ${ratings[10]}`);
+  }
 }
 
 // ROLL DICE
@@ -750,9 +834,9 @@ function renderVisible() {
 }
 
 // SELECT DICE
-function diceMatClick(elementId) {
-  if (checkDice(elementId) == true) {
-    selectDice(elementId);
+function diceMatClick(position) {
+  if (checkDice(position) == true) {
+    selectDice(position);
     diceLock = true;
     rollLock = false;
   } else {
@@ -863,19 +947,21 @@ function addToPlate(value, color) {
   }
 }
 
-function dicePlateClick(elementId) {
+function dicePlateClick(position) {
   if (!returnLock) {
     returnDice(
-      elementId,
-      dicePlate.values[elementId],
-      dicePlate.colors[elementId]
+      position,
+      dicePlate.values[position],
+      dicePlate.colors[position]
     );
-  } else if (!additionalLock) {
-    useAdditional(
-      elementId,
-      dicePlate.values[elementId],
-      dicePlate.colors[elementId]
-    );
+  } else if (!additionalLock && !dicePlate.additional[position]) {
+    useAdditional(dicePlate.values[position], dicePlate.colors[position]);
+  }
+}
+
+function selectedDiceClick(position) {
+  if (!additionalLock && !selectedDice.additional[position]) {
+    useAdditional(selectedDice.values[position], selectedDice[position]);
   }
 }
 
@@ -957,15 +1043,14 @@ function returnDice(position, value, color) {
 
 // USE ADDITIONAL
 function takeAdditional(position) {
-  if (additionalTrack.achieved[position] && !diceMat.empty.includes(false)) {
-    console.log(`Valid additional dice`);
+  if (additionalTrack.achieved[position] && turnEnd) {
     additionalLock = false;
     diceLock = true;
     rollLock = true;
     additionalTrack.elements[position].insertAdjacentText("beforeend", "X");
     additionalTrack.taken[position] = true;
-  } else if (selectedDice.empty[2]) {
-    console.log(`Additional dice can only be used once the turn is over.`);
+  } else if (!turnEnd) {
+    printLog(`Additional dice can only be used once the turn is over.`);
   }
 }
 
@@ -982,15 +1067,33 @@ function achieveAdditional() {
   }
 }
 
-function useAdditional(position, color, value) {
-  console.log(
-    `Need to add the function to use die from plate position ${position} (${color} ${value}) once the gameboard functionality is completed.`
-  );
+function useAdditional(value, color) {
+  if (color == "grey") {
+    resolveGrey(value, []);
+  } else if (color == "yellow") {
+    resolveYellow(value);
+  } else if (color == "blue") {
+    resolveBlue(value);
+  } else if (color == "green") {
+    resolveGreen(value);
+  } else if (color == "pink") {
+    resolvePink(value);
+  } else if (color == "white") {
+    resolveWhite(value);
+  }
+  additionalLock = true;
 }
 
 // USE CHOICE
-// USE BONUS COLOR
-// CALCULATE SCORE
+function activateChoice() {
+  choice = true;
+  highlightGrey([1, 2, 3, 4, 5, 6]);
+  highlightYellow([1, 2, 3, 4, 5, 6]);
+  highlightBlue();
+  highlightGreen();
+  highlightPink();
+  scoringLock = true;
+}
 
 /* ---- GREY FUNCTIONS ---- */
 function resolveGrey(value, removedDice) {
@@ -1100,6 +1203,20 @@ function checkGreyBonuses() {
   }
 }
 
+function calculateGreyScore() {
+  let greyScore = 0;
+  for (let i = 0; i < 4; i++) {
+    let count = 0;
+    for (let j = 1; j < 7; j++) {
+      if (greyBoard.scores[i][j]) {
+        count++;
+      }
+    }
+    greyScore += greyBoard.scoreArray[count];
+  }
+  return greyScore;
+}
+
 /* ---- YELLOW FUNCTIONS ---- */
 function resolveYellow(value) {
   highlightYellow(value);
@@ -1182,6 +1299,17 @@ function checkYellowBonuses() {
   }
 }
 
+function calculateYellowScore() {
+  let count = 0;
+  for (let i = 0; i < yellowBoard.scores.length; i++) {
+    if (yellowBoard.scores[i]) {
+      count++;
+    }
+  }
+  let yellowScore = yellowBoard.scoreArray[count];
+  return yellowScore;
+}
+
 /* ---- BLUE FUNCTIONS ---- */
 function resolveBlue(blueValue) {
   let whiteValue = findWhite();
@@ -1246,7 +1374,15 @@ function findWhite() {
 
 function selectBlue(position) {
   if (blueBoard.elements[position].classList.contains("selectable")) {
-    blueBoard.scores[position] = findBlue() + findWhite();
+    if (choice) {
+      if (position == 0) {
+        blueBoard.scores[position] = 12;
+      } else {
+        blueBoard.scores[position] = blueBoard.scores[position - 1];
+      }
+    } else {
+      blueBoard.scores[position] = findBlue() + findWhite();
+    }
     blueBoard.elements[position].textContent = blueBoard.scores[position];
     blueBoard.elements[position].classList.add("checked");
     unselectAll();
@@ -1282,6 +1418,17 @@ function checkBlueBonuses() {
     addBestGreen();
     blueBoard.bonuses[11] = true;
   }
+}
+
+function calculateBlueScore() {
+  let count = 0;
+  for (let i = 0; i < blueBoard.scores.length; i++) {
+    if (blueBoard.scores[i]) {
+      count++;
+    }
+  }
+  let blueScore = blueBoard.scoreArray[count];
+  return blueScore;
 }
 
 /* ---- GREEN FUNCTIONS ---- */
@@ -1334,8 +1481,16 @@ function checkGreen(value) {
 
 function selectGreen(position) {
   if (greenBoard.elements[position].classList.contains("selectable")) {
-    greenBoard.scores[position] =
-      greenBoard.multipliers[position] * findWhite();
+    if (choice) {
+      if (position % 2 == 0) {
+        greenBoard.scores[position] = 6 * greenBoard.multipliers[position];
+      } else {
+        greenBoard.scores[position] = 1 * greenBoard.multipliers[position];
+      }
+    } else {
+      greenBoard.scores[position] =
+        greenBoard.multipliers[position] * findWhite();
+    }
     greenBoard.elements[position].textContent = greenBoard.scores[position];
     unselectAll();
     greenBoard.elements[position].classList.add("checked");
@@ -1385,6 +1540,14 @@ function checkGreenPairs() {
   }
 }
 
+function calculateGreenScore() {
+  let greenScore = 0;
+  for (let i = 0; i < greenBoard.scoreBoxes.length; i++) {
+    greenScore += greenBoard.scoreBoxes[i];
+  }
+  return greenScore;
+}
+
 /* ---- PINK FUNCTIONS ---- */
 function resolvePink(value) {
   let nextBox = pinkBoard.scores.indexOf(null);
@@ -1432,7 +1595,11 @@ function checkPink(value) {
 
 function selectPink(position) {
   if (pinkBoard.elements[position].classList.contains("selectable")) {
-    pinkBoard.scores[position] = findWhite();
+    if (choice) {
+      pinkBoard.scores[position] = 6;
+    } else {
+      pinkBoard.scores[position] = findWhite();
+    }
     pinkBoard.elements[position].textContent = pinkBoard.scores[position];
     unselectAll();
     pinkBoard.elements[position].classList.add("checked");
@@ -1474,6 +1641,14 @@ function checkPinkBonuses() {
     highlightYellow();
     pinkBoard.bonuses[11] = true;
   }
+}
+
+function calculatePinkScore() {
+  let pinkScore = 0;
+  for (let i = 0; i < pinkBoard.scores.length; i++) {
+    pinkScore += pinkBoard.scores[i];
+  }
+  return pinkScore;
 }
 
 /* ---- WHITE FUNCTIONS ---- */
