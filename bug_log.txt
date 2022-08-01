@@ -1,11 +1,10 @@
+/******Active******/
+
+
+
+/******Cannot replicate:******/
 After having returned the white dice to the pool earlier in the turn, the white dice appeared as yellow when moved to the dice plate at turn end.
-Bonus blue on yellow board did not initiate a bonus
-When white (2) was selected from dicePlate as an additional and used to take the fourth green box, it resulted in 1 being put in the box instead of 4.
-When white (2) was selected from dicePlate as an additional and used to take the fourth green box, it did not trigger the blue bonus
+Getting all the grey 1s didn't trigger the bonus
 When white (5) was selected from diceMat and used as a green on fifth box, it resulted in 18 instead of 15. Replicated again - seems to always do the best green.
 As yellow dice was added to the plate, it was registered in the console as yellow, but came up as green on the plate.
 As green (1) was taken for the fourth green box, it triggered a yellow bonus instead of a blue one.
-Additional dice don't seem to work off the selected dice.
-Getting all the grey 1s didn't trigger the bonus
-Score doesn't calculate at end of round 6
-If <3 dice are selected, but all remaining dice on mat are invalid, cannot advance turn

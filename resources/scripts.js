@@ -361,10 +361,53 @@ turnBtnEl.addEventListener("click", function () {
   if (turnEnd) {
     advanceTurn();
     turnEnd = false;
+  } else if (noValidDice()) {
+    advanceTurn();
+    turnEnd = false;
   } else {
     printLog(`Current turn is not over yet!`);
   }
 });
+
+function noValidDice() {
+  for (let i = 0; i < 6; i++) {
+    if (!diceMat.empty[i]) {
+      if (diceMat.colors[i] == "grey") {
+        if (checkGrey(diceMat.values[i])) {
+          return false;
+        }
+      } else if (diceMat.colors[i] == "yellow") {
+        if (checkYellow(diceMat.values[i])) {
+          return false;
+        }
+      } else if (diceMat.colors[i] == "blue") {
+        if (checkBlue(diceMat.values[i])) {
+          return false;
+        }
+      } else if (diceMat.colors[i] == "green") {
+        if (checkGreen(diceMat.values[i])) {
+          return false;
+        }
+      } else if (diceMat.colors[i] == "pink") {
+        if (checkPink(diceMat.values[i])) {
+          return false;
+        }
+      } else if (diceMat.colors[i] == "white") {
+        if (
+          checkGrey(diceMat.values[i]) ||
+          checkYellow(diceMat.values[i]) ||
+          checkBlue(diceMat.values[i]) ||
+          checkGreen(diceMat.values[i]) ||
+          checkPink(diceMat.values[i])
+        ) {
+          return false;
+        }
+      } else {
+        return true;
+      }
+    }
+  }
+}
 
 // Dice Mat
 diceMat.elements[0].addEventListener("click", function () {
@@ -695,6 +738,9 @@ function advanceTurn() {
   if (turn == 0) {
     turnBtnEl.textContent = "Next Turn";
   }
+  if (turn == 5) {
+    turnBtnEl.textContent = "Finish Gamecd";
+  }
   if (turn < 6) {
     if (turn != 0) {
       turnTrack.elements[turn].classList.remove("active_turn");
@@ -961,7 +1007,7 @@ function dicePlateClick(position) {
 
 function selectedDiceClick(position) {
   if (!additionalLock && !selectedDice.additional[position]) {
-    useAdditional(selectedDice.values[position], selectedDice[position]);
+    useAdditional(selectedDice.values[position], selectedDice.colors[position]);
   }
 }
 
@@ -1333,7 +1379,11 @@ function highlightBlue() {
 function addBestBlue() {
   for (let i = 0; i < 12; i++) {
     if (blueBoard.scores[i] == null) {
-      blueBoard.scores[i] = blueBoard.scores[i - 1];
+      if (i == 0) {
+        blueBoard.scores[i] = 12;
+      } else {
+        blueBoard.scores[i] = blueBoard.scores[i - 1];
+      }
       blueBoard.elements[i].textContent = blueBoard.scores[i];
       blueBoard.elements[i].classList.add("checked");
       checkBlueBonuses();
