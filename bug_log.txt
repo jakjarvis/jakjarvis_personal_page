@@ -1,5 +1,5 @@
 /******Active******/
-
+When selecting a grey 3 with a four 1s underneath, the grey 1 bonus gave 2 additional dice on the bonus ladder
 
 
 /******Cannot replicate:******/

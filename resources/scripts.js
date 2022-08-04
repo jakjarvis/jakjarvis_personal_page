@@ -739,7 +739,7 @@ function advanceTurn() {
     turnBtnEl.textContent = "Next Turn";
   }
   if (turn == 5) {
-    turnBtnEl.textContent = "Finish Gamecd";
+    turnBtnEl.textContent = "Finish Game";
   }
   if (turn < 6) {
     if (turn != 0) {
@@ -1240,11 +1240,13 @@ function checkGreyBonuses() {
         addBestBlue();
       } else if (lineNumber == 5) {
         addBestGreen();
+      } else if (lineNumber == 6) {
+        addBestPink();
       }
-      greenBoard.bonuses[lineNumber] = true;
+      greyBoard.bonuses[lineNumber] = true;
     }
   }
-  for (let i = 0; i < 6; i++) {
+  for (let i = 1; i < 7; i++) {
     checkGreyLine(i);
   }
 }
