@@ -6,7 +6,8 @@ on:
     branches:
       - master # Deployment will be triggered when we will push to the master branch
 
-env: GCS_BUCKET: ${{ secrets-GCS_BUCKET }}
+env: 
+  GCS_BUCKET: ${{ secrets-GCS_BUCKET }}
 
 steps:
 - name: Checkout
