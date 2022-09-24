@@ -17,6 +17,6 @@ jobs:
       - uses: google-github-actions/auth@v0
         with:
           service_account: "${{ secrets.GCP_SA_EMAIL }}"
-          credentials_json: "a2bbd2ccbfa1aa70667837ca3d24a970e7ba9874"
+          credentials_json: "${{ secrets.GCP_SA_KEY }}"
       - uses: google-github-actions/setup-gcloud@v0
       - run: gsutil -m rsync -R output gs://$GCS_BUCKET
