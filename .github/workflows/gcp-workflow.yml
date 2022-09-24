@@ -6,11 +6,9 @@ on:
     branches:
       - master # Deployment will be triggered when we will push to the master branch
 jobs:
-  uses: google-github-actions/auth@v0
-  with:
+  - uses: google-github-actions/auth@v0
+    with:
     service_account: "${{ secrets.GCP_SA_EMAIL }}"
     credentials_json: "${{ secrets.GCP_SA_KEY }}"
-
-  uses: google-github-actions/setup-gcloud@v0
-
-  run: gsutil -m rsync -d -c -r public gs://jakjarvis-personal-page
+  - uses: google-github-actions/setup-gcloud@v0
+  - run: gsutil -m rsync -d -c -r public gs://jakjarvis-personal-page
