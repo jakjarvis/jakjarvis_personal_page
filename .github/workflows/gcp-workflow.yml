@@ -19,4 +19,4 @@ jobs:
           service_account: "${{ secrets.GCP_SA_EMAIL }}"
           credentials_json: "${{ secrets.GCP_SA_KEY }}"
       - uses: google-github-actions/setup-gcloud@v0
-      - run: gsutil -m rsync -R output gs://jakjarvis-personal-page/resources/
+      - run: gsutil -m rsync -R output gs://jakjarvis-personal-page
