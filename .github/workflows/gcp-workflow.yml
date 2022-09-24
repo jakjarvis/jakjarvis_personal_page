@@ -1,0 +1,19 @@
+# https://www.mickaelvieira.com/blog/2020/01/29/deploying-a-static-website-to-google-cloud-storage-with-github-actions.html
+
+name: GSP - Push Repo # name of your workflow
+on:
+  push:
+    branches:
+      - master # Deployment will be triggered when we will push to the master branch
+jobs:
+  - name: Authenticate on GCS
+    uses: google-github-actions/auth@v0
+    with:
+      service_account: "${{ secrets.GCP_SA_EMAIL }}"
+      credentials_json: "${{ secrets.GCP_SA_KEY }}"
+
+  - name: Set up Cloud SDK
+    uses: google-github-actions/setup-gcloud@v0
+
+  - name: Sync Github to GCS
+    run: gsutil -m rsync -d -c -r public gs://jakjarvis-personal-page
