@@ -258,14 +258,34 @@ header {
 
 .section-about {
   margin: 0 auto;
+}
+
+.section-about img {
+  position: absolute;
+  width: 250px;
+  border-radius: 125px;
+  margin: 60px 0 0 100px;
+  z-index: 1;
+}
+
+.section-about .about-text {
   text-align: center;
 }
 
+.section-about h1 {
+  font-size: 300%;
+  margin-top: 150px;
+  color: #dd8e00;
+}
+
 .section-about h2 {
-  margin: 150px auto 150px auto;
+  position: relative;
+  margin: 50px auto 150px auto;
   max-width: 700px;
   text-align: center;
+  font-size: 150%;
   line-height: 200%;
+  z-index: 2;
 }
 
 /* -------------------------------- */
