@@ -1,8 +1,0 @@
-{
-  "name": "jakjarvis",
-  "version": "1.0.0",
-  "author": "Jono Jarvis <j.a.k.jarvis@gmail.com>",
-  "scripts": {
-    "build": "webpack --config webpack.config.js"
-  }
-}
