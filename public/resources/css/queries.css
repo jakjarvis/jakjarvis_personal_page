@@ -1,244 +1,254 @@
 /* Big tablet to small computers */
 @media only screen and (max-width: 1200px) {
-   .timeline {
-        margin: 50px 200px;
-    }
-    
-    .section-timeline h2 {
-        margin: 50px 200px;
-    }
+  .timeline {
+    margin: 50px 200px;
+  }
+
+  .section-timeline h2 {
+    margin: 50px 200px;
+  }
 }
 
 /* Height of iPad is 1024px so covers range of tablet positions */
 @media only screen and (max-width: 1023px) {
-    
-    .section-timeline h2 {
-        margin: 50px 100px;
-    }
-        
-    .timeline {
-        margin: 50px 100px;
-    } 
-    
-    .qualifications {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .in-person {
-        display: inline;
-        width: 400px;
-        padding-top: 0;
-        text-align: center;
-    }
-    
-    .window {
-        width: 420px;
-        margin-top: 0;
-        margin-bottom: 10px;
-    }
-    
-    .online {
-        display: inline;
-        width: 400px;
-        text-align: center;
-        padding-top: 0;
-        padding-right: 10px;
-    }
+  .section-timeline h2 {
+    margin: 50px 100px;
+  }
+
+  .timeline {
+    margin: 50px 100px;
+  }
+
+  .qualifications {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .in-person {
+    display: inline;
+    width: 400px;
+    padding-top: 0;
+    text-align: center;
+  }
+
+  .window {
+    width: 420px;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .online {
+    display: inline;
+    width: 400px;
+    text-align: center;
+    padding-top: 0;
+    padding-right: 10px;
+  }
 }
 
 /* Width of the iPad is 768, so smaller than iPad tablet */
 @media only screen and (max-width: 767px) {
+  .name-text span {
+    display: block;
+  }
 
-    .name-text span {
-        display: block;
-    }
-    
-    .main-nav { display: none; }
+  .main-nav {
+    display: none;
+  }
 
-    .mobile-nav-icon { 
-        display: inline-block; 
-        border-radius: 10px;
-    }
+  .mobile-nav-icon {
+    display: inline-block;
+    border-radius: 10px;
+  }
 
-    .main-nav {
-        float: left;
-        margin-top: 20px;
-        font-size: 150%;
-        background-color: rgba(221, 142, 0, 0.8);
-        position: absolute;
-        top: 20vh;
-        left: 0;
-        width: 100%;
-        height: 60vh;
+  .main-nav {
+    float: left;
+    margin-top: 20px;
+    font-size: 150%;
+    background-color: rgba(221, 142, 0, 0.8);
+    position: absolute;
+    top: 20vh;
+    left: 0;
+    width: 100%;
+    height: 60vh;
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s;
 
-        opacity: 0;
-        pointer-events: none;
-        visibility: hidden;
-    }
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
 
-    .main-nav.nav-open {
-        opacity: 1;
-        pointer-events: auto;
-        visibility: visible;
-    }
+  .main-nav.nav-open {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+  }
 
-    .close-icon.nav-open {
-        display: block;
-    }
+  .close-icon.nav-open {
+    display: block;
+  }
 
-    .open-icon.nav-open {
-        display: none;
-    }
-    
-    .main-nav li {
-        display: block;
+  .open-icon.nav-open {
+    display: none;
+  }
 
-    }
-    
-    .main-nav li a:link,
-    .main-nav li a:visited {
-        display: block;
-        border: 0;
-        padding: 10px 0;
-        font-size: 100%
-    }
+  .main-nav li {
+    display: block;
+  }
 
-    .skill-box {
-        flex-direction: column;
-    }
-    
-    .skill-description {
-        padding: 20px 50px 10px 50px;
-    }
-    
-    .skill-points {
-        padding: 0 50px;
-    }
+  .main-nav li a:link,
+  .main-nav li a:visited {
+    display: block;
+    border: 0;
+    padding: 10px 0;
+    font-size: 100%;
+  }
 
-    #leadership-desc { order: 1 }
-    #data-tech-desc { order: 3 }
-    #engineering-desc { order: 5 }
-    #leadership-points { order: 2 }
-    #data-tech-points { order: 4 }
-    #engineering-points { 
-        order: 6;
-        padding-bottom: 20px;
-    }
-    
-    #certificate:hover {
-        transform: scale(2);
-    }
- 
-    .section-timeline h2 {
-        margin: 50px 50px;
-    }
-    
-    .timeline {
-        margin: 50px 50px;
-    }
-    
+  .section-about h2 {
+    margin: 100px 50px;
+  }
+
+  .skill-box {
+    flex-direction: column;
+  }
+
+  .skill-description {
+    padding: 20px 50px 10px 50px;
+  }
+
+  .skill-points {
+    padding: 0 50px;
+  }
+
+  #leadership-desc {
+    order: 1;
+  }
+  #data-tech-desc {
+    order: 3;
+  }
+  #engineering-desc {
+    order: 5;
+  }
+  #leadership-points {
+    order: 2;
+  }
+  #data-tech-points {
+    order: 4;
+  }
+  #engineering-points {
+    order: 6;
+    padding-bottom: 20px;
+  }
+
+  #certificate:hover {
+    transform: scale(2);
+  }
+
+  .section-timeline h2 {
+    margin: 50px 50px;
+  }
+
+  .timeline {
+    margin: 50px 50px;
+  }
 }
-
 
 /* Small phones: from 0 to 480px */
 @media only screen and (max-width: 480px) {
- 
-    .btn:link, 
-    .btn:visited,
-    input[type=submit] {
-        display: block;
-        margin: 10px auto;
-        padding: 10px 30px;
-        width: 200px;
-        font-weight: 300;
-        text-decoration: none;
-        border-radius: 200px;
-        border: 1px solid #DD8E00;
-        transition: background-color 0.2s, border 0.2s, color 0.2s;
-    }
-    
-    .section-about {
-        width: 200px;
-        margin: 100px auto;
-        text-align: center;
-    }
-    
-    .section-about p {
-        padding: 10px 0;
-        text-align: center;
-    }
-    
-    .section-skills h2 {
-        width: 200px;
-    }
-    
-    .section-qualifications h2 {
+  .btn:link,
+  .btn:visited,
+  input[type="submit"] {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 30px;
+    width: 200px;
+    font-weight: 300;
+    text-decoration: none;
+    border-radius: 200px;
+    border: 1px solid #dd8e00;
+    transition: background-color 0.2s, border 0.2s, color 0.2s;
+  }
+
+  .section-about {
+    width: 200px;
+    margin: 100px auto;
+    text-align: center;
+  }
+
+  .section-about h2 {
+    margin: 0;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 100%;
+  }
+
+  .section-skills h2 {
+    width: 200px;
+  }
+
+  .section-qualifications h2 {
     width: 220px;
-    }
-    
-    .window {
-        flex-direction: column;
-        width: 220px;
-        margin-top: 0;
-        margin-bottom: 10px;
-    }
-    
-    #institute {
-        width: 100px;
-        background-size: 200px;
-        background-position: left, top;
-        background-attachment: scroll;
-        border-top-right-radius: 40px;
-        height: 100px;
-        width: 200px;
-        color: #b4b4b4;
-    }
-    
-    #description {
-        text-align: center;
-    }
-    
-    #certificate {
-        border-left: none;
-        border-top: solid;
-        border-top-right-radius: 0px;
-        border-bottom-left-radius: 40px;
-        border-bottom-right-radius: 40px;
-    }
-    
-    .section-timeline h2 {
-        margin: 50px 20px;
-    }
-    
-    .timeline {
-        margin: 50px 20px;
-    } 
-    
-    .section-interests {
-        height: 400px;
-    }
-    
-    .section-interests ion-icon {
-        font-size: 200%
-    }
+  }
 
-    .top-row ion-icon,
-    .middle-row ion-icon,
-    .bottom-row ion-icon {
-        padding: 20px;
-    }
+  .window {
+    flex-direction: column;
+    width: 220px;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
 
-    .interest-text {
-        width: 150px;
-        font-size: 80%;
-    }
+  #institute {
+    width: 100px;
+    background-size: 200px;
+    background-position: left, top;
+    background-attachment: scroll;
+    border-top-right-radius: 40px;
+    height: 100px;
+    width: 200px;
+    color: #b4b4b4;
+  }
 
+  #description {
+    text-align: center;
+  }
+
+  #certificate {
+    border-left: none;
+    border-top: solid;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+  }
+
+  .section-timeline h2 {
+    margin: 50px 20px;
+  }
+
+  .timeline {
+    margin: 50px 20px;
+  }
+
+  .section-interests {
+    height: 400px;
+  }
+
+  .section-interests ion-icon {
+    font-size: 200%;
+  }
+
+  .top-row ion-icon,
+  .middle-row ion-icon,
+  .bottom-row ion-icon {
+    padding: 20px;
+  }
+
+  .interest-text {
+    width: 150px;
+    font-size: 80%;
+  }
 }
-
