@@ -1,6 +1,22 @@
 /*** Global Parameters ***/
+:root {
+  --white: #ffffff;
+  --grey: #808080;
+  --black: #000000;
+  --yellow: #ffbb00;
+  --yellow_back: rgba(255, 187, 0, 0.85);
+  --blue: #0000ff;
+  --green: #0da10d;
+  --pink: #ff8095;
+  --red: #ff0000;
+  --aqua: #00ffff;
+  --cream: #fafad2;
+  --light_grey: #d3d3d3;
+  --light_green: #98fb98;
+}
+
 body {
-  background-color: black;
+  background-color: var(--black);
 }
 
 p {
@@ -35,10 +51,10 @@ p {
   height: 18px;
   text-align: center;
   vertical-align: middle;
-  border: 1px solid white;
+  border: 1px solid var(--white);
   border-radius: 2px;
-  background-color: rgb(255, 187, 0);
-  color: white;
+  background-color: var(--yellow);
+  color: var(--white);
 }
 
 .bonus_blue {
@@ -46,10 +62,10 @@ p {
   height: 18px;
   text-align: center;
   vertical-align: middle;
-  border: 1px solid white;
+  border: 1px solid var(--white);
   border-radius: 2px;
-  background-color: blue;
-  color: white;
+  background-color: var(--blue);
+  color: var(--white);
 }
 
 .bonus_green {
@@ -57,10 +73,10 @@ p {
   height: 18px;
   text-align: center;
   vertical-align: middle;
-  border: 1px solid white;
+  border: 1px solid var(--white);
   border-radius: 2px;
-  background-color: rgb(13, 161, 13);
-  color: white;
+  background-color: var(--green);
+  color: var(--white);
 }
 
 .bonus_pink {
@@ -68,10 +84,10 @@ p {
   height: 18px;
   text-align: center;
   vertical-align: middle;
-  border: 1px solid white;
+  border: 1px solid var(--white);
   border-radius: 2px;
-  background-color: rgb(255, 128, 149);
-  color: white;
+  background-color: var(--pink);
+  color: var(--white);
 }
 
 .bonus_grey {
@@ -80,10 +96,10 @@ p {
   height: 18px;
   text-align: center;
   vertical-align: middle;
-  border: 1px solid white;
+  border: 1px solid var(--white);
   border-radius: 2px;
-  background-color: lightgrey;
-  color: white;
+  background-color: var(--light_grey);
+  color: var(--white);
 }
 
 /*** Tabletop ***/
@@ -108,12 +124,21 @@ p {
 /*** Selected Dice ***/
 
 .selected_dice_slot {
-  border: 1px solid black;
+  border: 1px solid var(--black);
   border-radius: 10px;
   width: 50px;
   height: 50px;
   margin: 8px;
-  background-color: white;
+  background-color: var(--cream);
+}
+
+.selected_die {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  height: 30px;
+  width: 30px;
+  transform: rotate(0deg);
 }
 
 /*** Turn Bonus Board ***/
@@ -128,10 +153,10 @@ p {
   flex-direction: column;
   padding: 5px;
   text-align: center;
-  border: 1px solid black;
+  border: 1px solid var(--black);
   border-radius: 5px;
   margin: 2px 12px;
-  background-color: grey;
+  background-color: var(--grey);
 }
 
 #one.turn_box {
@@ -146,7 +171,7 @@ p {
   width: 30px;
   font-size: 150%;
   border-radius: 5px;
-  background-color: aqua;
+  background-color: var(--aqua);
 }
 
 .turn_bonus {
@@ -168,10 +193,10 @@ p {
   display: flex;
   flex-direction: row;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid var(--black);
   border-radius: 5px;
   margin: 2px;
-  background-color: grey;
+  background-color: var(--grey);
 }
 
 .track_image {
@@ -183,8 +208,16 @@ p {
   width: 25px;
   height: 25px;
   border-radius: 12px;
-  border: 1px solid black;
+  border: 1px solid var(--black);
   margin: 1px 15px;
+  font-size: 22px;
+  text-align: center;
+  justify-content: center;
+}
+
+.achieved {
+  border: 3px solid var(--black);
+  margin: 1px 13px;
 }
 
 .track_bubble .bonus_fuchs {
@@ -213,9 +246,9 @@ p {
 .grey_board {
   display: flex;
   flex-direction: row;
-  border: 1px solid black;
+  border: 1px solid var(--black);
   border-radius: 10px;
-  background-color: grey;
+  background-color: var(--grey);
 }
 
 .grey_column {
@@ -250,7 +283,7 @@ p {
 .grey_box {
   width: 30px;
   height: 30px;
-  background-color: white;
+  background-color: var(--white);
   border-radius: 5px;
   margin: 2px;
   font-size: 150%;
@@ -259,23 +292,23 @@ p {
 }
 
 .grey_yellow {
-  border: 1px solid rgb(255, 187, 0);
-  color: rgb(255, 187, 0);
+  border: 1px solid var(--yellow);
+  color: var(--yellow);
 }
 
 .grey_blue {
-  border: 1px solid blue;
-  color: blue;
+  border: 1px solid var(--blue);
+  color: var(--blue);
 }
 
 .grey_green {
-  border: 1px solid rgb(13, 161, 13);
-  color: rgb(13, 161, 13);
+  border: 1px solid var(--green);
+  color: var(--green);
 }
 
 .grey_pink {
-  border: 1px solid rgb(255, 128, 149);
-  color: rgb(255, 128, 149);
+  border: 1px solid var(--pink);
+  color: var(--pink);
 }
 
 .grey_score {
@@ -297,10 +330,10 @@ p {
   margin-top: 2px;
   font-size: 80%;
   font-style: italic;
-  border: 1px solid black;
+  border: 1px solid var(--black);
   border-radius: 10px;
   text-align: center;
-  background-color: lightgray;
+  background-color: var(--light_grey);
 }
 
 .grey_score_score p {
@@ -310,9 +343,9 @@ p {
 /*** Yellow Board ***/
 
 .yellow_board {
-  border: 1px solid black;
+  border: 1px solid var(--black);
   border-radius: 10px;
-  background-color: grey;
+  background-color: var(--yellow_back);
   margin-left: 10px;
 }
 
@@ -344,10 +377,10 @@ p {
   margin-top: 2px;
   font-size: 80%;
   font-style: italic;
-  border: 1px solid black;
+  border: 1px solid var(--black);
   border-radius: 10px;
   text-align: center;
-  background-color: rgb(255, 187, 0);
+  background-color: var(--grey);
 }
 
 .yellow_score {
@@ -376,14 +409,14 @@ p {
   position: absolute;
   width: 30px;
   height: 30px;
-  background-color: white;
+  background-color: var(--white);
   border-radius: 5px;
   margin: 2px;
   font-size: 150%;
   text-align: center;
   justify-content: center;
-  border: 1px solid rgb(255, 187, 0);
-  color: rgb(255, 187, 0);
+  border: 1px solid var(--grey);
+  color: var(--grey);
 }
 
 #one.yellow_box {
@@ -475,6 +508,7 @@ p {
 }
 
 .blue_scores {
+  z-index: 1;
   display: flex;
   flex-direction: row;
   position: absolute;
@@ -486,10 +520,10 @@ p {
   margin: 2px 0 0 14px;
   font-size: 80%;
   font-style: italic;
-  border: 1px solid black;
+  border: 1px solid var(--black);
   border-radius: 10px;
   text-align: center;
-  background-color: blue;
+  background-color: var(--grey);
 }
 
 .blue_score p {
@@ -502,55 +536,78 @@ p {
 
 .blue_boxes {
   position: relative;
-  z-index: -1;
   width: 450px;
   top: 10px;
   display: flex;
   flex-direction: row;
-  border: 1px solid black;
+  border: 1px solid var(--black);
   border-radius: 10px;
-  background-color: grey;
+  background-color: var(--blue);
 }
 
 .blue_arrow {
   margin-top: 22px;
-  color: blue;
+  color: var(--grey);
   font-weight: 1200;
 }
 
 .blue_box {
   width: 30px;
   height: 30px;
-  background-color: white;
+  background-color: var(--white);
   border-radius: 5px;
   margin: 15px 2px;
   font-size: 150%;
   text-align: center;
   justify-content: center;
-  border: 1px solid blue;
-  color: blue;
+  border: 1px solid var(--grey);
+  color: var(--black);
 }
 
 .blue_signs {
   position: absolute;
   display: flex;
   top: 33px;
-  color: blue;
+  color: var(--grey);
   font-weight: 800;
 }
 
-#one.ge_sign {
-  margin-left: 48px;
-}
-#four.ge_sign {
-  margin-left: 28px;
-}
-#seven.ge_sign {
-  margin-left: 28px;
+.ge_sign {
+  position: absolute;
 }
 
-.ge_sign {
-  margin-left: 27px;
+#one.ge_sign {
+  left: 48px;
+}
+#two.ge_sign {
+  left: 85px;
+}
+#three.ge_sign {
+  left: 121px;
+}
+#four.ge_sign {
+  left: 157px;
+}
+#five.ge_sign {
+  left: 193px;
+}
+#six.ge_sign {
+  left: 229px;
+}
+#seven.ge_sign {
+  left: 265px;
+}
+#eight.ge_sign {
+  left: 301px;
+}
+#nine.ge_sign {
+  left: 337px;
+}
+#ten.ge_sign {
+  left: 373px;
+}
+#eleven.ge_sign {
+  left: 409px;
 }
 
 .blue_bonuses {
@@ -592,6 +649,7 @@ p {
 }
 
 .green_scores {
+  z-index: 1;
   display: flex;
   flex-direction: row;
   position: absolute;
@@ -603,10 +661,10 @@ p {
   margin: 7px 0 0 50px;
   font-size: 80%;
   font-style: italic;
-  border: 1px solid black;
+  border: 1px solid var(--black);
   border-radius: 10px;
   text-align: center;
-  background-color: rgb(13, 161, 13);
+  background-color: var(--grey);
 }
 
 .green_score p {
@@ -619,56 +677,64 @@ p {
 
 .green_boxes {
   position: relative;
-  z-index: -1;
   width: 450px;
   top: 10px;
   display: flex;
   flex-direction: row;
-  border: 1px solid black;
+  border: 1px solid var(--black);
   border-radius: 10px;
-  background-color: grey;
+  background-color: var(--green);
 }
 
 .green_arrow {
   margin-top: 22px;
-  color: rgb(13, 161, 13);
+  color: var(--grey);
   font-weight: 1200;
 }
 
 .green_box {
   width: 30px;
   height: 30px;
-  background-color: white;
+  background-color: var(--white);
   border-radius: 5px;
   margin: 15px 2px;
   font-size: 150%;
   text-align: center;
   justify-content: center;
-  border: 1px solid rgb(13, 161, 13);
-  color: rgb(13, 161, 13);
+  border: 1px solid var(--grey);
+  color: var(--grey);
 }
 
 .green_signs {
   position: absolute;
   display: flex;
   top: 17px;
-  color: rgb(13, 161, 13);
+  color: var(--grey);
   font-weight: 800;
   font-size: 200%;
 }
 
-#one.minus_sign {
-  margin-left: 48px;
-}
-#three.minus_sign {
-  margin-left: 62px;
-}
-#five.minus_sign {
-  margin-left: 61px;
+.minus_sign {
+  position: absolute;
 }
 
-.minus_sign {
-  margin-left: 61px;
+#one.minus_sign {
+  left: 48px;
+}
+#two.minus_sign {
+  left: 120px;
+}
+#three.minus_sign {
+  left: 192px;
+}
+#four.minus_sign {
+  left: 264px;
+}
+#five.minus_sign {
+  left: 336px;
+}
+#six.minus_sign {
+  left: 408px;
 }
 
 .green_bonuses {
@@ -712,33 +778,32 @@ p {
 
 .pink_boxes {
   position: relative;
-  z-index: -1;
   width: 450px;
   top: 10px;
   display: flex;
   flex-direction: row;
-  border: 1px solid black;
+  border: 1px solid var(--black);
   border-radius: 10px;
-  background-color: grey;
+  background-color: var(--pink);
 }
 
 .pink_arrow {
   margin-top: 13px;
-  color: rgb(255, 128, 149);
+  color: var(--grey);
   font-weight: 1200;
 }
 
 .pink_box {
   width: 30px;
   height: 30px;
-  background-color: white;
+  background-color: var(--white);
   border-radius: 5px;
   margin: 5px 2px 15px 2px;
   font-size: 150%;
   text-align: center;
   justify-content: center;
-  border: 1px solid rgb(255, 128, 149);
-  color: rgb(255, 128, 149);
+  border: 1px solid var(--grey);
+  color: var(--grey);
 }
 
 .pink_bonuses {
@@ -766,8 +831,8 @@ p {
 .dice_mat {
   width: 300px;
   height: 300px;
-  margin-left: 20px;
-  background-color: lightgoldenrodyellow;
+  margin-left: 10px;
+  background-color: var(--cream);
   border-radius: 20px;
 }
 
@@ -786,39 +851,117 @@ p {
   height: 148px;
 }
 
-.dice_zone0 {
-  border: 1px solid black;
-}
-.dice_zone1 {
-  border: 1px solid black;
-}
-.dice_zone2 {
-  border: 1px solid black;
-}
-.dice_zone3 {
-  border: 1px solid black;
-}
-.dice_zone4 {
-  border: 1px solid black;
-}
-.dice_zone5 {
-  border: 1px solid black;
-}
-
-.dice_plate {
-  width: 300px;
-  height: 250px;
-  border-radius: 150px;
-  background-color: lightgray;
-  margin: 20px;
-}
-
-.test_die {
+.die {
   position: relative;
   top: 40px;
   left: 20px;
   height: 50px;
   width: 50px;
-  background-color: rgb(13, 161, 13);
-  transform: rotate(20deg);
+  transform: rotate(0deg);
+}
+
+.turn_test {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.turn_btn {
+  width: 100px;
+  margin-top: 10px;
+}
+
+.test_btn {
+  width: 100px;
+  margin-top: 10px;
+  margin-left: 10px;
+  background-color: var(--red);
+}
+
+.roll_btn {
+  width: 200px;
+  margin-top: 10px;
+  margin-left: 60px;
+  background-color: var(--white);
+}
+
+.dice_plate {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 100px;
+  border-radius: 150px;
+  background-color: var(--grey);
+  margin: 10px;
+}
+
+.plate_die {
+  position: relative;
+  height: 50px;
+  width: 50px;
+  margin: 5px;
+}
+
+.logger {
+  position: relative;
+  width: 300px;
+  height: 100px;
+  color: var(--black);
+  background-color: var(--white);
+  margin: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.messages {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.white {
+  background-color: var(--white);
+}
+
+.grey {
+  background-color: var(--light_grey);
+}
+
+.yellow {
+  background-color: var(--yellow);
+}
+
+.blue {
+  background-color: var(--blue);
+}
+
+.green {
+  background-color: var(--green);
+}
+
+.pink {
+  background-color: var(--pink);
+}
+
+.selectable {
+  background-color: var(--light_green);
+}
+
+.checked {
+  color: var(--black);
+}
+
+.double_checked {
+  border: 3px solid var(--black);
+  margin: 0;
+}
+
+.active_turn {
+  background-color: var(--red);
 }
