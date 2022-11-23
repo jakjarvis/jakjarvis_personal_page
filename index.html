@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+
+<html land="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Doppelt So Clever!</title>
+    <meta
+      name="description"
+      content="A javascript based version of the dice game Doppelt so Clever, as manufactured by Schmidt. Not intended for commercial use."
+    />
+    <meta name="author" content="Jono Jarvis" />
+
+    <link rel="stylesheet" href="resources/style.css" />
+  </head>
+  <body>
+    <div class="tabletop">
+      <div class="gameboard">
+        <div class="gameboard_top">
+          <div class="selected_dice">
+            <div class="selected_dice_table">
+              <div class="selected_dice_slot selected_dice_0">
+                <img src="resources\images\dice-1.png" class="selected_die s_die0 hidden">
+              </div>
+              <div class="selected_dice_slot selected_dice_1">
+                <img src="resources\images\dice-1.png" class="selected_die s_die1 hidden">
+              </div>
+              <div class="selected_dice_slot selected_dice_2">
+                <img src="resources\images\dice-1.png" class="selected_die s_die2 hidden">
+              </div>
+            </div>
+          </div>
+          <div class="tracks">
+            <div class="turn_counter">
+              <div class="turn_box" id="one">
+                <div class="turn_title" id="one">
+                  <p>1</p>
+                </div>
+                <div class="turn_bonus">
+                  <img
+                    src="resources\images\reroll_icon.png"
+                    class="turn_image"
+                  />
+                </div>
+              </div>
+              <div class="turn_box">
+                <div class="turn_title"  id="two">
+                  <p>2</p>
+                </div>
+                <div class="turn_bonus">
+                  <img
+                    src="resources\images\additional_icon.png"
+                    class="turn_image"
+                  />
+                </div>
+              </div>
+              <div class="turn_box">
+                <div class="turn_title"  id="three">
+                  <p>3</p>
+                </div>
+                <div class="turn_bonus">
+                  <img
+                    src="resources\images\return_icon.png"
+                    class="turn_image"
+                  />
+                </div>
+              </div>
+              <div class="turn_box">
+                <div class="turn_title"  id="four">
+                  <p>4</p>
+                </div>
+                <div class="turn_bonus">
+                  <img
+                    src="resources\images\choice_icon.png"
+                    class="turn_image"
+                  />
+                </div>
+              </div>
+              <div class="turn_box">
+                <div class="turn_title"  id="five">
+                  <p>5</p>
+                </div>
+                <div class="turn_bonus">
+                  <p>3p</p>
+                </div>
+              </div>
+              <div class="turn_box" id="six">
+                <div class="turn_title"  id="six">
+                  <p>6</p>
+                </div>
+                <div class="turn_bonus">
+                  <p>1/2p</p>
+                </div>
+              </div>
+            </div>
+            <div class="bonus_tracks">
+              <div class="bonus_track reroll_track">
+                <img src="resources\images\reroll_icon.png" class="track_image" />
+                <div class="track_bubble reroll_bubble0"></div>
+                <div class="track_bubble reroll_bubble1"></div>
+                <div class="track_bubble reroll_bubble2"></div>
+                <div class="track_bubble reroll_bubble3"></div>
+                <div class="track_bubble reroll_bubble4"></div>
+                <div class="track_bubble reroll_bubble5">
+                  <img class="bonus_fuchs" src="resources\images\fuchs.png" />
+                </div>
+              </div>
+              <div class="bonus_track return_track">
+                <img src="resources\images\return_icon.png" class="track_image" />
+                <div class="track_bubble return_bubble0"></div>
+                <div class="track_bubble return_bubble1"></div>
+                <div class="track_bubble return_bubble2"></div>
+                <div class="track_bubble return_bubble3"></div>
+                <div class="track_bubble return_bubble4"></div>
+                <div class="track_bubble return_bubble5">
+                  <div class="bonus_pink">?</div>
+                </div>
+              </div>
+              <div class="bonus_track additional_track">
+                <img
+                  src="resources\images\additional_icon.png"
+                  class="track_image"
+                />
+                <div class="track_bubble additional_bubble0"></div>
+                <div class="track_bubble additional_bubble1"></div>
+                <div class="track_bubble additional_bubble2"></div>
+                <div class="track_bubble additional_bubble3"></div>
+                <div class="track_bubble additional_bubble4"></div>
+                <div class="track_bubble additional_bubble5">
+                  <div class="bonus_grey">?</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="gameboard_middle">
+          <div class="grey_board">
+            <div class="grey_column">
+              <img
+                class="bonus_additional"
+                src="resources\images\additional_icon.png"
+              />
+              <div class="grey_box grey_yellow grey_yellow_1">1</div>
+              <div class="grey_box grey_blue grey_blue_1">1</div>
+              <div class="grey_box grey_green grey_green_1">1</div>
+              <div class="grey_box grey_pink grey_pink_1">1</div>
+              <div class="grey_score">
+                <p class="grey_score_dice">1:</p>
+                <div class="grey_score_score"><p>2</p></div>
+              </div>
+            </div>
+            <div class="grey_column">
+              <div class="bonus_yellow">?</div>
+              <div class="grey_box grey_yellow grey_yellow_2">2</div>
+              <div class="grey_box grey_blue grey_blue_2">2</div>
+              <div class="grey_box grey_green grey_green_2">2</div>
+              <div class="grey_box grey_pink grey_pink_2">2</div>
+              <div class="grey_score">
+                <p class="grey_score_dice">2:</p>
+                <div class="grey_score_score"><p>4</p></div>
+              </div>
+            </div>
+            <div class="grey_column">
+              <img class="bonus_fuchs" src="resources\images\fuchs.png" />
+              <div class="grey_box grey_yellow grey_yellow_3">3</div>
+              <div class="grey_box grey_blue grey_blue_3">3</div>
+              <div class="grey_box grey_green grey_green_3">3</div>
+              <div class="grey_box grey_pink grey_pink_3">3</div>
+              <div class="grey_score">
+                <p class="grey_score_dice">3:</p>
+                <div class="grey_score_score"><p>7</p></div>
+              </div>
+            </div>
+            <div class="grey_column">
+              <div class="bonus_blue">?</div>
+              <div class="grey_box grey_yellow grey_yellow_4">4</div>
+              <div class="grey_box grey_blue grey_blue_4">4</div>
+              <div class="grey_box grey_green grey_green_4">4</div>
+              <div class="grey_box grey_pink grey_pink_4">4</div>
+              <div class="grey_score">
+                <p class="grey_score_dice">4:</p>
+                <div class="grey_score_score"><p>11</p></div>
+              </div>
+            </div>
+            <div class="grey_column">
+              <div class="bonus_green">?</div>
+              <div class="grey_box grey_yellow grey_yellow_5">5</div>
+              <div class="grey_box grey_blue grey_blue_5">5</div>
+              <div class="grey_box grey_green grey_green_5">5</div>
+              <div class="grey_box grey_pink grey_pink_5">5</div>
+              <div class="grey_score">
+                <p class="grey_score_dice">5:</p>
+                <div class="grey_score_score"><p>16</p></div>
+              </div>
+            </div>
+            <div class="grey_column">
+              <div class="bonus_pink">?</div>
+              <div class="grey_box grey_yellow grey_yellow_6">6</div>
+              <div class="grey_box grey_blue grey_blue_6">6</div>
+              <div class="grey_box grey_green grey_green_6">6</div>
+              <div class="grey_box grey_pink grey_pink_6">6</div>
+              <div class="grey_score">
+                <p class="grey_score_dice">6:</p>
+                <div class="grey_score_score"><p>22</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="yellow_board">
+            <div class="yellow_scores">
+              <div class="yellow_top_row">
+                <div class="yellow_score" id="one">
+                  <div class="yellow_score_dice">1:</div>
+                  <div class="yellow_score_score"><p>3</p></div>
+                </div>
+                <div class="yellow_score">
+                  <div class="yellow_score_dice">2:</div>
+                  <div class="yellow_score_score"><p>10</p></div>
+                </div>
+                <div class="yellow_score">
+                  <div class="yellow_score_dice">3:</div>
+                  <div class="yellow_score_score"><p>21</p></div>
+                </div>
+                <div class="yellow_score">
+                  <div class="yellow_score_dice">4:</div>
+                  <div class="yellow_score_score"><p>36</p></div>
+                </div>
+                <div class="yellow_score">
+                  <div class="yellow_score_dice">5:</div>
+                  <div class="yellow_score_score"><p>55</p></div>
+                </div>
+              </div>
+              <div class="yellow_bottom_row">
+                <div class="yellow_score" id="six">
+                  <div class="yellow_score_dice">6:</div>
+                  <div class="yellow_score_score"><p>75</p></div>
+                </div>
+                <div class="yellow_score">
+                  <div class="yellow_score_dice">7:</div>
+                  <div class="yellow_score_score"><p>96</p></div>
+                </div>
+                <div class="yellow_score">
+                  <div class="yellow_score_dice">8:</div>
+                  <div class="yellow_score_score"><p>118</p></div>
+                </div>
+                <div class="yellow_score">
+                  <div class="yellow_score_dice">9:</div>
+                  <div class="yellow_score_score"><p>141</p></div>
+                </div>
+                <div class="yellow_score">
+                  <div class="yellow_score_dice">10:</div>
+                  <div class="yellow_score_score"><p>165</p></div>
+                </div>
+              </div>
+              <div class="yellow_boxes">
+                <div class="yellow_box" id="one">3</div>
+                <div class="yellow_box" id="two">6</div>
+                <div class="yellow_box" id="three">1</div>
+                <div class="yellow_box" id="four">2</div>
+                <div class="yellow_box" id="five">4</div>
+                <div class="yellow_box" id="six">3</div>
+                <div class="yellow_box" id="seven">2</div>
+                <div class="yellow_box" id="eight">5</div>
+                <div class="yellow_box" id="nine">5</div>
+                <div class="yellow_box" id="ten">4</div>
+                <div class="yellow_bonus bonus_blue">?</div>
+                <img
+                  class="yellow_bonus bonus_return"
+                  src="resources\images\return_icon.png"
+                />
+                <div class="yellow_bonus bonus_yellow">?</div>
+                <div class="yellow_bonus bonus_green">?</div>
+                <div class="yellow_bonus bonus_pink">?</div>
+                <img
+                  class="yellow_bonus bonus_reroll"
+                  src="resources\images\reroll_icon.png"
+                />
+                <img
+                  class="yellow_bonus bonus_additional"
+                  src="resources\images\additional_icon.png"
+                />
+                <div class="yellow_bonus bonus_grey">?</div>
+                <img
+                  class="yellow_bonus bonus_fuchs"
+                  src="resources\images\fuchs.png"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="gameboard_bottom">
+          <div class="blue_board">
+            <div class="blue_scores">
+              <div class="blue_score" id="one"><p>1</p></div>
+              <div class="blue_score"><p>3</p></div>
+              <div class="blue_score"><p>6</p></div>
+              <div class="blue_score"><p>10</p></div>
+              <div class="blue_score"><p>15</p></div>
+              <div class="blue_score"><p>21</p></div>
+              <div class="blue_score"><p>28</p></div>
+              <div class="blue_score"><p>36</p></div>
+              <div class="blue_score"><p>45</p></div>
+              <div class="blue_score"><p>55</p></div>
+              <div class="blue_score"><p>66</p></div>
+              <div class="blue_score"><p>78</p></div>
+            </div>
+            <div class="blue_boxes">
+              <div class="blue_arrow">&#8594</div>
+              <div class="blue_box" id="one"></div>
+              <div class="blue_box" id="two"></div>
+              <div class="blue_box" id="three"></div>
+              <div class="blue_box" id="four"></div>
+              <div class="blue_box" id="five"></div>
+              <div class="blue_box" id="six"></div>
+              <div class="blue_box" id="seven"></div>
+              <div class="blue_box" id="eight"></div>
+              <div class="blue_box" id="nine"></div>
+              <div class="blue_box" id="ten"></div>
+              <div class="blue_box" id="eleven"></div>
+              <div class="blue_box" id="twelve"></div>
+            </div>
+            <div class="blue_signs">
+              <div class="ge_sign" id="one">&#8805;</div>
+              <div class="ge_sign" id="two">&#8805;</div>
+              <div class="ge_sign" id="three">&#8805;</div>
+              <div class="ge_sign" id="four">&#8805;</div>
+              <div class="ge_sign" id="five">&#8805;</div>
+              <div class="ge_sign" id="six">&#8805;</div>
+              <div class="ge_sign" id="seven">&#8805;</div>
+              <div class="ge_sign" id="eight">&#8805;</div>
+              <div class="ge_sign" id="nine">&#8805;</div>
+              <div class="ge_sign" id="ten">&#8805;</div>
+              <div class="ge_sign" id="eleven">&#8805;</div>
+            </div>
+            <div class="blue_bonuses">
+              <img class="blue_bonus bonus_return" id="one"
+              src="resources\images\return_icon.png"/>
+              <div class="blue_bonus bonus_yellow">?</div>
+              <img class="blue_bonus bonus_additional"
+              src="resources\images\additional_icon.png"/>
+              <img class="blue_bonus bonus_reroll"
+              src="resources\images\reroll_icon.png"/>
+              <div class="blue_bonus bonus_pink">?</div>
+              <img class="blue_bonus bonus_fuchs"
+              src="resources\images\fuchs.png"/>
+              <img class="blue_bonus bonus_return"
+              src="resources\images\return_icon.png" id="two"/>
+              <div class="blue_bonus bonus_green">?</div>            
+            </div>
+          </div>
+          <div class="green_board">
+            <div class="green_scores">
+              <div class="green_score" id="one"><p></p></div>
+              <div class="green_score" id="two"><p></p></div>
+              <div class="green_score" id="three"><p></p></div>
+              <div class="green_score" id="four"><p></p></div>
+              <div class="green_score" id="five"><p></p></div>
+              <div class="green_score" id="six"><p></p></div>
+            </div>
+            <div class="green_boxes">
+              <div class="green_arrow">&#8594</div>
+              <div class="green_box" id="one">x2</div>
+              <div class="green_box" id="two">x2</div>
+              <div class="green_box" id="three">x2</div>
+              <div class="green_box" id="four">x1</div>
+              <div class="green_box" id="five">x3</div>
+              <div class="green_box" id="six">x3</div>
+              <div class="green_box" id="seven">x3</div>
+              <div class="green_box" id="eight">x2</div>
+              <div class="green_box" id="nine">x3</div>
+              <div class="green_box" id="ten">x1</div>
+              <div class="green_box" id="eleven">x4</div>
+              <div class="green_box" id="twelve">x1</div>
+            </div>
+            <div class="green_signs">
+              <div class="minus_sign" id="one">-</div>
+              <div class="minus_sign" id="two">-</div>
+              <div class="minus_sign" id="three">-</div>
+              <div class="minus_sign" id="four">-</div>
+              <div class="minus_sign" id="five">-</div>
+              <div class="minus_sign" id="six">-</div>
+            </div>
+            <div class="green_bonuses">
+              <img class="green_bonus bonus_reroll"
+              src="resources\images\reroll_icon.png"/>
+              <div class="green_bonus bonus_blue">?</div>
+              <img class="green_bonus bonus_return"
+              src="resources\images\return_icon.png"/>
+              <img class="green_bonus bonus_fuchs"
+              src="resources\images\fuchs.png"/>
+              <div class="green_bonus bonus_grey">?</div>
+              <img class="green_bonus bonus_additional"
+              src="resources\images\additional_icon.png"/>
+              <div class="green_bonus bonus_pink">?</div>
+              <div class="green_bonus bonus_yellow">?</div>
+            </div>
+          </div>
+          <div class="pink_board">
+            <div class="pink_boxes">
+              <div class="pink_arrow">&#8594</div>
+              <div class="pink_box" id="one"></div>
+              <div class="pink_box" id="two"></div>
+              <div class="pink_box" id="three">&#8805;2</div>
+              <div class="pink_box" id="four">&#8805;3</div>
+              <div class="pink_box" id="five">&#8805;4</div>
+              <div class="pink_box" id="six">&#8805;5</div>
+              <div class="pink_box" id="seven">&#8805;6</div>
+              <div class="pink_box" id="eight">&#8805;2</div>
+              <div class="pink_box" id="nine">&#8805;3</div>
+              <div class="pink_box" id="ten">&#8805;4</div>
+              <div class="pink_box" id="eleven">&#8805;5</div>
+              <div class="pink_box" id="twelve">&#8805;6</div>
+            </div>
+            <div class="pink_bonuses">
+              <img class="pink_bonus bonus_reroll" id="one"
+              src="resources\images\reroll_icon.png"/>
+              <img class="pink_bonus bonus_return"
+              src="resources\images\return_icon.png"/>
+              <img class="pink_bonus bonus_additional"
+              src="resources\images\additional_icon.png"/>
+              <div class="pink_bonus bonus_green">?</div>
+              <div class="pink_bonus bonus_yellow">?</div>
+              <img class="pink_bonus bonus_fuchs"
+              src="resources\images\fuchs.png"/>
+              <div class="pink_bonus bonus_grey">?</div>
+  
+              <img class="pink_bonus bonus_reroll"
+              src="resources\images\reroll_icon.png"/>
+              <div class="pink_bonus bonus_blue">?</div>
+              <div class="pink_bonus bonus_yellow">?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="diceboard">
+        <div class="dice_mat">
+          <div class="dice_mat_top">
+            <div class="dice_zone dice_zone0">
+              <img class="die die_0 hidden" src="resources\images\dice-1.png">
+            </div>
+            <div class="dice_zone dice_zone1">
+              <img class="die die_1 hidden" src="resources\images\dice-2.png">
+            </div>
+            <div class="dice_zone dice_zone2">
+              <img class="die die_2 hidden" src="resources\images\dice-3.png">
+            </div>
+          </div>
+          <div class="dice_mat_bottom">
+            <div class="dice_zone dice_zone3">
+              <img class="die die_3 hidden" src="resources\images\dice-4.png">
+            </div>
+            <div class="dice_zone dice_zone4">
+              <img class="die die_4 hidden" src="resources\images\dice-5.png">
+            </div>
+            <div class="dice_zone dice_zone5">
+              <img class="die die_5 hidden" src="resources\images\dice-6.png">
+            </div>
+          </div>
+        </div>
+        <div class="turn_test">
+          <button class="turn_btn">Begin!</button>
+          <button class="test_btn">Test</button>
+        </div>
+        <button class="roll_btn">Roll Dice</button>
+        <div class="dice_plate">
+          <img class="plate_die plate_0 hidden" src="resources/images/dice-1.png">
+          <img class="plate_die plate_1 hidden" src="resources/images/dice-2.png">
+          <img class="plate_die plate_2 hidden" src="resources/images/dice-3.png">
+          <img class="plate_die plate_3 hidden" src="resources/images/dice-4.png">
+          <img class="plate_die plate_4 hidden" src="resources/images/dice-5.png">
+        </div>
+        <div class="logger">
+          <div class="messages"></div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="resources/scripts.js"></script>
+  </body>
+</html>

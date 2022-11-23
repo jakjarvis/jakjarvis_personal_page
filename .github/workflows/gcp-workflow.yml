@@ -1,4 +1,4 @@
-## https://sha.ws/automatic-upload-to-google-cloud-storage-with-github-actions.html
+# https://sha.ws/automatic-upload-to-google-cloud-storage-with-github-actions.html
 
 name: GSP - Push Repo # name of your workflow
 on:
@@ -19,4 +19,4 @@ jobs:
           service_account: "${{ secrets.GCP_SA_EMAIL }}"
           credentials_json: "${{ secrets.GCP_SA_KEY }}"
       - uses: google-github-actions/setup-gcloud@v0
-      - run: gsutil -m rsync -d -c -r . gs://jakjarvis-personal-page/yahtzee
+      - run: gsutil -m rsync -d -c -r . gs://jakjarvis-personal-page/doppelt
