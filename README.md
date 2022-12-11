@@ -1,4 +1,4 @@
-# jakjarvis
+# jakjarvis_personal_page
 
 This is the source code for my Resume website at jakjarvis.com.
 
