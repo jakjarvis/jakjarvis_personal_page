@@ -3,10 +3,10 @@
 /* DEFINE ELEMENTS */
 /* Modal */
 const modal = document.querySelector(".modal");
-const modalClose = document.querySelector(".modal_close");
 
 /* Buttons */
 const modalBtn = document.querySelector(".btn-modal");
+const modalClose = document.querySelector(".modal_close");
 const rollBtn = document.querySelector(".btn-roll");
 const resetBtn = document.querySelector(".btn-reset");
 
