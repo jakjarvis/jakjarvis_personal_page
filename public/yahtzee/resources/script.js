@@ -1,7 +1,12 @@
 "use strict";
 
 /* DEFINE ELEMENTS */
+/* Modal */
+const modal = document.querySelector(".modal");
+const modalClose = document.querySelector(".modal_close");
+
 /* Buttons */
+const modalBtn = document.querySelector(".btn-modal");
 const rollBtn = document.querySelector(".btn-roll");
 const resetBtn = document.querySelector(".btn-reset");
 
@@ -84,6 +89,14 @@ let activePlayer = player2;
 let turnsRemaining = 26;
 
 /* DEFINE FUNCTIONS */
+
+/*Toggle modal*/
+modalBtn.addEventListener("click", function () {
+  modal.classList.toggle("hidden");
+});
+modalClose.addEventListener("click", function () {
+  modal.classList.toggle("hidden");
+});
 
 /* Reset Game */
 resetBtn.addEventListener("click", function () {

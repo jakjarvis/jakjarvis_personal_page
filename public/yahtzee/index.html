@@ -1,13 +1,42 @@
 <head>
   <title>Yahtzee!</title>
   <link rel="stylesheet" href="resources/style.css" />
-  <link href="http://fonts.cdnfonts.com/css/luminari" rel="stylesheet" />
 </head>
 
 <body>
   <div class="title_bar">
     <h1>Yahtzee!</h1>
-    <h4>Beta version</h4>
+    <button class="btn btn-modal">About</button>
+  </div>
+  <div class="modal hidden">
+    <div class="modal_text">
+      <h3 class="modal_title">Yahtzee V1 - Overview</h3>
+      <button class="modal_close">X</button>
+      <p>
+        This is an online Yahtzee dice game for two players. It is created as a
+        static website using HTML and CSS, with all functionality provided
+        within the browser using javascript.
+        <br />
+        The user can roll their dice up to three times each turn, holding as
+        many dice as they choose between rerolls by clicking the dice. When they
+        are ready, they click the score section they want to use their dice for
+        - green sections being valid, red sections being invalid (and thus
+        scoring 0). At the end of the game, scores are calculated.
+        <br />
+        The website is hosted on Firebase, as a subfolder of my personal page -
+        jakjarvis.com:
+        <br />
+      </p>
+      <a
+        href="https://github.com/jakjarvis/jakjarvis_personal_page/tree/master/public/yahtzee"
+        >Source Code</a
+      >
+      <p>
+        Because this is all browser based, games cannot be saved. This game was
+        subsequently upgraded to allow players to leave and return to games:
+      </p>
+      <a href="https://apps.jakjarvis.com/yahtzee/setup">Yahtzee V2</a>
+    </div>
   </div>
   <div class="game_board">
     <div class="score_zone">
