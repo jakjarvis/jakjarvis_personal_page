@@ -1,0 +1,22 @@
+name: Push File
+
+on: push
+
+jobs:
+  copy-file:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Pushes ncw files and folders
+      uses: datalbry/copy_folder_to_another_repo_action@1.0.0
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.JAKJARVIS_GITHUB_TOKEN }}
+      with:
+        source_folder: '.'
+        destination_repo: 'jakjarvis/jakjarvis_personal_page'
+        destination_folder: 'public/bcw'
+        user_email: 'j.a.k.jarvis@gmail.com'
+        user_name: 'jakjarvis'
+        commit_msg: '[GHA] Upate BCW subfolder'
