@@ -1,0 +1,210 @@
+:root {
+  --rangoon-green: #0f0d0b;
+  --pot-pourri: #f1e0d5; /* rgba(241, 224, 213, 1) */
+  --sandal: #b38b73;
+  --just-right: #ecccb4;
+  --cashmere: #e6bea5; /* rgba(230, 190, 165, 1) */
+  --pine-cone: #6c5b4f;
+  --silk: #bbaea5;
+  --millbrook: #5c3c30;
+  --spicy-mix: #865c4a;
+}
+
+/* --- GENERAL --- */
+body {
+  margin: 0px;
+
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.btn {
+  appearance: none;
+  background-color: var(--sandal);
+  border-radius: 40em;
+  border-style: none;
+  box-shadow: var(--spicy-mix) 0 -12px 6px inset;
+  box-sizing: border-box;
+  color: var(--rangoon-green);
+  cursor: pointer;
+  display: inline-block;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  outline: none;
+  padding: 10px 13px;
+  quotes: auto;
+  text-align: center;
+  transition: all 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btn:hover {
+  background-color: var(--just-right);
+  box-shadow: var(--silk) 0 -6px 8px inset;
+  transform: scale(1.125);
+}
+
+.btn:active {
+  transform: scale(1.025);
+}
+
+@media (min-width: 768px) {
+  .btn {
+    font-size: 1.5rem;
+    padding: 0.75rem 2rem;
+  }
+}
+
+/* --- NAV BAR --- */
+
+.header {
+  /**/
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100px;
+  z-index: 10;
+}
+
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 40px 0px 10px;
+
+  background-color: var(--pot-pourri);
+}
+
+.logo {
+  height: 100px;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 18px;
+}
+
+.nav-link {
+  margin: 10px;
+}
+
+.nav-fade {
+  position: relative;
+  top: 100px;
+
+  height: 50px;
+
+  background-image: linear-gradient(
+    to top,
+    rgba(255, 0, 0, 0),
+    rgba(241, 224, 213, 1)
+  );
+}
+
+/* --- HOME --- */
+
+.home {
+  background-image: url("images/flood_plain.jpg");
+  background-position: center;
+  width: 100vw;
+  height: 70vh;
+}
+
+/* --- ABOUT --- */
+
+.about-text {
+  margin: 10vw;
+  justify-content: center;
+  text-align: center;
+
+  color: var(--millbrook);
+  font-size: 36px;
+}
+
+/* --- SERVICES --- */
+
+.services {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  background-color: var(--cashmere);
+}
+
+.image-tom {
+  height: 50vw;
+  width: 50vw;
+}
+
+.services-fade {
+  position: absolute;
+  left: 40vw;
+  width: 10.5vw;
+  height: 50vw;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0),
+    rgba(230, 190, 165, 1)
+  );
+}
+
+.services-text {
+  width: 40vw;
+  margin-left: 50px;
+}
+
+.services-paragraph {
+  color: var(--millbrook);
+  font-size: 24px;
+}
+
+.services-link {
+  color: var(--rangoon-green);
+}
+
+/* --- CONTACT --- */
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-title {
+  color: var(--millbrook);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  color: var(--millbrook);
+}
+
+.form-input {
+  margin-bottom: 10px;
+}
+
+#name {
+  width: 200px;
+}
+
+#email {
+  width: 200px;
+}
+
+#message {
+  width: 600px;
+  height: 200px;
+}
+
+.btn-form {
+  width: 150px;
+}
