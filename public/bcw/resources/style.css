@@ -89,11 +89,20 @@ body {
   align-items: center;
   justify-content: space-between;
 
+  list-style: none;
   font-size: 18px;
 }
 
 .nav-link {
   margin: 10px;
+  color: var(--millbrook);
+  text-decoration: none;
+  transition: 0.5s;
+}
+
+.nav-link:hover {
+  font-size: 120%;
+  color: var(--spicy-mix);
 }
 
 .nav-fade {
@@ -121,7 +130,8 @@ body {
 /* --- ABOUT --- */
 
 .about-text {
-  margin: 10vw;
+  padding: 10vw;
+  margin: 0;
   justify-content: center;
   text-align: center;
 
