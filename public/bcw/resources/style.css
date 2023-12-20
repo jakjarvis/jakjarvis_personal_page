@@ -242,3 +242,47 @@ body {
 .btn-form {
   width: 100px;
 }
+
+/* --- FOOTER --- */
+
+footer {
+  background-color: var(--spicy-mix);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.footer-icons-text {
+  font-style: italic;
+  float: left;
+  margin: 1em;
+}
+
+.jbss-div {
+  display: flex;
+  flex-direction: row;
+}
+
+.jbss-text {
+}
+
+.jbss-link {
+  text-decoration: none;
+  font-style: bold;
+  color: var(--just-right);
+  float: right;
+  margin: 1em;
+}
+.jbss-link:visited {
+  text-decoration: none;
+  color: var(--millbrook);
+}
+.jbss-link:hover {
+  text-decoration: none;
+  color: var(--sandal);
+}
+.jbss-link:active {
+  text-decoration: none;
+  color: var(--rangoon-green);
+}
