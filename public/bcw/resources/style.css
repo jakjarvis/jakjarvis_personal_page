@@ -188,6 +188,11 @@ body {
 
 /* --- CONTACT --- */
 
+.contact {
+  display: flex;
+  justify-content: center;
+}
+
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -262,9 +267,6 @@ footer {
 .jbss-div {
   display: flex;
   flex-direction: row;
-}
-
-.jbss-text {
 }
 
 .jbss-link {
