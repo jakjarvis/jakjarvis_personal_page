@@ -124,6 +124,10 @@ body {
   );
 }
 
+.login-link {
+  text-decoration: none;
+}
+
 /* --- HOME --- */
 
 .home {
