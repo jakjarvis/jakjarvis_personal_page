@@ -444,7 +444,7 @@ header {
   background-image: url(img/institutions/udemy.png);
 }
 #institute.agile {
-  background-image: url(img/institutions/edx.png);
+  background-image: url(img/institutions/scrum-alliance.jpg);
 }
 #institute.pmp {
   background-image: url(img/institutions/pmi.png);
@@ -485,7 +485,7 @@ header {
   content: "9.5 hour course covering interactive Python dashboards.";
 }
 #description.agile p:after {
-  content: "6 week part-time Agile course by Rolls-Royce.";
+  content: "Certified Scrum Master";
 }
 #description.pmp p:after {
   content: "Accredited Project Management Professional.";
@@ -541,7 +541,7 @@ header {
   background-image: url(img/digital/plotlydash_watermark-min.jpg);
 }
 #certificate.agile {
-  background-image: url(img/digital/agile_watermark-min.jpg);
+  background-image: url(img/qualifications/csm_watermark.png);
 }
 #certificate.pmp {
   background-image: url(img/qualifications/pmp_watermark-min.jpg);
