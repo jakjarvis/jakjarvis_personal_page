@@ -8,28 +8,30 @@
     <link rel="stylesheet" href="resources/style.css" />
   </head>
   <body>
-    <header class="header">
+    <header class="header" id="header">
       <div class="nav-bar">
         <image class="logo" src="images/logo_clear_background.png" />
-        <div class="nav-links">
-          <h4 class="nav-link">About</h4>
-          <h4 class="nav-link">Services</h4>
-          <h4 class="nav-link">Contact</h4>
-        </div>
-        <button class="btn btn-login">Log In</button>
+        <ul class="nav-links">
+          <li><a class="nav-link" href="#about">About</a></li>
+          <li><a class="nav-link" href="#services">Services</a></li>
+          <li><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+        <a class="login-link" href="http://bcw.jakjarvis.com/login/">
+          <button class="btn btn-login">Log In</button>
+        </a>
       </div>
     </header>
     <div class="nav-fade"></div>
     <div class="home"></div>
-    <div class="about">
+    <div class="about" id="about">
       <p class="about-text">
         Browne Civil & Water, your trusted partner in civil engineering. With
         over 10 years of experience managing civil and water projects in
         Victoria, you’re in safe hands with us.
       </p>
     </div>
-    <div class="services">
-      <image class="image-tom" src="/images/tom_placeholder.png"></image>
+    <div class="services" id="services">
+      <image class="image-tom" src="images/tom_placeholder.png"></image>
       <div class="services-fade"></div>
       <div class="services-text">
         <p class="services-paragraph">
@@ -40,20 +42,37 @@
         <a class="services-link">See our detailed services list</a>
       </div>
     </div>
-    <div class="contact">
+    <div class="contact" id="contact">
       <form class="contact-form">
-        <h3 class="form-title">Request a quotation:</h3>
-        <label for="name">Name:</label>
-        <input type="text" class="form-input" id="name" name="name" />
-        <label for="email">Email:</label>
-        <input type="email" class="form-input" id="email" name="email" />
-        <label for="message">Message:</label>
-        <input type="text" class="form-input" id="message" name="message" />
+        <h3 class="form-title">Contact Us</h3>
+        <div class="form-sender-details">
+          <div class="form-name">
+            <label for="name" class="form-label">Name:</label>
+            <input type="text" class="form-input" id="name" name="name" />
+          </div>
+          <div class="form-email">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" class="form-input" id="email" name="email" />
+          </div>
+        </div>
+        <div class="form-message">
+          <label for="message" class="form-label">Message:</label>
+          <input type="text" class="form-input" id="message" name="message" />
+        </div>
         <input type="submit" value="Submit" class="btn btn-form" />
       </form>
     </div>
-    <footer class="footer"></footer>
+    <footer class="footer">
+      <p class="footer-icons-text">Contact details/Social media icons?</p>
+      <div class="jbss-div">
+        <p class="jbss-text">Website by:</p>
+        <a class="jbss-link" href="https://www.jakjarvis.com"
+          >Jarvis-Browne Software Services</a
+        >
+      </div>
+    </footer>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="resources/script.js"></script>
   </body>
 </html>

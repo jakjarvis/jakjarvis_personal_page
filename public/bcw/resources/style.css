@@ -8,54 +8,60 @@
   --silk: #bbaea5;
   --millbrook: #5c3c30;
   --spicy-mix: #865c4a;
+  --georgia-font: Georgia, "Times New Roman", Times, serif;
 }
 
 /* --- GENERAL --- */
 body {
   margin: 0px;
 
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: var(--georgia-font);
 }
 
 .btn {
-  appearance: none;
-  background-color: var(--sandal);
-  border-radius: 40em;
-  border-style: none;
-  box-shadow: var(--spicy-mix) 0 -12px 6px inset;
+  background-image: linear-gradient(var(--spicy-mix), var(--millbrook));
+  border: 1px solid var(--rangoon-green);
+  border-radius: 4px;
   box-sizing: border-box;
-  color: var(--rangoon-green);
+  color: var(--pot-pourri);
   cursor: pointer;
-  display: inline-block;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  font-size: 24px;
-  font-weight: 700;
-  margin: 0;
-  outline: none;
-  padding: 10px 13px;
-  quotes: auto;
+  direction: ltr;
+  display: block;
+  font-family: var(--georgia-font);
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  line-height: 1.47059;
+  min-width: 30px;
+  overflow: visible;
+  padding: 4px 15px;
   text-align: center;
-  transition: all 0.15s;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  cursor: default;
+  opacity: 0.3;
 }
 
 .btn:hover {
-  background-color: var(--just-right);
-  box-shadow: var(--silk) 0 -6px 8px inset;
-  transform: scale(1.125);
+  background-image: linear-gradient(var(--sandal), var(--spicy-mix));
+  border: 1px solid var(--pot-pourri);
+  text-decoration: none;
 }
 
 .btn:active {
-  transform: scale(1.025);
+  background-image: linear-gradient(var(--sandal), var(--spicy-mix));
+  border: 1px solid var(--pot-pourri);
+  outline: none;
 }
 
-@media (min-width: 768px) {
-  .btn {
-    font-size: 1.5rem;
-    padding: 0.75rem 2rem;
-  }
+.btn:focus {
+  box-shadow: rgba(230, 190, 165, 0.5) 0 0 0 3px;
+  outline: none;
 }
 
 /* --- NAV BAR --- */
@@ -89,11 +95,20 @@ body {
   align-items: center;
   justify-content: space-between;
 
+  list-style: none;
   font-size: 18px;
 }
 
 .nav-link {
   margin: 10px;
+  color: var(--millbrook);
+  text-decoration: none;
+  transition: 0.5s;
+}
+
+.nav-link:hover {
+  font-size: 120%;
+  color: var(--spicy-mix);
 }
 
 .nav-fade {
@@ -109,19 +124,24 @@ body {
   );
 }
 
+.login-link {
+  text-decoration: none;
+}
+
 /* --- HOME --- */
 
 .home {
   background-image: url("images/flood_plain.jpg");
   background-position: center;
   width: 100vw;
-  height: 70vh;
+  height: 100vh;
 }
 
 /* --- ABOUT --- */
 
 .about-text {
-  margin: 10vw;
+  padding: 10vw;
+  margin: 0;
   justify-content: center;
   text-align: center;
 
@@ -172,19 +192,20 @@ body {
 
 /* --- CONTACT --- */
 
+.contact {
+  display: flex;
+  justify-content: center;
+}
+
 .contact-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.form-title {
+  width: 800px;
   color: var(--millbrook);
 }
 
-.contact-form {
-  display: flex;
-  flex-direction: column;
+.form-title {
   color: var(--millbrook);
 }
 
@@ -192,12 +213,34 @@ body {
   margin-bottom: 10px;
 }
 
+.form-label {
+  display: flex;
+  width: 50px;
+}
+
+.form-sender-details {
+  display: flex;
+  flex-direction: row;
+}
+
+.form-name {
+  display: flex;
+  flex-direction: row;
+  margin-right: 20px;
+}
+
 #name {
-  width: 200px;
+  width: 225px;
+}
+
+.form-email {
+  display: flex;
+  flex-direction: row;
+  margin-left: 20px;
 }
 
 #email {
-  width: 200px;
+  width: 225px;
 }
 
 #message {
@@ -206,5 +249,46 @@ body {
 }
 
 .btn-form {
-  width: 150px;
+  width: 100px;
+}
+
+/* --- FOOTER --- */
+
+footer {
+  background-color: var(--spicy-mix);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.footer-icons-text {
+  font-style: italic;
+  float: left;
+  margin: 1em;
+}
+
+.jbss-div {
+  display: flex;
+  flex-direction: row;
+}
+
+.jbss-link {
+  text-decoration: none;
+  font-style: bold;
+  color: var(--just-right);
+  float: right;
+  margin: 1em;
+}
+.jbss-link:visited {
+  text-decoration: none;
+  color: var(--millbrook);
+}
+.jbss-link:hover {
+  text-decoration: none;
+  color: var(--sandal);
+}
+.jbss-link:active {
+  text-decoration: none;
+  color: var(--rangoon-green);
 }
